@@ -1,0 +1,913 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Candy",
+		"_postman_id": "1dae87c4-c61f-0a30-f3e6-dbd69f3aa6bb",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ad",
+			"description": "",
+			"item": [
+				{
+					"name": "AdToken",
+					"request": {
+						"url": "{{url}}/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-candy-terminal",
+								"value": "Manager",
+								"description": ""
+							},
+							{
+								"key": "x-candy-version",
+								"value": "1",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "777@uuu",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "AdUser",
+					"request": {
+						"url": "{{url}}/user",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-candy-terminal",
+								"value": "Manager",
+								"description": ""
+							},
+							{
+								"key": "x-candy-version",
+								"value": "1",
+								"description": ""
+							},
+							{
+								"key": "x-candy-token",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Ad_Create_User",
+					"request": {
+						"url": "{{url}}/user/create",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-candy-terminal",
+								"value": "Manager",
+								"description": ""
+							},
+							{
+								"key": "x-candy-version",
+								"value": "1",
+								"description": ""
+							},
+							{
+								"key": "x-candy-token",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "phone",
+									"value": "iuytgj",
+									"description": "登录名",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "徐霞客",
+									"description": "姓名",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "mima",
+									"description": "密码，MD5一下吧",
+									"type": "text"
+								},
+								{
+									"key": "recommendCode",
+									"value": "ACFE",
+									"description": "推荐码",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Ad_Disable_User",
+					"request": {
+						"url": "{{url}}/user/disable",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-candy-terminal",
+								"value": "Manager",
+								"description": ""
+							},
+							{
+								"key": "x-candy-version",
+								"value": "1",
+								"description": ""
+							},
+							{
+								"key": "x-candy-token",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "updateUserId",
+									"value": "2",
+									"description": "要禁用的用户ID",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Ad_Enable_User",
+					"request": {
+						"url": "{{url}}/user/enable",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-candy-terminal",
+								"value": "Manager",
+								"description": ""
+							},
+							{
+								"key": "x-candy-version",
+								"value": "1",
+								"description": ""
+							},
+							{
+								"key": "x-candy-token",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "updateUserId",
+									"value": "2",
+									"description": "要用的用户ID",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "ad_user_list",
+					"request": {
+						"url": {
+							"raw": "{{url}}/user/list?pageIndex=0&pageSize=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"list"
+							],
+							"query": [
+								{
+									"key": "pageIndex",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "pageSize",
+									"value": "10",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-candy-terminal",
+								"value": "Manager",
+								"description": ""
+							},
+							{
+								"key": "x-candy-version",
+								"value": "1",
+								"description": ""
+							},
+							{
+								"key": "x-candy-token",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "ad_user_search",
+					"request": {
+						"url": {
+							"raw": "{{url}}/user/search?key=iu",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"search"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "iu",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-candy-terminal",
+								"value": "Manager",
+								"description": ""
+							},
+							{
+								"key": "x-candy-version",
+								"value": "1",
+								"description": ""
+							},
+							{
+								"key": "x-candy-token",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Ad_Reset_Pwd",
+					"request": {
+						"url": "{{url}}/user/resetPwd",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-candy-terminal",
+								"value": "Manager",
+								"description": ""
+							},
+							{
+								"key": "x-candy-version",
+								"value": "1",
+								"description": ""
+							},
+							{
+								"key": "x-candy-token",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "updateUserId",
+									"value": "2",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Ad_Lottery_List",
+					"request": {
+						"url": "{{url}}/lottery/current",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-candy-terminal",
+								"value": "Manager",
+								"description": ""
+							},
+							{
+								"key": "x-candy-version",
+								"value": "1",
+								"description": ""
+							},
+							{
+								"key": "x-candy-token",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Ad_Lottery_History",
+					"request": {
+						"url": {
+							"raw": "{{url}}/lottery/history?type=BJK3&pageIndex=0&pageSize=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"lottery",
+								"history"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "BJK3",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "pageIndex",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "pageSize",
+									"value": "10",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-candy-terminal",
+								"value": "Manager",
+								"description": ""
+							},
+							{
+								"key": "x-candy-version",
+								"value": "1",
+								"description": ""
+							},
+							{
+								"key": "x-candy-token",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Ad_Top_Up",
+					"request": {
+						"url": "{{url}}/account/topUp",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-candy-terminal",
+								"value": "Manager",
+								"description": ""
+							},
+							{
+								"key": "x-candy-version",
+								"value": "1",
+								"description": ""
+							},
+							{
+								"key": "x-candy-token",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "updateUserId",
+									"value": "0",
+									"description": "需要充值的用户ID",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "N063RNC7",
+									"description": "申请充分的code，与上面的ID是二选一的关系",
+									"type": "text"
+								},
+								{
+									"key": "delta",
+									"value": "600",
+									"description": "积分数",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Ad_Withdraw",
+					"request": {
+						"url": "{{url}}/account/withdraw",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-candy-terminal",
+								"value": "Manager",
+								"description": ""
+							},
+							{
+								"key": "x-candy-version",
+								"value": "1",
+								"description": ""
+							},
+							{
+								"key": "x-candy-token",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "updateUserId",
+									"value": "2",
+									"description": "需要充值的用户ID",
+									"type": "text"
+								},
+								{
+									"key": "delta",
+									"value": "600",
+									"description": "积分数",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "signIn",
+			"request": {
+				"url": "{{url}}/token",
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-candy-terminal",
+						"value": "PC",
+						"description": ""
+					},
+					{
+						"key": "x-candy-version",
+						"value": "1",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "phone",
+							"value": "13700000000",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "777@uuu",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "openList",
+			"request": {
+				"url": {
+					"raw": "{{url}}/lottery/openList?type=BJK3&pageSize=10",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"lottery",
+						"openList"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "BJK3",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "pageSize",
+							"value": "10",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-candy-terminal",
+						"value": "PC",
+						"description": ""
+					},
+					{
+						"key": "x-candy-version",
+						"value": "1",
+						"description": ""
+					},
+					{
+						"key": "x-candy-token",
+						"value": "{{token}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "type",
+							"value": "BJK3",
+							"type": "text"
+						},
+						{
+							"key": "pageSize",
+							"value": "200",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "lotteryList",
+			"request": {
+				"url": "{{url}}/lottery/list",
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-candy-terminal",
+						"value": "PC",
+						"description": ""
+					},
+					{
+						"key": "x-candy-version",
+						"value": "1",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "type",
+							"value": "BJK3",
+							"type": "text"
+						},
+						{
+							"key": "pageSize",
+							"value": "200",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "chargeApply",
+			"request": {
+				"url": "{{url}}/account/apply",
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-candy-terminal",
+						"value": "PC",
+						"description": ""
+					},
+					{
+						"key": "x-candy-version",
+						"value": "1",
+						"description": ""
+					},
+					{
+						"key": "x-candy-token",
+						"value": "{{token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Buy",
+			"request": {
+				"url": "{{url}}/lottery/buy",
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-candy-terminal",
+						"value": "PC",
+						"description": ""
+					},
+					{
+						"key": "x-candy-version",
+						"value": "1",
+						"description": ""
+					},
+					{
+						"key": "x-candy-token",
+						"value": "{{token}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "category",
+							"value": "BJK3",
+							"type": "text"
+						},
+						{
+							"key": "numbers",
+							"value": "[{'type':'和','code':'6'},{'type':'三同号单选','code':'666'}]",
+							"type": "text"
+						},
+						{
+							"key": "times",
+							"value": "4",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "serialCode",
+							"value": "082767",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "mine",
+			"request": {
+				"url": {
+					"raw": "{{url}}/lottery/mine?type=BJK3&win=0&pageIndex=0&pageSize=10",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"lottery",
+						"mine"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "BJK3",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "win",
+							"value": "0",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "pageIndex",
+							"value": "0",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "pageSize",
+							"value": "10",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-candy-terminal",
+						"value": "PC",
+						"description": ""
+					},
+					{
+						"key": "x-candy-version",
+						"value": "1",
+						"description": ""
+					},
+					{
+						"key": "x-candy-token",
+						"value": "{{token}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "type",
+							"value": "BJK3",
+							"type": "text"
+						},
+						{
+							"key": "pageSize",
+							"value": "200",
+							"type": "text"
+						}
+					]
+				},
+				"description": "参数说明：\nwin，0-全部，1-中奖的"
+			},
+			"response": []
+		},
+		{
+			"name": "rate",
+			"request": {
+				"url": {
+					"raw": "{{url}}/lottery/rate?type=BJK3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"lottery",
+						"rate"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "BJK3",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-candy-terminal",
+						"value": "PC",
+						"description": ""
+					},
+					{
+						"key": "x-candy-version",
+						"value": "1",
+						"description": ""
+					},
+					{
+						"key": "x-candy-token",
+						"value": "{{token}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "type",
+							"value": "BJK3",
+							"type": "text"
+						},
+						{
+							"key": "pageSize",
+							"value": "200",
+							"type": "text"
+						}
+					]
+				},
+				"description": "赔率"
+			},
+			"response": []
+		},
+		{
+			"name": "Balance",
+			"request": {
+				"url": "{{url}}/account/balance",
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-candy-terminal",
+						"value": "PC",
+						"description": ""
+					},
+					{
+						"key": "x-candy-version",
+						"value": "1",
+						"description": ""
+					},
+					{
+						"key": "x-candy-token",
+						"value": "{{token}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "type",
+							"value": "BJK3",
+							"type": "text"
+						},
+						{
+							"key": "pageSize",
+							"value": "200",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

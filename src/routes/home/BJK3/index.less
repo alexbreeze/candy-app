@@ -1,0 +1,113 @@
+.BJK3{
+  height: 100%;
+}
+.head{
+  height: 50px;
+  background: #1e8ce0;
+  color: #fff;
+  padding: 7px;
+  .latestOpenCode{
+    line-height: 36px;
+    text-align: left;
+    display: flex;
+  }
+  .rightContent{
+    line-height: 1.5em;
+    margin-left: 12px;
+  }
+  .nextSerialCode{
+    text-align: right;
+  }
+}
+.main{
+  position: absolute;
+  top: 96px;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+  background: #6de2e3;
+  :global(.ant-tabs-bar){
+    margin-bottom: 0;
+  }
+  .info{
+    max-height: 22px;
+    overflow: hidden;
+    min-height: 0;
+    min-width: 0;
+  }
+  .selContainer{
+    padding: 0 5px;
+    margin-bottom: 10px;
+  }
+  .selWrap{
+    padding: 2px;
+    text-align: center;
+  }
+  .selBox,
+  .selHandle{
+    height: 50px;
+    background: #4cb4b5;
+    color: #fff;
+    border: 1px solid #7bf7f8;
+    .selTitle{
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+  .selHandle{
+    height: 30px;
+    text-align: center;
+  }
+  .selCheckBox{
+    display: none;
+  }
+  .selCheckBox:checked+.selBox,
+  .selCheckBox:checked+.selHandle{
+    color: #a3fb66;
+    border: 1px solid #a3fb66;
+  }
+  .itemWrap{
+    padding: 0 8px;
+  }
+  .itemTitle{
+    font-size: 16px;
+    color: #fff;
+    margin-right: 12px;
+  }
+  .itemDetail{
+    color: #fff;
+  }
+}
+:global(.ant-input-number-input){
+  background: #6de2e3;
+  color: #fff;
+  font-weight: bold;
+}
+@media screen and (min-width: 769px) {
+  .main{
+    top: 50px;
+  }
+}
+.foot{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  line-height: 32px;
+  background: #404040;
+  color: #fff;
+  padding: 9px 24px;
+  .detail{
+    font-size: 16px;
+  }
+  .submit{
+    text-align: right;
+  }
+}
+:global(.ant-table-thead tr th){
+  text-align: center;
+}
+:global(.ant-table-tbody tr td){
+  text-align: center;
+}
