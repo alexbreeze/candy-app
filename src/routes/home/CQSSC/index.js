@@ -15,6 +15,7 @@ class CQSSC extends React.Component {
         {
           title: '个位',
           type: 'S1',
+          displayName: '一星直选',
           total: [{
             id: 'S110',
             displayName: '0',
@@ -74,13 +75,15 @@ class CQSSC extends React.Component {
             displayName: '9',
             rate: '12',
             checked: false,
-          }
-          ]
-        }],
+          },
+          ],
+        },
+      ],
       twoStarList: [
         {
           title: '十位',
           type: 'S2',
+          displayName: '二星直选',
           total: [{
             id: 'S20',
             displayName: '0',
@@ -140,12 +143,13 @@ class CQSSC extends React.Component {
             displayName: '9',
             rate: '15',
             checked: false,
-          }
-          ]
+          },
+          ],
         },
         {
           title: '个位',
           type: 'SG2',
+          displayName: '二星直选',
           total: [{
             id: 'SG20',
             displayName: '0',
@@ -205,13 +209,15 @@ class CQSSC extends React.Component {
             displayName: '9',
             rate: '16',
             checked: false,
-          }
-          ]
-        }],
+          },
+          ],
+        },
+      ],
       twoGStarList: [
         {
           title: '个位',
           type: 'S3',
+          displayName: '二星组选',
           total: [{
             id: 'S30',
             displayName: '0',
@@ -271,122 +277,146 @@ class CQSSC extends React.Component {
             displayName: '9',
             rate: '15',
             checked: false,
-          }]
-        }],
+          }],
+        },
+      ],
       threeStarList: [
         {
           title: '百位',
           type: 'S4',
+          displayName: '三星直选',
           total: [{
             id: 'S40',
             displayName: '0',
             rate: '3',
             checked: false,
-          }, {
+          },
+          {
             id: 'S41',
             displayName: '1',
             rate: '8',
             checked: false,
-          }, {
+          },
+          {
             id: 'S42',
             displayName: '2',
             rate: '2',
             checked: false,
-          }, {
+          },
+          {
             id: 'S43',
             displayName: '3',
             rate: '9',
             checked: false,
-          }, {
+          },
+          {
             id: 'S44',
             displayName: '4',
             rate: '15',
             checked: false,
-          }, {
+          },
+          {
             id: 'S45',
             displayName: '5',
             rate: '4',
             checked: false,
-          }, {
+          },
+          {
             id: 'S46',
             displayName: '6',
             rate: '20',
             checked: false,
-          }, {
+          },
+          {
             id: 'S47',
             displayName: '7',
             rate: '0',
             checked: false,
-          }, {
+          },
+          {
             id: 'S48',
             displayName: '8',
             rate: '1',
             checked: false,
-          }, {
+          },
+          {
             id: 'S49',
             displayName: '9',
             rate: '16',
             checked: false,
-          }
-          ]
-        }, {
+          },
+          ],
+        },
+        {
           title: '十位',
           type: 'SS4',
+          displayName: '三星直选',
           total: [{
             id: 'SS40',
             displayName: '0',
             rate: '3',
             checked: false,
-          }, {
+          },
+          {
             id: 'SS41',
             displayName: '1',
             rate: '22',
             checked: false,
-          }, {
+          },
+          {
             id: 'SS42',
             displayName: '2',
             rate: '0',
             checked: false,
-          }, {
+          },
+          {
             id: 'SS43',
             displayName: '3',
             rate: '2',
             checked: false,
-          }, {
+          },
+          {
             id: 'SS44',
             displayName: '4',
             rate: '17',
             checked: false,
-          }, {
+          },
+          {
             id: 'SS45',
             displayName: '5',
             rate: '6',
             checked: false,
-          }, {
+          },
+          {
             id: 'SS46',
             displayName: '6',
             rate: '30',
             checked: false,
-          }, {
+          },
+          {
             id: 'SS47',
             displayName: '7',
             rate: '1',
             checked: false,
-          }, {
+          },
+          {
             id: 'SS48',
             displayName: '8',
             rate: '9',
             checked: false,
-          }, {
+          },
+          {
             id: 'SS49',
             displayName: '9',
             rate: '15',
             checked: false,
-          }
-          ]
-        }, {
+          },
+          ],
+        },
+        {
           title: '个位',
           type: 'SG4',
+          displayName: '三星直选',
           total: [{
             id: 'SG40',
             displayName: '0',
@@ -437,133 +467,15 @@ class CQSSC extends React.Component {
             displayName: '9',
             rate: '16',
             checked: false,
-          }
-          ]
-        }],
-      threeGStarList: [
-        {
-          title: '重号',
-          type: 'S5',
-          total: [{
-            id: 'S50',
-            displayName: '0',
-            rate: '3',
-            checked: false,
           },
-          {
-            id: 'S51',
-            displayName: '1',
-            rate: '8',
-            checked: false,
-          },
-          {
-            id: 'S52',
-            displayName: '2',
-            rate: '0',
-            checked: false,
-          },
-          {
-            id: 'S53',
-            displayName: '3',
-            rate: '2',
-            checked: false,
-          },
-          {
-            id: 'S54',
-            displayName: '4',
-            rate: '0',
-            checked: false,
-          },
-          {
-            id: 'S55',
-            displayName: '5',
-            rate: '4',
-            checked: false,
-          }, {
-            id: 'S56',
-            displayName: '6',
-            rate: '2',
-            checked: false,
-          },
-          {
-            id: 'S57',
-            displayName: '7',
-            rate: '0',
-            checked: false,
-          },
-          {
-            id: 'S58',
-            displayName: '8',
-            rate: '1',
-            checked: false,
-          },
-          {
-            id: 'S59',
-            displayName: '9',
-            rate: '15',
-            checked: false,
-          }
-          ]
-        }, {
-          title: '单号',
-          type: 'SO5',
-          total: [{
-            id: 'SO50',
-            displayName: '0',
-            rate: '3',
-            checked: false,
-          }, {
-            id: 'SO51',
-            displayName: '1',
-            rate: '8',
-            checked: false,
-          }, {
-            id: 'SO52',
-            displayName: '2',
-            rate: '0',
-            checked: false,
-          }, {
-            id: 'SO53',
-            displayName: '3',
-            rate: '2',
-            checked: false,
-          }, {
-            id: 'SO54',
-            displayName: '4',
-            rate: '0',
-            checked: false,
-          }, {
-            id: 'SO55',
-            displayName: '5',
-            rate: '4',
-            checked: false,
-          }, {
-            id: 'SO56',
-            displayName: '6',
-            rate: '2',
-            checked: false,
-          }, {
-            id: 'SO57',
-            displayName: '7',
-            rate: '0',
-            checked: false,
-          }, {
-            id: 'SO58',
-            displayName: '8',
-            rate: '1',
-            checked: false,
-          }, {
-            id: 'SO59',
-            displayName: '9',
-            rate: '15',
-            checked: false,
-          }
-          ]
-        }],
+          ],
+        },
+      ],
       threeDStarList: [
         {
           title: '选号',
           type: 'S6',
+          displayName: '三星组三',
           total: [{
             id: 'S60',
             displayName: '0',
@@ -623,12 +535,14 @@ class CQSSC extends React.Component {
             displayName: '9',
             rate: '15',
             checked: false,
-          }]
-        }],
+          }],
+        },
+      ],
       threeSStarList: [
         {
           title: '选号',
           type: 'S7',
+          displayName: '三星组六',
           total: [{
             id: 'S70',
             displayName: '0',
@@ -688,12 +602,14 @@ class CQSSC extends React.Component {
             displayName: '9',
             rate: '15',
             checked: false,
-          }]
-        }],
+          }],
+        },
+      ],
       fiveStarList: [
         {
           title: '万位',
           type: 'S8',
+          displayName: '五星直选',
           total: [
             {
               id: 'S80',
@@ -754,12 +670,13 @@ class CQSSC extends React.Component {
               displayName: '9',
               rate: '21',
               checked: false,
-            }
-          ]
+            },
+          ],
         },
         {
           title: '千位',
           type: 'ST8',
+          displayName: '五星直选',
           total: [{
             id: 'ST80',
             displayName: '0',
@@ -810,12 +727,13 @@ class CQSSC extends React.Component {
             displayName: '9',
             rate: '11',
             checked: false,
-          }
-          ]
+          },
+          ],
         },
-         {
+        {
           title: '百位',
           type: 'SH8',
+          displayName: '五星直选',
           total: [{
             id: 'SH80',
             displayName: '0',
@@ -866,11 +784,13 @@ class CQSSC extends React.Component {
             displayName: '9',
             rate: '16',
             checked: false,
-          }
-          ]
-        }, {
+          },
+          ],
+        },
+        {
           title: '十位',
           type: 'S8T',
+          displayName: '五星直选',
           total: [{
             id: 'S8T0',
             displayName: '0',
@@ -921,11 +841,13 @@ class CQSSC extends React.Component {
             displayName: '9',
             rate: '16',
             checked: false,
-          }
-          ]
-        }, {
+          },
+          ],
+        },
+        {
           title: '个位',
           type: 'S8G',
+          displayName: '五星直选',
           total: [{
             id: 'S8G0',
             displayName: '0',
@@ -976,13 +898,15 @@ class CQSSC extends React.Component {
             displayName: '9',
             rate: '16',
             checked: false,
-          }
-          ]
-        }],
+          },
+          ],
+        },
+      ],
       fiveTStarList: [
         {
           title: '万位',
           type: 'S9',
+          displayName: '五星通选',
           total: [
             {
               id: 'S90',
@@ -1043,12 +967,13 @@ class CQSSC extends React.Component {
               displayName: '9',
               rate: '21',
               checked: false,
-            }
-          ]
+            },
+          ],
         },
         {
           title: '千位',
           type: 'ST8',
+          displayName: '五星通选',
           total: [{
             id: 'ST80',
             displayName: '0',
@@ -1099,12 +1024,13 @@ class CQSSC extends React.Component {
             displayName: '9',
             rate: '11',
             checked: false,
-          }
-          ]
+          },
+          ],
         },
-         {
+        {
           title: '百位',
           type: 'SH8',
+          displayName: '五星通选',
           total: [{
             id: 'SH80',
             displayName: '0',
@@ -1155,11 +1081,13 @@ class CQSSC extends React.Component {
             displayName: '9',
             rate: '16',
             checked: false,
-          }
-          ]
-        }, {
+          },
+          ],
+        },
+        {
           title: '十位',
           type: 'S9T',
+          displayName: '五星通选',
           total: [{
             id: 'S9T0',
             displayName: '0',
@@ -1210,11 +1138,13 @@ class CQSSC extends React.Component {
             displayName: '9',
             rate: '16',
             checked: false,
-          }
-          ]
-        }, {
+          },
+          ],
+        },
+        {
           title: '个位',
           type: 'S9G',
+          displayName: '五星通选',
           total: [{
             id: 'S9G0',
             displayName: '0',
@@ -1265,13 +1195,15 @@ class CQSSC extends React.Component {
             displayName: '9',
             rate: '16',
             checked: false,
-          }
-          ]
-        }],
+          },
+          ],
+        },
+      ],
       sizeStarList: [
         {
           title: '十位',
           type: 'S10',
+          displayName: '大小单双',
           total: [{
             id: 'S10T0',
             displayName: '大',
@@ -1295,12 +1227,13 @@ class CQSSC extends React.Component {
             displayName: '双',
             rate: '2',
             checked: false,
-          }
-          ]
+          },
+          ],
         },
         {
           title: '个位',
           type: 'S10G',
+          displayName: '大小单双',
           total: [{
             id: 'S10G0',
             displayName: '大',
@@ -1324,9 +1257,12 @@ class CQSSC extends React.Component {
             displayName: '双',
             rate: '4',
             checked: false,
-          }
-          ]
-        }],
+          },
+          ],
+        },
+      ],
+      visible: false,
+      showTime: '00:00',
     };
   }
   componentDidMount() {
@@ -1334,11 +1270,18 @@ class CQSSC extends React.Component {
   }
   // 改变状态
   changeChecked(list, ev) {
-    list.forEach((i) => {
-      if (i.id === ev.target.id) {
-        i.checked = !i.checked;
+    let tempArr = [];
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].title === ev.target.value) {
+        tempArr = list[i].total;
+        break;
       }
-    });
+    }
+    for (let i = 0; i < tempArr.length; i++) {
+      if (tempArr[i].id === ev.target.id) {
+        tempArr[i].checked = !tempArr[i].checked;
+      }
+    }
     this.setState(
       list,
     );
@@ -1346,7 +1289,57 @@ class CQSSC extends React.Component {
   }
   // 更改倍数
   calcRate(rate) {
-    // this.props.updateRate(rate);
+    this.props.updateRate(rate);
+  }
+  openModal() {
+    this.setState({
+      visible: true,
+    });
+  }
+  handleOk(BJPK10, times, serialCode) {
+    const self = this;
+    const payload = {
+      data: {
+        category: 'BJPK10',
+        numbers: JSON.stringify(BJPK10),
+        times,
+        serialCode,
+      },
+      cb() {
+        message.success('购买成功');
+        self.setState({
+          visible: false,
+        });
+        BJPK10 = [];
+        self.props.updateBJPK10(BJPK10);
+        const {
+          totalList,
+          pkList,
+        } = self.state;
+        clear(totalList);
+        clear(pkList);
+        function clear(list) {
+          list.forEach((i) => {
+            i.total.forEach((item) => {
+              item.checked = false;
+            });
+          });
+          self.setState({
+            list,
+          });
+        }
+        self.props.updateRate(1);
+      },
+    };
+    this.props.sendBuy(payload);
+  }
+  handleCancel() {
+    this.setState({
+      visible: false,
+    });
+  }
+  delItem(item) {
+    this.props.delBJPK10Item(item.index);
   }
   render() {
     const {
@@ -1355,6 +1348,8 @@ class CQSSC extends React.Component {
     } = this.props;
     const {
       content,
+      headInfo,
+      isLoading,
     } = trend;
     const {
       BJPK10,
@@ -1365,13 +1360,17 @@ class CQSSC extends React.Component {
       twoStarList,
       twoGStarList,
       threeStarList,
-      threeGStarList,
       threeDStarList,
       threeSStarList,
       fiveStarList,
       fiveTStarList,
       sizeStarList,
     } = this.state;
+    const columns = [
+      { title: '种类', dataIndex: 'type', key: 'type' },
+      { title: '号码', dataIndex: 'code', key: 'code' },
+      { title: '操作', dataIndex: '', key: 'x', render: record => <Icon type="delete" onClick={this.delItem.bind(this, record)} /> },
+    ];
     return (
       <Row className={styles.CQSSC}>
         <Col xs={24} sm={0}>
@@ -1414,18 +1413,18 @@ class CQSSC extends React.Component {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} onChange={this.changeChecked.bind(this, oneStarList)} id={item.id} checked={item.checked} />
+                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, oneStarList)} id={item.id} checked={item.checked} />
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
                                   {/* <Col className={styles.rate}>{item.rate}</Col> */}
                                 </label>
                               </Col>
-                            )
+                            );
                           })
                         }</Col>
                       </Col>
-                    )
+                    );
                   })
                   : ''
               }
@@ -1449,18 +1448,18 @@ class CQSSC extends React.Component {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} onChange={this.changeChecked.bind(this, twoStarList)} id={item.id} checked={item.checked} />
+                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, twoStarList)} id={item.id} checked={item.checked} />
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
                                   {/* <Col className={styles.rate}>{item.rate}</Col> */}
                                 </label>
                               </Col>
-                            )
+                            );
                           })
                         }</Col>
                       </Col>
-                    )
+                    );
                   })
                   : ''
               }
@@ -1484,18 +1483,18 @@ class CQSSC extends React.Component {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} onChange={this.changeChecked.bind(this, twoGStarList)} id={item.id} checked={item.checked} />
+                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, twoGStarList)} id={item.id} checked={item.checked} />
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
                                   {/* <Col className={styles.rate}>{item.rate}</Col> */}
                                 </label>
                               </Col>
-                            )
+                            );
                           })
                         }</Col>
                       </Col>
-                    )
+                    );
                   })
                   : ''
               }
@@ -1519,53 +1518,18 @@ class CQSSC extends React.Component {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} onChange={this.changeChecked.bind(this, threeStarList)} id={item.id} checked={item.checked} />
+                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, threeStarList)} id={item.id} checked={item.checked} />
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
                                   {/* <Col className={styles.rate}>{item.rate}</Col> */}
                                 </label>
                               </Col>
-                            )
+                            );
                           })
                         }</Col>
                       </Col>
-                    )
-                  })
-                  : ''
-              }
-            </TabPane>
-            <TabPane tab="三星组三单式" key="4" >
-              <Row>
-                <Col span={24} className={styles.itemWrap}>
-                  <span className={styles.itemDetail}>
-                    选1个重号和1个单号，猜对开奖后3位即中{320}元
-                  </span>
-                </Col>
-              </Row>
-              {
-                threeGStarList.length ?
-                  threeGStarList.map((items, index) => {
-                    return (
-                      <Col span={24} className={styles.selContainer} key={index}>
-                        <Col span={5} className={styles.selCtitle}>{items.title}</Col>
-                        <Col span={17} offset={2}>{
-                          items.total.map((item, index) => {
-                            return (
-                              <Col span={6} className={styles.selWrap} key={index} >
-                                <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} onChange={this.changeChecked.bind(this, threeGStarList)} id={item.id} checked={item.checked} />
-                                  <Row className={styles.selBox}>
-                                    <Col className={styles.selTitle} >{item.displayName}</Col>
-                                  </Row>
-                                  {/* <Col className={styles.rate}>{item.rate}</Col> */}
-                                </label>
-                              </Col>
-                            )
-                          })
-                        }</Col>
-                      </Col>
-                    )
+                    );
                   })
                   : ''
               }
@@ -1589,18 +1553,18 @@ class CQSSC extends React.Component {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} onChange={this.changeChecked.bind(this, threeDStarList)} id={item.id} checked={item.checked} />
+                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, threeDStarList)} id={item.id} checked={item.checked} />
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
                                   {/* <Col className={styles.rate}>{item.rate}</Col> */}
                                 </label>
                               </Col>
-                            )
+                            );
                           })
                         }</Col>
                       </Col>
-                    )
+                    );
                   })
                   : ''
               }
@@ -1624,18 +1588,18 @@ class CQSSC extends React.Component {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} onChange={this.changeChecked.bind(this, threeSStarList)} id={item.id} checked={item.checked} />
+                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, threeSStarList)} id={item.id} checked={item.checked} />
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
                                   {/* <Col className={styles.rate}>{item.rate}</Col> */}
                                 </label>
                               </Col>
-                            )
+                            );
                           })
                         }</Col>
                       </Col>
-                    )
+                    );
                   })
                   : ''
               }
@@ -1659,18 +1623,18 @@ class CQSSC extends React.Component {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} onChange={this.changeChecked.bind(this, fiveStarList)} id={item.id} checked={item.checked} />
+                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, fiveStarList)} id={item.id} checked={item.checked} />
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
                                   {/* <Col className={styles.rate}>{item.rate}</Col> */}
                                 </label>
                               </Col>
-                            )
+                            );
                           })
                         }</Col>
                       </Col>
-                    )
+                    );
                   })
                   : ''
               }
@@ -1694,18 +1658,18 @@ class CQSSC extends React.Component {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} onChange={this.changeChecked.bind(this, fiveTStarList)} id={item.id} checked={item.checked} />
+                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, fiveTStarList)} id={item.id} checked={item.checked} />
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
                                   {/* <Col className={styles.rate}>{item.rate}</Col> */}
                                 </label>
                               </Col>
-                            )
+                            );
                           })
                         }</Col>
                       </Col>
-                    )
+                    );
                   })
                   : ''
               }
@@ -1729,18 +1693,18 @@ class CQSSC extends React.Component {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} onChange={this.changeChecked.bind(this, sizeStarList)} id={item.id} checked={item.checked} />
+                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, sizeStarList)} id={item.id} checked={item.checked} />
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
                                   {/* <Col className={styles.rate}>{item.rate}</Col> */}
                                 </label>
                               </Col>
-                            )
+                            );
                           })
                         }</Col>
                       </Col>
-                    )
+                    );
                   })
                   : ''
               }
@@ -1749,7 +1713,7 @@ class CQSSC extends React.Component {
         </Col>
         <Col span={24} className={styles.foot} >
           <Col span={8} className={styles.detail} >
-            <Button size="large" type='primary'>清空</Button>
+            <Icon type="delete" onClick={this.delItem.bind(this)} />
           </Col>
           <Col span={10} >
             投
@@ -1762,9 +1726,23 @@ class CQSSC extends React.Component {
             倍
           </Col>
           <Col span={6} className={styles.submit} >
-            <Button size="large" type='primary'>投注</Button>
+            <Button size="large" type="primary" onClick={this.openModal.bind(this)}>投注</Button>
           </Col>
         </Col>
+        <Modal
+          title={`已选择列表 (共${BJPK10.length}注,${rate}倍,${2 * BJPK10.length * rate}分)`}
+          visible={this.state.visible}
+          onOk={this.handleOk.bind(this, BJPK10, rate, headInfo.nextSerialCode)}
+          confirmLoading={isLoading}
+          onCancel={this.handleCancel.bind(this)}
+        >
+          <Table
+            size="small"
+            columns={columns}
+            dataSource={BJPK10}
+            rowKey={record => record.index}
+          />
+        </Modal>
       </Row>
     );
   }
