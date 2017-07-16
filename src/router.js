@@ -23,6 +23,16 @@ const LuckyList = (location, callback) => {
     callback(null, require('./routes/lucky'));
   }, 'LuckyList');
 };
+const BETTING = (location, callback) => {
+  require.ensure([], (require) => {
+    callback(null, require('./routes/lucky/betting'));
+  }, 'betting');
+};
+const WINNING = (location, callback) => {
+  require.ensure([], (require) => {
+    callback(null, require('./routes/lucky/winning'));
+  }, 'winning');
+};
 const BJK3 = (location, callback) => {
   require.ensure([], (require) => {
     callback(null, require('./routes/home/BJK3'));
@@ -38,6 +48,7 @@ const CQSSC = (location, callback) => {
     callback(null, require('./routes/home/CQSSC'));
   }, 'CQSSC');
 };
+
 function RouterConfig({ history }) {
   return (
     <Router history={history}>
@@ -50,6 +61,8 @@ function RouterConfig({ history }) {
         <Route path="/trend" getComponent={OpenList} />
         <Route path="/openListDetail:id" getComponent={OpenListDetail} />
         <Route path="/lucky" getComponent={LuckyList} />
+        <Route path="/betting" getComponent={BETTING} />
+        <Route path="/winning" getComponent={WINNING} />
       </Route>
       <Route path="/login" component={Login} />
     </Router>
