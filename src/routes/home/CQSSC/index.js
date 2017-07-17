@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Row, Col, Tabs, Button, Carousel, InputNumber, Modal, Table, Icon } from 'antd';
+import { Row, Col, Tabs, Button, Carousel, InputNumber, Modal, Table, Icon, message } from 'antd';
 import HeadMenu from '../../../components/headMenu';
 import styles from './index.less';
 import '../../../iconfont/iconfont.css';
@@ -1263,6 +1263,10 @@ class CQSSC extends React.Component {
       ],
       visible: false,
       showTime: '00:00',
+      one: [],
+      two: [],
+      three: [],
+      five: [],
     };
   }
   componentDidMount() {
@@ -1270,10 +1274,18 @@ class CQSSC extends React.Component {
   }
   // 改变状态
   changeChecked(list, ev) {
+    const {
+      one,
+      two,
+      three,
+      five,
+    } = this.state;
     let tempArr = [];
+    let tempInfo = {};
     for (let i = 0; i < list.length; i++) {
       if (list[i].title === ev.target.value) {
         tempArr = list[i].total;
+        tempInfo = list[i];
         break;
       }
     }
@@ -1281,11 +1293,114 @@ class CQSSC extends React.Component {
       if (tempArr[i].id === ev.target.id) {
         tempArr[i].checked = !tempArr[i].checked;
       }
+      if (tempInfo.displayName === '一星直选' ||
+        tempInfo.displayName === '二星直选' ||
+        tempInfo.displayName === '三星直选' ||
+        tempInfo.displayName === '五星直选' ||
+        tempInfo.displayName === '五星通选' ||
+        tempInfo.displayName === '大小单双') {
+        if (tempArr[i].checked && one.indexOf(tempArr[i].id) === -1) {
+          one.push(tempArr[i].id);
+        }
+      }
+      if (tempInfo.displayName === '二星组选') {
+        if (tempArr[i].checked && two.indexOf(tempArr[i].id) === -1) {
+          two.push(tempArr[i].id);
+        }
+      }
+      tempArr[i].checked = false;
+    }
+    updateCheckCircle.call(this, one, 1);
+    updateCheckCircle.call(this, two, 2);
+    updateCheckCircle.call(this, three, 3);
+    updateCheckCircle.call(this, five, 5);
+    for (let i = 0; i < tempArr.length; i++) {
+      if (tempInfo.displayName === '一星直选' ||
+        tempInfo.displayName === '二星直选' ||
+        tempInfo.displayName === '三星直选' ||
+        tempInfo.displayName === '五星直选' ||
+        tempInfo.displayName === '五星通选' ||
+        tempInfo.displayName === '大小单双') {
+        if (one.indexOf(tempArr[i].id) !== -1) {
+          tempArr[i].checked = true;
+        }
+      }
+      if (tempInfo.displayName === '二星组选') {
+        if (two.indexOf(tempArr[i].id) !== -1) {
+          tempArr[i].checked = true;
+        }
+      }
+    }
+    function updateCheckCircle(list, num) {
+      if (list.length > num) {
+        list.shift();
+      }
+      this.setState({
+        list,
+      });
     }
     this.setState(
       list,
     );
-    // this.staticCount.call(this);
+    this.staticCount.call(this);
+  }
+  staticCount() {
+    const {
+      oneStarList,
+      twoStarList,
+      twoGStarList,
+      threeStarList,
+      threeDStarList,
+      threeSStarList,
+      fiveStarList,
+      fiveTStarList,
+      sizeStarList,
+    } = this.state;
+    const tempList = [];
+    let count = 0;
+    calcCount(oneStarList, '一星直选', 1);
+    calcCount(twoStarList, '二星直选', 2);
+    calcCount(twoGStarList, '二星组选', 2);
+    calcCount(threeStarList, '一星直选', 1);
+    calcCount(threeDStarList, '一星直选', 1);
+    calcCount(threeSStarList, '一星直选', 1);
+    calcCount(fiveStarList, '一星直选', 1);
+    calcCount(fiveTStarList, '一星直选', 1);
+    calcCount(sizeStarList, '一星直选', 1);
+    this.props.clearCQSSC();
+    function calcCount(list) {
+      const tempCode = [];
+      list.forEach((i) => {
+        if (i.displayName === '二星直选') {
+          i.total.forEach((item) => {
+            if (item.checked) {
+              tempCode.push(item.displayName);
+            }
+          });
+          if (tempCode.length === 2) {
+            tempList.push({
+              index: count,
+              type: i.displayName,
+              code: tempCode.join(','),
+            });
+            count += 1;
+          }
+          console.log(tempList, 'tempList');
+        }
+        /*
+        i.total.forEach((item) => {
+          if (item.checked) {
+            tempList.push({
+              index: count,
+              type: i.displayName,
+              code: item.displayName,
+            });
+            count += 1;
+          }
+        });*/
+      });
+    }
+    this.props.updateCQSSC(tempList);
   }
   // 更改倍数
   calcRate(rate) {
@@ -1296,12 +1411,12 @@ class CQSSC extends React.Component {
       visible: true,
     });
   }
-  handleOk(BJPK10, times, serialCode) {
+  handleOk(CQSSC, times, serialCode) {
     const self = this;
     const payload = {
       data: {
-        category: 'BJPK10',
-        numbers: JSON.stringify(BJPK10),
+        category: 'CQSSC',
+        numbers: JSON.stringify(CQSSC),
         times,
         serialCode,
       },
@@ -1310,8 +1425,8 @@ class CQSSC extends React.Component {
         self.setState({
           visible: false,
         });
-        BJPK10 = [];
-        self.props.updateBJPK10(BJPK10);
+        CQSSC = [];
+        self.props.updateCQSSC(CQSSC);
         const {
           totalList,
           pkList,
@@ -1339,7 +1454,7 @@ class CQSSC extends React.Component {
     });
   }
   delItem(item) {
-    this.props.delBJPK10Item(item.index);
+    this.props.delCQSSCItem(item.index);
   }
   render() {
     const {
@@ -1352,7 +1467,7 @@ class CQSSC extends React.Component {
       isLoading,
     } = trend;
     const {
-      BJPK10,
+      CQSSC,
       rate,
     } = home;
     const {
@@ -1407,11 +1522,11 @@ class CQSSC extends React.Component {
                   oneStarList.map((items, index) => {
                     return (
                       <Col span={24} className={styles.selContainer} key={index}>
-                        <Col span={5} className={styles.selCtitle}>{items.title}</Col>
-                        <Col span={17} offset={2}>{
+                        <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                        <Col xs={17} sm={19} offset={2}>{
                           items.total.map((item, index) => {
                             return (
-                              <Col span={6} className={styles.selWrap} key={index} >
+                              <Col xs={6} sm={4} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
                                   <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, oneStarList)} id={item.id} checked={item.checked} />
                                   <Row className={styles.selBox}>
@@ -1730,16 +1845,16 @@ class CQSSC extends React.Component {
           </Col>
         </Col>
         <Modal
-          title={`已选择列表 (共${BJPK10.length}注,${rate}倍,${2 * BJPK10.length * rate}分)`}
+          title={`已选择列表 (共${CQSSC.length}注,${rate}倍,${2 * CQSSC.length * rate}分)`}
           visible={this.state.visible}
-          onOk={this.handleOk.bind(this, BJPK10, rate, headInfo.nextSerialCode)}
+          onOk={this.handleOk.bind(this, CQSSC, rate, headInfo.nextSerialCode)}
           confirmLoading={isLoading}
           onCancel={this.handleCancel.bind(this)}
         >
           <Table
             size="small"
             columns={columns}
-            dataSource={BJPK10}
+            dataSource={CQSSC}
             rowKey={record => record.index}
           />
         </Modal>
@@ -1758,17 +1873,17 @@ const mapDispatchToProps = (dispatch) => {
     getOpenList() {
       dispatch({ type: 'trend/getOpenList' });
     },
-    updateBJK3(list) {
-      dispatch({ type: 'home/updateBJK3', payload: list });
+    updateCQSSC(list) {
+      dispatch({ type: 'home/updateCQSSC', payload: list });
     },
     updateRate(v) {
       dispatch({ type: 'home/updateRate', payload: v });
     },
-    delBJK3Item(index) {
-      dispatch({ type: 'home/delBJK3Item', payload: index });
+    delCQSSCItem(index) {
+      dispatch({ type: 'home/delCQSSCItem', payload: index });
     },
-    clearBJK3() {
-      dispatch({ type: 'home/clearBJK3' });
+    clearCQSSC() {
+      dispatch({ type: 'home/clearCQSSC' });
     },
   };
 };

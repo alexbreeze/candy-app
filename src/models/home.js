@@ -8,6 +8,7 @@ export default {
   state: {
     BJK3: [],
     BJPK10: [],
+    CQSSC: [],
     rate: 1,
     timerCtrl: true,
   },
@@ -33,6 +34,15 @@ export default {
     },
     *clearBJPK10({ payload }, { put }) {
       yield put({ type: 'updateBJPK10List', payload: [] });
+    },
+    *updateCQSSC({ payload }, { put }) {
+      yield put({ type: 'updateCQSSCList', payload });
+    },
+    *delCQSSCItem({ payload }, { put }) {
+      yield put({ type: 'delCQSSCList', payload });
+    },
+    *clearCQSSC({ payload }, { put }) {
+      yield put({ type: 'updateCQSSCList', payload: [] });
     },
     *updateRate({ payload }, { put }) {
       yield put({ type: 'updateRateValue', payload });
@@ -89,6 +99,23 @@ export default {
       return {
         ...state,
         BJPK10: state.BJPK10,
+      };
+    },
+    updateCQSSCList(state, {payload}){
+      return {
+        ...state,
+        CQSSC: payload,
+      };
+    },
+    delCQSSCList(state, { payload }) {
+      state.CQSSC.forEach((i, index) => {
+        if (i.index === payload) {
+          state.CQSSC.splice(index, 1);
+        }
+      });
+      return {
+        ...state,
+        CQSSC: state.CQSSC,
       };
     },
     updateRateValue(state, { payload }) {

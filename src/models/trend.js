@@ -19,9 +19,7 @@ export default {
 
   effects: {
     *getOpenList({ payload }, { put, call }) {
-      yield put({ type: 'showLoading' });
       const data = yield call(getOpenList);
-      yield put({ type: 'hideLoading' });
       if (data.success) {
         if (payload) {
           payload(data.list);

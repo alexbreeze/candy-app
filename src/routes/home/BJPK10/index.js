@@ -1049,11 +1049,11 @@ class BJPK10 extends React.Component {
                   totalList.map((items, index) => {
                     return (
                       <Col span={24} className={styles.selContainer} key={index}>
-                        <Col span={5} className={styles.selCtitle}>{items.title}</Col>
-                        <Col span={17} offset={2}>{
+                        <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                        <Col xs={17} sm={19} offset={2}>{
                           items.total.map((item, index) => {
                             return (
-                              <Col span={6} className={styles.selWrap} key={index} >
+                              <Col xs={6} sm={4} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
                                   <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, totalList)} id={item.id} checked={item.checked} />
                                   <Col span={6} className={styles.selBox}>
