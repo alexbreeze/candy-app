@@ -1557,8 +1557,8 @@ class CQSSC extends React.Component {
                   twoStarList.map((items, index) => {
                     return (
                       <Col span={24} className={styles.selContainer} key={index}>
-                        <Col span={5} className={styles.selCtitle}>{items.title}</Col>
-                        <Col span={17} offset={2}>{
+                        <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                        <Col xs={17} sm={19} offset={2}>{
                           items.total.map((item, index) => {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
@@ -1592,8 +1592,8 @@ class CQSSC extends React.Component {
                   twoGStarList.map((items, index) => {
                     return (
                       <Col span={24} className={styles.selContainer} key={index}>
-                        <Col span={5} className={styles.selCtitle}>{items.title}</Col>
-                        <Col span={17} offset={2}>{
+                        <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                        <Col xs={17} sm={19} offset={2}>{
                           items.total.map((item, index) => {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
@@ -1627,8 +1627,8 @@ class CQSSC extends React.Component {
                   threeStarList.map((items, index) => {
                     return (
                       <Col span={24} className={styles.selContainer} key={index}>
-                        <Col span={5} className={styles.selCtitle}>{items.title}</Col>
-                        <Col span={17} offset={2}>{
+                        <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                        <Col xs={17} sm={19} offset={2}>{
                           items.total.map((item, index) => {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
@@ -1649,6 +1649,7 @@ class CQSSC extends React.Component {
                   : ''
               }
             </TabPane>
+            {/*
             <TabPane tab="三星组三复式" key="5" >
               <Row>
                 <Col span={24} className={styles.itemWrap}>
@@ -1672,7 +1673,7 @@ class CQSSC extends React.Component {
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
-                                  {/* <Col className={styles.rate}>{item.rate}</Col> */}
+                                   <Col className={styles.rate}>{item.rate}</Col>
                                 </label>
                               </Col>
                             );
@@ -1684,6 +1685,7 @@ class CQSSC extends React.Component {
                   : ''
               }
             </TabPane>
+            */}
             <TabPane tab="三星组六" key="6" >
               <Row>
                 <Col span={24} className={styles.itemWrap}>
@@ -1697,8 +1699,8 @@ class CQSSC extends React.Component {
                   threeSStarList.map((items, index) => {
                     return (
                       <Col span={24} className={styles.selContainer} key={index}>
-                        <Col span={5} className={styles.selCtitle}>{items.title}</Col>
-                        <Col span={17} offset={2}>{
+                        <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                        <Col xs={17} sm={19} offset={2}>{
                           items.total.map((item, index) => {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
@@ -1732,8 +1734,8 @@ class CQSSC extends React.Component {
                   fiveStarList.map((items, index) => {
                     return (
                       <Col span={24} className={styles.selContainer} key={index}>
-                        <Col span={5} className={styles.selCtitle}>{items.title}</Col>
-                        <Col span={17} offset={2}>{
+                        <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                        <Col xs={17} sm={19} offset={2}>{
                           items.total.map((item, index) => {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
@@ -1767,8 +1769,8 @@ class CQSSC extends React.Component {
                   fiveTStarList.map((items, index) => {
                     return (
                       <Col span={24} className={styles.selContainer} key={index}>
-                        <Col span={5} className={styles.selCtitle}>{items.title}</Col>
-                        <Col span={17} offset={2}>{
+                        <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                        <Col xs={17} sm={19} offset={2}>{
                           items.total.map((item, index) => {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
@@ -1802,8 +1804,8 @@ class CQSSC extends React.Component {
                   sizeStarList.map((items, index) => {
                     return (
                       <Col span={24} className={styles.selContainer} key={index}>
-                        <Col span={5} className={styles.selCtitle}>{items.title}</Col>
-                        <Col span={17} offset={2}>{
+                        <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                        <Col xs={17} sm={19} offset={2}>{
                           items.total.map((item, index) => {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
