@@ -1,4 +1,3 @@
-// import { routerRedux } from 'dva/router';
 // import { queryURL } from '../utils';
 import { routerRedux } from 'dva/router';
 
@@ -19,7 +18,7 @@ export default {
       yield put({ type: 'menuList' });
     },
     *back({ payload }, { put }) {
-      yield put(routerRedux.push(payload));
+      yield put(routerRedux.push(`/candyApp${payload}`));
     },
   },
   reducers: {

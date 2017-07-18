@@ -52,7 +52,7 @@ export default {
       yield put({ type: 'setOpenList', payload });
     },
     *logOut({ payload }, { put }) {
-      yield put(routerRedux.push('/login'));
+      yield put(routerRedux.push('/candyApp/login'));
     },
     *getOpenListDetail({
              payload,
