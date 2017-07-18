@@ -30,8 +30,10 @@ class LuckyList extends Component {
             <Col span={12} className={styles.listRight}>kk</Col>
           </Col>
           <Col span={24} className={styles.containList}>
-            <Col span={12}>我的中奖</Col>
-            <Col span={12} className={styles.listRight}>kk</Col>
+            <Link to={`/candyApp/balance`}>
+              <Col span={12}>我的中奖</Col>
+              <Col span={12} className={styles.listRight}>kk</Col>
+            </Link>
           </Col>
           <Col span={24} className={styles.containList}>
             <Col span={12}>积分充值</Col>

@@ -15,6 +15,8 @@ module.exports = {
     openList: `${URL}/lottery/openList`,
     lotteryList: `${URL}/lottery/list`,
     buy: `${URL}/lottery/buy`,
+    winList: `${URL}/lottery/mine`,
+    banbleDetail: `${URL}/account/balance`,
   },
   sessionKey: {
     token: '__token__',
