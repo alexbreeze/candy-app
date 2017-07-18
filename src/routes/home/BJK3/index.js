@@ -752,7 +752,7 @@ class BJK3 extends React.Component {
           tempList.push({
             index: count,
             type: i.type,
-            code: i.value,
+            code: i.type === '和' ? i.value : i.value.split('').join(','),
           });
           count += 1;
         }
