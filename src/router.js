@@ -64,7 +64,7 @@ function RouterConfig({ history }) {
         <Route path="/candyApp/balance" getComponent={BALANCE} />
         <Route path="/candyApp/win" getComponent={WIN} />
       </Route>
-      <Route path="/candyApp/login" component={Login} />
+      <Route path="/login" component={Login} />
     </Router>
   );
 }

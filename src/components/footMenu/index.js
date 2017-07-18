@@ -40,7 +40,7 @@ export default class FootNav extends Component {
               menus.map((menu, index) => {
                 return (
                   <Menu.Item key={index} className={styles['foot-menu']}>
-                    <Link to={`/candyApp${menu.linkPage}`}>
+                    <Link to={`${menu.linkPage}`}>
                       <Icon type={menu.type} />
                       <span className="nav-text">{menu.title}</span>
                     </Link>

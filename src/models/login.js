@@ -22,12 +22,12 @@ export default {
         throw data;
       } else {
         sessionStorage.setItem(sessionKey.token, data.token);
-        yield put(routerRedux.push('/candyApp/home'));
+        yield put(routerRedux.push('/home'));
         setToken(data.token);
       }
     },
     *logOut({ payload }, { put }) {
-      yield put(routerRedux.push('/candyApp/login'));
+      yield put(routerRedux.push('/login'));
     },
   },
   reducers: {

@@ -1260,12 +1260,68 @@ class CQSSC extends React.Component {
           },
           ],
         },
+        {
+          title: '总和/龙虎',
+          type: 'S10All',
+          displayName: '总和/龙虎',
+          total: [{
+            id: 'SAB',
+            displayName: '大',
+            type: '总和大小',
+            rate: '5',
+            checked: false,
+          },
+          {
+            id: 'SAS',
+            displayName: '小',
+            type: '总和大小',
+            rate: '10',
+            checked: false,
+          },
+          {
+            id: 'SAO',
+            displayName: '单',
+            type: '总和单双',
+            rate: '3',
+            checked: false,
+          },
+          {
+            id: 'SAE',
+            displayName: '双',
+            type: '总和单双',
+            rate: '4',
+            checked: false,
+          },
+          {
+            id: 'SAA1',
+            displayName: '龙',
+            type: '龙',
+            rate: '4',
+            checked: false,
+          },
+          {
+            id: 'SAB2',
+            displayName: '虎',
+            type: '虎',
+            rate: '4',
+            checked: false,
+          },
+          {
+            id: 'SAC3',
+            displayName: '和',
+            type: '和',
+            rate: '4',
+            checked: false,
+          },
+          ],
+        },
       ],
       visible: false,
       showTime: '00:00',
       one: [],
       two: [],
       three: [],
+      four: [],
       five: [],
     };
   }
@@ -1274,12 +1330,6 @@ class CQSSC extends React.Component {
   }
   // 改变状态
   changeChecked(list, ev) {
-    const {
-      one,
-      two,
-      three,
-      five,
-    } = this.state;
     let tempArr = [];
     let tempInfo = {};
     for (let i = 0; i < list.length; i++) {
@@ -1293,51 +1343,6 @@ class CQSSC extends React.Component {
       if (tempArr[i].id === ev.target.id) {
         tempArr[i].checked = !tempArr[i].checked;
       }
-      if (tempInfo.displayName === '一星直选' ||
-        tempInfo.displayName === '二星直选' ||
-        tempInfo.displayName === '三星直选' ||
-        tempInfo.displayName === '五星直选' ||
-        tempInfo.displayName === '五星通选' ||
-        tempInfo.displayName === '大小单双') {
-        if (tempArr[i].checked && one.indexOf(tempArr[i].id) === -1) {
-          one.push(tempArr[i].id);
-        }
-      }
-      if (tempInfo.displayName === '二星组选') {
-        if (tempArr[i].checked && two.indexOf(tempArr[i].id) === -1) {
-          two.push(tempArr[i].id);
-        }
-      }
-      tempArr[i].checked = false;
-    }
-    updateCheckCircle.call(this, one, 1);
-    updateCheckCircle.call(this, two, 2);
-    updateCheckCircle.call(this, three, 3);
-    updateCheckCircle.call(this, five, 5);
-    for (let i = 0; i < tempArr.length; i++) {
-      if (tempInfo.displayName === '一星直选' ||
-        tempInfo.displayName === '二星直选' ||
-        tempInfo.displayName === '三星直选' ||
-        tempInfo.displayName === '五星直选' ||
-        tempInfo.displayName === '五星通选' ||
-        tempInfo.displayName === '大小单双') {
-        if (one.indexOf(tempArr[i].id) !== -1) {
-          tempArr[i].checked = true;
-        }
-      }
-      if (tempInfo.displayName === '二星组选') {
-        if (two.indexOf(tempArr[i].id) !== -1) {
-          tempArr[i].checked = true;
-        }
-      }
-    }
-    function updateCheckCircle(list, num) {
-      if (list.length > num) {
-        list.shift();
-      }
-      this.setState({
-        list,
-      });
     }
     this.setState(
       list,
@@ -1356,52 +1361,144 @@ class CQSSC extends React.Component {
       fiveTStarList,
       sizeStarList,
     } = this.state;
+    let {
+      one,
+      two,
+      three,
+      four,
+      five,
+    } = this.state;
     const tempList = [];
-    let count = 0;
-    calcCount(oneStarList, '一星直选', 1);
-    calcCount(twoStarList, '二星直选', 2);
-    calcCount(twoGStarList, '二星组选', 2);
-    calcCount(threeStarList, '一星直选', 1);
-    calcCount(threeDStarList, '一星直选', 1);
-    calcCount(threeSStarList, '一星直选', 1);
-    calcCount(fiveStarList, '一星直选', 1);
-    calcCount(fiveTStarList, '一星直选', 1);
-    calcCount(sizeStarList, '一星直选', 1);
+    calcCount(oneStarList, '一星直选', 1, 1);
+    calcCount(twoStarList, '二星直选', 1, 2);
+    calcCount(twoGStarList, '二星组选', 2, 2);
+    calcCount(threeStarList, '三星直选', 1, 3);
+    calcCount(threeDStarList, '三星组三', 2, 2);
+    calcCount(threeSStarList, '三星组六', 2, 3);
+    calcCount(fiveStarList, '五星直选', 1, 5);
+    calcCount(fiveTStarList, '五星通选', 1, 5);
+    calcCount(sizeStarList, '大小单双', 1, 2);
     this.props.clearCQSSC();
-    function calcCount(list) {
-      const tempCode = [];
-      list.forEach((i) => {
-        if (i.displayName === '二星直选') {
+    function calcCount(list, name, flag, max) {
+      one = [];
+      two = [];
+      three = [];
+      four = [];
+      five = [];
+      const extra = [];
+      if (flag === 1) {
+        list.forEach((i) => {
           i.total.forEach((item) => {
             if (item.checked) {
-              tempCode.push(item.displayName);
+              if (i.title === '个位') {
+                one.push(item.displayName);
+              }
+              if (i.title === '十位') {
+                two.push(item.displayName);
+              }
+              if (i.title === '百位') {
+                three.push(item.displayName);
+              }
+              if (i.title === '千位') {
+                four.push(item.displayName);
+              }
+              if (i.title === '万位') {
+                five.push(item.displayName);
+              }
+              if (i.title === '总和/龙虎') {
+                extra.push({
+                  type: item.type,
+                  code: item.displayName,
+                });
+              }
             }
           });
-          if (tempCode.length === 2) {
-            tempList.push({
-              index: count,
-              type: i.displayName,
-              code: tempCode.join(','),
-            });
-            count += 1;
-          }
-          console.log(tempList, 'tempList');
+        });
+        if (one.length) {
+          one.forEach((a) => {
+            if (two.length) {
+              two.forEach((b) => {
+                if (three.length) {
+                  three.forEach((c) => {
+                    if (four.length) {
+                      four.forEach((d) => {
+                        if (five.length) {
+                          five.forEach((e) => {
+                            tempList.push({
+                              index: tempList.length,
+                              type: name,
+                              code: `${e},${d},${c}${b},${a}`,
+                            });
+                          });
+                        } else if (max <= 4) {
+                          tempList.push({
+                            index: tempList.length,
+                            type: name,
+                            code: `${d},${c}${b},${a}`,
+                          });
+                        }
+                      });
+                    } else if (max <= 3) {
+                      tempList.push({
+                        index: tempList.length,
+                        type: name,
+                        code: `${c},${b},${a}`,
+                      });
+                    }
+                  });
+                } else if (max <= 2) {
+                  tempList.push({
+                    index: tempList.length,
+                    type: name,
+                    code: `${b},${a}`,
+                  });
+                }
+              });
+            } else if (max <= 1) {
+              tempList.push({
+                index: tempList.length,
+                type: name,
+                code: a,
+              });
+            }
+          });
         }
-        /*
-        i.total.forEach((item) => {
-          if (item.checked) {
+        if (extra.length) {
+          extra.forEach((i) => {
             tempList.push({
-              index: count,
-              type: i.displayName,
-              code: item.displayName,
+              index: tempList.length,
+              type: i.type,
+              code: i.code,
             });
-            count += 1;
+          });
+        }
+      } else if (flag === 2) {
+        list.forEach((i) => {
+          i.total.forEach((item) => {
+            if (item.checked) {
+              one.push(item.displayName);
+            }
+          });
+          if (one.length >= max) {
+            for (let i = 0; i < one.length; i++) {
+              for (let j = 0; j < i; j++) {
+                for (let k = 0; k < j; k++) {
+                  tempList.push({
+                    index: tempList.length,
+                    type: name,
+                    code: `${one[i]},${one[j]},${one[k]}`,
+                  });
+                }
+              }
+            }
           }
-        });*/
-      });
+        });
+      }
     }
+    console.log(tempList);
     this.props.updateCQSSC(tempList);
   }
+
   // 更改倍数
   calcRate(rate) {
     this.props.updateRate(rate);
@@ -1829,9 +1926,7 @@ class CQSSC extends React.Component {
           </Tabs>
         </Col>
         <Col span={24} className={styles.foot} >
-          <Col span={8} className={styles.detail} >
-            <Icon type="delete" onClick={this.delItem.bind(this)} />
-          </Col>
+          <Col span={8} className={styles.detail} >{CQSSC.length}注，共{2 * CQSSC.length * rate}分</Col>
           <Col span={10} >
             投
             <InputNumber
@@ -1886,6 +1981,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     clearCQSSC() {
       dispatch({ type: 'home/clearCQSSC' });
+    },
+    sendBuy(payload) {
+      dispatch({ type: 'home/sendBuy', payload });
     },
   };
 };

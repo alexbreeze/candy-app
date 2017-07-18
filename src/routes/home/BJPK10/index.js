@@ -1102,9 +1102,7 @@ class BJPK10 extends React.Component {
           </Tabs>
         </Col>
         <Col span={24} className={styles.foot} >
-          <Col span={8} className={styles.detail} >
-            <Icon type="delete" onClick={this.delItem.bind(this)} />
-          </Col>
+          <Col span={8} className={styles.detail} >{BJPK10.length}注，共{2 * BJPK10.length * rate}分</Col>
           <Col span={10} >
             投
             <InputNumber
