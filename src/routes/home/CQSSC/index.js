@@ -1267,42 +1267,49 @@ class CQSSC extends React.Component {
           total: [{
             id: 'SAB',
             displayName: '大',
+            type: '总和大小',
             rate: '5',
             checked: false,
           },
           {
             id: 'SAS',
             displayName: '小',
+            type: '总和大小',
             rate: '10',
             checked: false,
           },
           {
             id: 'SAO',
             displayName: '单',
+            type: '总和单双',
             rate: '3',
             checked: false,
           },
           {
             id: 'SAE',
             displayName: '双',
+            type: '总和单双',
             rate: '4',
             checked: false,
           },
           {
             id: 'SAA1',
             displayName: '龙',
+            type: '龙',
             rate: '4',
             checked: false,
           },
           {
             id: 'SAB2',
             displayName: '虎',
+            type: '虎',
             rate: '4',
             checked: false,
           },
           {
             id: 'SAC3',
             displayName: '和',
+            type: '和',
             rate: '4',
             checked: false,
           },
@@ -1378,6 +1385,7 @@ class CQSSC extends React.Component {
       three = [];
       four = [];
       five = [];
+      const extra = [];
       if (flag === 1) {
         list.forEach((i) => {
           i.total.forEach((item) => {
@@ -1396,6 +1404,12 @@ class CQSSC extends React.Component {
               }
               if (i.title === '万位') {
                 five.push(item.displayName);
+              }
+              if (i.title === '总和/龙虎') {
+                extra.push({
+                  type: item.type,
+                  code: item.displayName,
+                });
               }
             }
           });
@@ -1447,6 +1461,15 @@ class CQSSC extends React.Component {
                 code: a,
               });
             }
+          });
+        }
+        if (extra.length) {
+          extra.forEach((i) => {
+            tempList.push({
+              index: tempList.length,
+              type: i.type,
+              code: i.code,
+            });
           });
         }
       } else if (flag === 2) {

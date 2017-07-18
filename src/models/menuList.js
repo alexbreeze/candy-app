@@ -18,7 +18,7 @@ export default {
       yield put({ type: 'menuList' });
     },
     *back({ payload }, { put }) {
-      yield put(routerRedux.push(`/candyApp${payload}`));
+      yield put(routerRedux.push(`${payload}`));
     },
   },
   reducers: {
