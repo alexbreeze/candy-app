@@ -36,7 +36,7 @@ export default class Nav extends Component {
           menus.map((menu, index) => {
             return (
               <Menu.Item key={index} >
-                <Link to={menu.linkPage}>
+                <Link to={`/candyApp${menu.linkPage}`}>
                   <Icon type={menu.type} />
                   <span className="nav-text">{menu.title}</span>
                 </Link>

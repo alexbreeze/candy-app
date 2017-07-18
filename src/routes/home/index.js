@@ -103,7 +103,7 @@ class HomePage extends React.Component {
             content.length ?
               content.map((item, index) => {
                 return (
-                  <Link to={`/${item.type}`} key={index}>
+                  <Link to={`/candyApp/${item.type}`} key={index}>
                     <Row className={styles.listContent}>
                       <Col xs={24} sm={24}>
                         <Col xs={3} sm={2} className={styles.smLeft}>
