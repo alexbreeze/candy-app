@@ -53,7 +53,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getWinListDetail(data) {
-      dispatch({ type: 'win/getWinListDetail', payload: data });
+      dispatch({ type: 'lucky/getWinListDetail', payload: data });
     },
   };
 };

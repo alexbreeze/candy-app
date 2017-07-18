@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import FootNav from '../../components/footMenu';
-import styles from './index.less'
+import styles from './index.less';
 
 class LuckyList extends Component {
   render() {
@@ -30,7 +30,7 @@ class LuckyList extends Component {
             <Col span={12} className={styles.listRight}>kk</Col>
           </Col>
           <Col span={24} className={styles.containList}>
-            <Link to={`/candyApp/balance`}>
+            <Link to={'/balance'}>
               <Col span={12}>我的中奖</Col>
               <Col span={12} className={styles.listRight}>kk</Col>
             </Link>

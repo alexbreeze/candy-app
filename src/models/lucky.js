@@ -13,6 +13,7 @@ export default {
     *getWinListDetail({ payload }, { put, call }) {
       const data = yield call(getWinListDetail, payload);
       if (data.success) {
+        console.log(data)
         if (payload) {
           payload(data.list);
         }
@@ -47,7 +48,7 @@ export default {
       yield put({ type: 'setOpenList', payload });
     },
     *logOut({ payload }, { put }) {
-      yield put(routerRedux.push('/candyApp/login'));
+      yield put(routerRedux.push('/login'));
     },
     *getOpenListDetail({
              payload,

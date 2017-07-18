@@ -52,17 +52,17 @@ const CQSSC = (location, callback) => {
 function RouterConfig({ history }) {
   return (
     <Router history={history}>
-      <Route path="/candyApp" component={IndexPage}>
-        <IndexRedirect to="/candyApp/home" />
-        <Route path="/candyApp/home" getComponent={Home} />
-        <Route path="/candyApp/BJK3" getComponent={BJK3} />
-        <Route path="/candyApp/BJPK10" getComponent={BJPK10} />
-        <Route path="/candyApp/CQSSC" getComponent={CQSSC} />
-        <Route path="/candyApp/trend" getComponent={OpenList} />
-        <Route path="/candyApp/openListDetail:id" getComponent={OpenListDetail} />
-        <Route path="/candyApp/lucky" getComponent={LuckyList} />
-        <Route path="/candyApp/balance" getComponent={BALANCE} />
-        <Route path="/candyApp/win" getComponent={WIN} />
+      <Route path="/" component={IndexPage}>
+        <IndexRedirect to="/home" />
+        <Route path="/home" getComponent={Home} />
+        <Route path="/BJK3" getComponent={BJK3} />
+        <Route path="/BJPK10" getComponent={BJPK10} />
+        <Route path="/CQSSC" getComponent={CQSSC} />
+        <Route path="/trend" getComponent={OpenList} />
+        <Route path="/openListDetail:id" getComponent={OpenListDetail} />
+        <Route path="/lucky" getComponent={LuckyList} />
+        <Route path="/balance" getComponent={BALANCE} />
+        <Route path="/win" getComponent={WIN} />
       </Route>
       <Route path="/login" component={Login} />
     </Router>
