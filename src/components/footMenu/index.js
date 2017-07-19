@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Menu, Icon, Row, Col } from 'antd';
 import { Link } from 'dva/router';
+import { connect } from 'dva';
 import styles from './index.less';
 
-export default class FootNav extends Component {
+class FootNav extends Component {
   constructor() {
     super();
     this.state = {
@@ -12,14 +13,30 @@ export default class FootNav extends Component {
   }
 
   componentDidMount() {
+    let {
+      menuMap,
+    } = this.props;
+    if (/trend/.test(location.hash)) {
+      menuMap = ['1'];
+    } else if (/home/.test(location.hash)) {
+      menuMap = ['0'];
+    } else if (/lucky/.test(location.hash)) {
+      menuMap = ['2'];
+    }
+    this.props.updateMenuMap(menuMap);
   }
 
   componentWillReceiveProps(props) {
 
   }
-  handleClick(e) {
+  changeSel(item) {
+    const {
+      menuMap,
+    } = this.props;
+    menuMap.pop();
+    menuMap.push(item.key);
     this.setState({
-      current: e.key,
+      menuMap,
     });
   }
   render() {
@@ -32,9 +49,10 @@ export default class FootNav extends Component {
         <Row className={styles['foot-text']}>
           <Menu
             theme="dark"
-            defaultSelectedKeys={menuMap[location.pathname]}
-            selectedKeys={menuMap[location.pathname]}
+            defaultSelectedKeys={menuMap}
+            selectedKeys={menuMap}
             mode="horizontal"
+            onSelect={this.changeSel.bind(this)}
           >
             { menus && menus.length ?
               menus.map((menu, index) => {
@@ -55,3 +73,16 @@ export default class FootNav extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateMenuMap(payload) {
+      dispatch({ type: 'menu/updateMenuMap', payload });
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(FootNav);

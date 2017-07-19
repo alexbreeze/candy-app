@@ -29,7 +29,7 @@ export default {
           if (i.latestOpenCode) {
             i.latestOpenCodeList = i.latestOpenCode.split(',');
           }
-          if (`/${i.type}` === location.pathname) {
+          if (new RegExp(i.type).test(location.hash)) {
             headInfo = {
               code: i.latestOpenCodeList || [],
               nextSerialCode: i.nextSerialCode,

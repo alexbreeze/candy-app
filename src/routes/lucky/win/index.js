@@ -9,7 +9,6 @@ class Tab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: location.pathname.split(':')[1],
       columns: [
         {
         title: '号码',

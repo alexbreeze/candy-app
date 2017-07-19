@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Tabs, Row, Col } from 'antd';
+import { Tabs, Row, Col, Table } from 'antd';
 import styles from './index.less';
 
 const { TabPane } = Tabs;
@@ -9,7 +9,7 @@ class Tab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: location.pathname.split(':')[1],
+
     };
   }
   componentDidMount() {
@@ -31,10 +31,21 @@ class Tab extends Component {
       trend,
     } = this.props;
     const { contentDetail, isLoading } = trend;
+    const columns = [
+      { title: '种类', dataIndex: 'category', key: 'category' },
+      { title: '期数', dataIndex: 'serialCode', key: 'serialCode' },
+      { title: '中奖金额', dataIndex: 'winReward', key: 'winReward' },
+    ];
     return (
       <Row className={styles.detailTab}>
         <Col span={24}>
-          mmmmm
+          <Table
+            columns={columns}
+            dataSource={data}
+            scroll={{ y: 240 }}
+            pagination={false}
+            loading={isLoading}
+          />
         </Col>
       </Row>
     );

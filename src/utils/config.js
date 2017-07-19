@@ -20,5 +20,6 @@ module.exports = {
   },
   sessionKey: {
     token: '__token__',
+    userName: '__user-name__',
   },
 };

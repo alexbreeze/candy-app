@@ -22,6 +22,7 @@ export default {
         throw data;
       } else {
         sessionStorage.setItem(sessionKey.token, data.token);
+        sessionStorage.setItem(sessionKey.userName, data.userName);
         yield put(routerRedux.push('/home'));
         setToken(data.token);
       }

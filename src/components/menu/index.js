@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Menu, Icon } from 'antd';
 import { Link } from 'dva/router';
+import { connect } from 'dva';
 import './index.less';
 
-export default class Nav extends Component {
+class Nav extends Component {
   constructor() {
     super();
     this.state = {
@@ -12,15 +13,17 @@ export default class Nav extends Component {
   }
 
   componentDidMount() {
-  }
-
-  componentWillReceiveProps() {
-
-  }
-  handleClick(e) {
-    this.setState({
-      current: e.key,
-    });
+    let {
+      menuMap,
+    } = this.props;
+    if (/trend/.test(location.hash)) {
+      menuMap = ['1'];
+    } else if (/home/.test(location.hash)) {
+      menuMap = ['0'];
+    } else if (/lucky/.test(location.hash)) {
+      menuMap = ['2'];
+    }
+    this.props.updateMenuMap(menuMap);
   }
   render() {
     const {
@@ -30,7 +33,8 @@ export default class Nav extends Component {
     return (
       <Menu
         theme="dark" mode="inline"
-        defaultSelectedKeys={menuMap[location.pathname]}
+        defaultSelectedKeys={menuMap}
+        selectedKeys={menuMap}
       >
         { menus && menus.length ?
           menus.map((menu, index) => {
@@ -49,3 +53,16 @@ export default class Nav extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateMenuMap(payload) {
+      dispatch({ type: 'menu/updateMenuMap', payload });
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Nav);

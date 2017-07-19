@@ -4,11 +4,7 @@ import { routerRedux } from 'dva/router';
 export default {
   namespace: 'menu',
   state: {
-    menuMap: {
-      '/home': ['0'],
-      '/trend': ['1'],
-      '/lucky': ['2'],
-    },
+    menuMap: ['0'],
   },
 
   effects: {
@@ -20,6 +16,9 @@ export default {
     *back({ payload }, { put }) {
       yield put(routerRedux.push(`${payload}`));
     },
+    *updateMenuMap({ payload }, { put }) {
+      yield put({ type: 'menuMap', payload });
+    },
   },
   reducers: {
     menuList(state) {
@@ -30,6 +29,12 @@ export default {
           { id: 'trend', type: 'line-chart', title: '走势图', linkPage: '/trend' },
           { id: 'lucky', type: 'user', title: '我的', linkPage: '/lucky' },
         ],
+      };
+    },
+    menuMap(state, { payload }) {
+      return {
+        ...state,
+        menuMap: payload,
       };
     },
   },
