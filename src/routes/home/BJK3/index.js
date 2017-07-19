@@ -931,7 +931,7 @@ class BJK3 extends React.Component {
     return (
       <Row className={styles.BJK3}>
         <Col xs={24} sm={0}>
-          <HeadMenu title="北京快3" back="/home" />
+          <HeadMenu title="北京快3" back="/home" detail='/BJK3-detail'/>
         </Col>
         <Col span={24} className={styles.head} >
           <Row>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'dva/router'
 import { Row, Icon, Col } from 'antd';
 import { connect } from 'dva';
 import styles from './index.less';
@@ -25,16 +26,19 @@ class HeadMenu extends Component {
       menus,
       title,
       back,
+      detail,
     } = this.props;
     return (
       <Row className={styles['head-menu']}>
         <Col span={2} offset={1} className={styles.back} onClick={this.goBack.bind(this, back)}>
           <Icon type="arrow-left" />
         </Col>
-        <Col span={19} className={styles.title}>{title}</Col>
-        <Col span={2}>
-          <Icon type="question-circle-o" />
-        </Col>
+        <Col span={18} className={styles.title}>{title}</Col>
+        <Link to={detail}>
+          <Col span={3}>
+            <Icon type="question-circle-o" />
+          </Col>
+        </Link>
       </Row>
     );
   }

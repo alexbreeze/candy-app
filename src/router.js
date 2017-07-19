@@ -38,15 +38,30 @@ const BJK3 = (location, callback) => {
     callback(null, require('./routes/home/BJK3'));
   }, 'BJK3');
 };
+const BJK3DETAIL = (location, callback) => {
+  require.ensure([], (require) => {
+    callback(null, require('./routes/home/BJK3-detail'));
+  }, 'BJK3-detail');
+};
 const BJPK10 = (location, callback) => {
   require.ensure([], (require) => {
     callback(null, require('./routes/home/BJPK10'));
   }, 'BJPK10');
 };
+const BJPK10DETAIL = (location, callback) => {
+  require.ensure([], (require) => {
+    callback(null, require('./routes/home/BJPK10-detail'));
+  }, 'BJPK10-detail');
+};
 const CQSSC = (location, callback) => {
   require.ensure([], (require) => {
     callback(null, require('./routes/home/CQSSC'));
   }, 'CQSSC');
+};
+const CQSSCDETAIL = (location, callback) => {
+  require.ensure([], (require) => {
+    callback(null, require('./routes/home/CQSSC-detail'));
+  }, 'CQSSC-detail');
 };
 
 function RouterConfig({ history }) {
@@ -56,8 +71,11 @@ function RouterConfig({ history }) {
         <IndexRedirect to="/home" />
         <Route path="/home" getComponent={Home} />
         <Route path="/BJK3" getComponent={BJK3} />
+        <Route path="/BJK3-detail" getComponent={BJK3DETAIL} />
         <Route path="/BJPK10" getComponent={BJPK10} />
+        <Route path="/BJPK10-detail" getComponent={BJPK10DETAIL} />
         <Route path="/CQSSC" getComponent={CQSSC} />
+        <Route path="/CQSSC-detail" getComponent={CQSSCDETAIL} />
         <Route path="/trend" getComponent={OpenList} />
         <Route path="/openListDetail:id" getComponent={OpenListDetail} />
         <Route path="/lucky" getComponent={LuckyList} />

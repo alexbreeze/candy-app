@@ -1586,7 +1586,7 @@ class CQSSC extends React.Component {
     return (
       <Row className={styles.CQSSC}>
         <Col xs={24} sm={0}>
-          <HeadMenu title="重庆时时彩" back="/home" />
+          <HeadMenu title="重庆时时彩" back="/home" detail='/CQSSC-detail' />
         </Col>
         <Col span={24} className={styles.head} >
           <Row>
