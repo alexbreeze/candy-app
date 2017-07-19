@@ -10,11 +10,29 @@ class Tab extends Component {
     super(props);
     this.state = {
       type: location.pathname.split(':')[1],
+      columns: [
+        {
+        title: '号码',
+        key: '1'
+      },
+      {
+        title: '期数',
+        key: '2'
+      }
+      ,{
+        title: '中奖号码',
+        key: 'winNumber'
+      }
+      ,{
+        title: '期数',
+        key: '2'
+      }]
     };
   }
   componentDidMount() {
     this.props.getWinListDetail({
       type: this.state.type,
+      win: 0,
       pageIndex: 1,
       pageSize: 10,
     });
@@ -30,15 +48,16 @@ class Tab extends Component {
     const {
       items,
       trend,
+      winList
     } = this.props;
+    const {columns}= this.state;
     const { contentDetail, isLoading } = trend;
     return (
       <Row className={styles.detailTab}>
         <Col span={24}>
           <Table
-            rowSelection={rowSelection}
             columns={columns}
-            dataSource={data} />
+            dataSource={winList} />
         </Col>
       </Row>
     );

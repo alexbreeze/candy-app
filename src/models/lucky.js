@@ -17,21 +17,6 @@ export default {
         if (payload) {
           payload(data.list);
         }
-        let headInfo = {};
-        data.list.forEach((i) => {
-          if (i.latestOpenCode) {
-            i.latestOpenCodeList = i.latestOpenCode.split(',');
-          }
-          if (`/${i.type}` === location.pathname) {
-            headInfo = {
-              code: i.latestOpenCodeList || [],
-              nextSerialCode: i.nextSerialCode,
-              latestSerialCode: i.latestSerialCode,
-              nextStopTime: i.nextStopTime,
-              latestOpenCode: i.latestOpenCode,
-            };
-          }
-        });
         yield put({ type: 'setHeadInfo', payload: headInfo });
         yield put({ type: 'setOpenList', payload: data.list });
       } else {
