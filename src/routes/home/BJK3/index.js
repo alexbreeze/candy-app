@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Row, Col, Tabs, Button, Carousel, InputNumber, Modal, Table, Icon, message } from 'antd';
 import HeadMenu from '../../../components/headMenu';
-
+import BJK3TOP from '../../../components/BJK3Top'
 import styles from './index.less';
 import '../../../iconfont/iconfont.css';
 
@@ -717,6 +717,7 @@ class BJK3 extends React.Component {
         },
       ],
       visible: false,
+      isShow: false,
       showTime: '00:00',
     };
   }
@@ -897,6 +898,11 @@ class BJK3 extends React.Component {
   delItem(item) {
     this.props.delBJK3Item(item.index);
   }
+  changeShow(){
+      this.setState({
+        isShow: !this.state.isShow
+      })
+  }
   render() {
     const {
       trend,
@@ -922,6 +928,7 @@ class BJK3 extends React.Component {
       threeDifAll,
       twoDif,
       showTime,
+      isShow,
     } = this.state;
     const columns = [
       { title: '种类', dataIndex: 'type', key: 'type' },
@@ -935,7 +942,7 @@ class BJK3 extends React.Component {
         </Col>
         <Col span={24} className={styles.head} >
           <Row>
-            <Col span={16} >
+            <Col span={11} >
               <Row>
                 <Col span={24} className={styles.latestOpenCode} >
                   {
@@ -960,6 +967,7 @@ class BJK3 extends React.Component {
                 </Col>
               </Row>
             </Col>
+            <Col span={4} onClick={this.changeShow.bind(this)}>下拉</Col>
             <Col span={8} className={styles.nextSerialCode} >
               <Row>
                 <Col span={24} >
@@ -975,11 +983,12 @@ class BJK3 extends React.Component {
         <Col span={24} className={styles.main} >
           <Row>
             <Col span={24} className={styles.info}>
-              <Carousel vertical autoplay focusOnSelect dots={false} >
+              {/* <Carousel vertical autoplay focusOnSelect dots={false} >
                 <Row style={{ color: '#fff' }}>我是一段tip信息</Row>
                 <Row style={{ color: '#fff' }}>我是一段tip信息</Row>
                 <Row style={{ color: '#fff' }}>我是一段tip信息</Row>
-              </Carousel>
+              </Carousel> */}
+              <BJK3TOP isShow={isShow}></BJK3TOP>
             </Col>
           </Row>
           <Tabs renderTabBar renderTabContent defaultActiveKey="0">

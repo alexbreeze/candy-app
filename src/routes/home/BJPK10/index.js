@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Row, Col, Tabs, Button, Carousel, InputNumber, Modal, Table, Icon, message } from 'antd';
 import HeadMenu from '../../../components/headMenu';
+import BJPK10TOP from '../../../components/BJPK10Top';
 import styles from './index.less';
 import '../../../iconfont/iconfont.css';
 
@@ -11,6 +12,7 @@ class BJPK10 extends React.Component {
   constructor() {
     super();
     this.state = {
+      isShow: false,
       totalList: [
         {
           title: '冠军',
@@ -892,6 +894,11 @@ class BJPK10 extends React.Component {
   componentDidMount() {
     this.props.getOpenList();
   }
+  changeShow(){
+      this.setState({
+        isShow: !this.state.isShow
+      })
+  }
   // 改变状态
   changeChecked(list, ev) {
     let tempArr = [];
@@ -1010,6 +1017,7 @@ class BJPK10 extends React.Component {
       totalList,
       pkList,
       showTime,
+      isShow,
     } = this.state;
     const columns = [
       { title: '种类', dataIndex: 'type', key: 'type' },
@@ -1023,12 +1031,13 @@ class BJPK10 extends React.Component {
         </Col>
         <Col span={24} className={styles.head} >
           <Row>
-            <Col span={16} >
+            <Col span={12} >
               <Row>
                 <Col span={24}>北京PK拾 第33333期</Col>
                 <Col span={24}>000000000</Col>
               </Row>
             </Col>
+            <Col span={4} onClick={this.changeShow.bind(this)}>下拉</Col>
             <Col span={8} className={styles.nextSerialCode} >
               <Row>
                 <Col span={24}>
@@ -1042,6 +1051,16 @@ class BJPK10 extends React.Component {
           </Row>
         </Col>
         <Col span={24} className={styles.main}>
+          <Row>
+            <Col span={24} className={styles.info}>
+              {/* <Carousel vertical autoplay focusOnSelect dots={false} >
+                <Row style={{ color: '#fff' }}>我是一段tip信息</Row>
+                <Row style={{ color: '#fff' }}>我是一段tip信息</Row>
+                <Row style={{ color: '#fff' }}>我是一段tip信息</Row>
+              </Carousel> */}
+              <BJPK10TOP isShow={isShow}></BJPK10TOP>
+            </Col>
+          </Row>
           <Tabs renderTabBar renderTabContent defaultActiveKey="0">
             <TabPane tab="两面盘" key="0" >
               {

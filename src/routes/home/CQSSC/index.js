@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Row, Col, Tabs, Button, Carousel, InputNumber, Modal, Table, Icon, message } from 'antd';
 import HeadMenu from '../../../components/headMenu';
+import CQSSCTOP from '../../../components/CQSSCTop'
 import styles from './index.less';
 import '../../../iconfont/iconfont.css';
 
@@ -1317,6 +1318,7 @@ class CQSSC extends React.Component {
         },
       ],
       visible: false,
+      isShow: false,
       showTime: '00:00',
       one: [],
       two: [],
@@ -1327,6 +1329,11 @@ class CQSSC extends React.Component {
   }
   componentDidMount() {
     this.props.getOpenList();
+  }
+  changeShow(){
+      this.setState({
+        isShow: !this.state.isShow
+      })
   }
   // 改变状态
   changeChecked(list, ev) {
@@ -1577,6 +1584,7 @@ class CQSSC extends React.Component {
       fiveStarList,
       fiveTStarList,
       sizeStarList,
+      isShow,
     } = this.state;
     const columns = [
       { title: '种类', dataIndex: 'type', key: 'type' },
@@ -1590,12 +1598,13 @@ class CQSSC extends React.Component {
         </Col>
         <Col span={24} className={styles.head} >
           <Row>
-            <Col span={16} >
+            <Col span={11} >
               <Row>
                 <Col span={24}>重庆时时彩 第33888983期</Col>
                 <Col span={24}>000000000</Col>
               </Row>
             </Col>
+            <Col span={4} onClick={this.changeShow.bind(this)}>下拉</Col>
             <Col span={8} className={styles.nextSerialCode} >
               <Row>
                 <Col span={24}>78909777期截止</Col>
@@ -1605,6 +1614,16 @@ class CQSSC extends React.Component {
           </Row>
         </Col>
         <Col span={24} className={styles.main}>
+          <Row>
+            <Col span={24} className={styles.info}>
+              {/* <Carousel vertical autoplay focusOnSelect dots={false} >
+                <Row style={{ color: '#fff' }}>我是一段tip信息</Row>
+                <Row style={{ color: '#fff' }}>我是一段tip信息</Row>
+                <Row style={{ color: '#fff' }}>我是一段tip信息</Row>
+              </Carousel> */}
+              <CQSSCTOP isShow={isShow}></CQSSCTOP>
+            </Col>
+          </Row>
           <Tabs renderTabBar renderTabContent defaultActiveKey="0">
             <TabPane tab="一星直选" key="0" >
               <Row>
@@ -1925,6 +1944,7 @@ class CQSSC extends React.Component {
             </TabPane>
           </Tabs>
         </Col>
+
         <Col span={24} className={styles.foot} >
           <Col span={8} className={styles.detail} >{CQSSC.length}注，共{2 * CQSSC.length * rate}分</Col>
           <Col span={10} >
