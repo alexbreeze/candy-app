@@ -17,6 +17,7 @@ module.exports = {
     buy: `${URL}/lottery/buy`,
     winList: `${URL}/lottery/mine`,
     banbleDetail: `${URL}/account/balance`,
+    mine: `${URL}/lottery/mine`,
   },
   sessionKey: {
     token: '__token__',

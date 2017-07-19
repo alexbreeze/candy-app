@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Tabs, Row, Col, Table } from 'antd';
 import styles from './index.less';
+import HeadMenu from '../../../components/headMenu';
 
 const { TabPane } = Tabs;
 
@@ -13,38 +14,42 @@ class Tab extends Component {
     };
   }
   componentDidMount() {
-    // this.props.getBalanceDetail({
-    //   type: this.state.type,
-    //   pageSize: 10,
-    // });
+    this.props.getMine({
+      pageIndex: 0,
+      pageSize: 10000,
+    });
   }
-  callback = (key) => {
-    const pageSize = key === '0' ? 10 : key === '1' ? 50 : key === '2' ? 100 : 10;
-    // this.props.getOpenListDetail({
-    //   type: this.state.type,
-    //   pageSize,
-    // });
-  };
+  changePage(data) { /*
+    this.props.getMine({
+      pageIndex: data.current,
+      pageSize: 10000000,
+    });*/
+  }
   render() {
     const {
-      items,
       trend,
+      lucky,
     } = this.props;
-    const { contentDetail, isLoading } = trend;
+    const { isLoading } = trend;
+    const { balanceList } = lucky;
     const columns = [
-      { title: '种类', dataIndex: 'category', key: 'category' },
-      { title: '期数', dataIndex: 'serialCode', key: 'serialCode' },
-      { title: '中奖金额', dataIndex: 'winReward', key: 'winReward' },
+      { title: '种类', dataIndex: 'category', key: 'category', width: 75 },
+      { title: '期数', dataIndex: 'serialCode', key: 'serialCode', width: '' },
+      { title: '中奖金额', dataIndex: 'winReward', key: 'winReward', width: 75 },
     ];
     return (
       <Row className={styles.detailTab}>
+        <Col xs={24} sm={0}>
+          <HeadMenu title="我的购买记录" back="/lucky" />
+        </Col>
         <Col span={24}>
           <Table
             columns={columns}
-            dataSource={data}
-            scroll={{ y: 240 }}
-            pagination={false}
+            dataSource={balanceList}
+            pagination
             loading={isLoading}
+            rowKey={(record, index) => index}
+            onChange={this.changePage.bind(this)}
           />
         </Col>
       </Row>
@@ -59,8 +64,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    getBalanceDetail(data) {
-      dispatch({ type: 'trend/getBalanceDetail', payload: data });
+    getMine(data) {
+      dispatch({ type: 'lucky/getMine', payload: data });
     },
   };
 };
