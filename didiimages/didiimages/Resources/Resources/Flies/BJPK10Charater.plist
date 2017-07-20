@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>name</key>
+		<string>冠军</string>
+        <key>type</key>
+        <string>Z1</string>
+		<key>items</key>
+		<array>
+			<dict>
+				<key>code</key>
+				<string>大</string>
+			</dict>
+            
+            <dict>
+                <key>code</key>
+                <string>小</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>单</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>双</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>龙</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>虎</string>
+            </dict>
+		</array>
+	</dict>
+
+    <dict>
+        <key>name</key>
+        <string>亚军</string>
+        <key>type</key>
+        <string>Z2</string>
+        <key>items</key>
+        <array>
+            <dict>
+                <key>code</key>
+                <string>大</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>小</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>单</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>双</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>龙</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>虎</string>
+            </dict>
+        </array>
+    </dict>
+    
+    <dict>
+        <key>name</key>
+        <string>第三名</string>
+        <key>type</key>
+        <string>Z3</string>
+        <key>items</key>
+        <array>
+            <dict>
+                <key>code</key>
+                <string>大</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>小</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>单</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>双</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>龙</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>虎</string>
+            </dict>
+        </array>
+    </dict>
+    
+    <dict>
+        <key>name</key>
+        <string>第四名</string>
+        <key>type</key>
+        <string>Z4</string>
+        <key>items</key>
+        <array>
+            <dict>
+                <key>code</key>
+                <string>大</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>小</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>单</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>双</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>龙</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>虎</string>
+            </dict>
+        </array>
+    </dict>
+    
+    <dict>
+        <key>name</key>
+        <string>第五名</string>
+        <key>type</key>
+        <string>Z5</string>
+        <key>items</key>
+        <array>
+            <dict>
+                <key>code</key>
+                <string>大</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>小</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>单</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>双</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>龙</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>虎</string>
+            </dict>
+        </array>
+    </dict>
+    
+    <dict>
+        <key>name</key>
+        <string>第六名</string>
+        <key>type</key>
+        <string>Z6</string>
+        <key>items</key>
+        <array>
+            <dict>
+                <key>code</key>
+                <string>大</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>小</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>单</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>双</string>
+            </dict>
+        </array>
+    </dict>
+    
+    
+    <dict>
+        <key>name</key>
+        <string>第七名</string>
+        <key>type</key>
+        <string>Z7</string>
+        <key>items</key>
+        <array>
+            <dict>
+                <key>code</key>
+                <string>大</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>小</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>单</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>双</string>
+            </dict>
+        </array>
+    </dict>
+    
+    
+    <dict>
+        <key>name</key>
+        <string>第八名</string>
+        <key>type</key>
+        <string>Z8</string>
+        <key>items</key>
+        <array>
+            <dict>
+                <key>code</key>
+                <string>大</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>小</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>单</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>双</string>
+            </dict>
+        </array>
+    </dict>
+    
+    
+    <dict>
+        <key>name</key>
+        <string>第九名</string>
+        <key>type</key>
+        <string>Z9</string>
+        <key>items</key>
+        <array>
+            <dict>
+                <key>code</key>
+                <string>大</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>小</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>单</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>双</string>
+            </dict>
+        </array>
+    </dict>
+    
+    
+    <dict>
+        <key>name</key>
+        <string>第十名</string>
+        <key>type</key>
+        <string>Z10</string>
+        <key>items</key>
+        <array>
+            <dict>
+                <key>code</key>
+                <string>大</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>小</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>单</string>
+            </dict>
+            
+            <dict>
+                <key>code</key>
+                <string>双</string>
+            </dict>
+        </array>
+    </dict>
+</array>
+</plist>

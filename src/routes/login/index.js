@@ -12,7 +12,7 @@ class NormalLoginForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        // values.password = md5(md5(values.password));
+        values.password = md5(md5(values.password+''));
         this.props.login(values);
       }
     });
