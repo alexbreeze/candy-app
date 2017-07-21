@@ -3,10 +3,12 @@ import dva from 'dva';
 import createLoading from 'dva-loading';
 import { hashHistory } from 'dva/router';
 import { message } from 'antd';
+import initReactFastclick from 'react-fastclick';
 import './index.html';
 import './index.css';
 
 // 1. Initialize
+initReactFastclick();
 const app = dva({
   ...createLoading({
     effects: true,
