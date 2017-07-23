@@ -25,5 +25,6 @@ module.exports = {
   sessionKey: {
     token: '__token__',
     userName: '__user-name__',
+    // continue: '__continue__',
   },
 };

@@ -38,12 +38,6 @@ class NormalLoginForm extends React.Component {
           )}
         </FormItem>
         <FormItem>
-          {getFieldDecorator('remember', {
-            valuePropName: 'checked',
-            initialValue: true,
-          })(
-            <Checkbox>记住密码</Checkbox>,
-          )}
           <a className={styles['login-form-forgot']} href="">忘记密码</a>
           <Button type="primary" loading={loginLoading} htmlType="submit" className={styles['login-form-button']}>
             登陆

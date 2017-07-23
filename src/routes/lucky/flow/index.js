@@ -81,11 +81,11 @@ class Tab extends Component {
             <div className="editable-row-operations">
               {
                 text > 0 ?
-                  <span style={{color: 'green'}} >
+                  <span style={{ color: 'green' }} >
                     {text}
                   </span> :
-                  <span style={{color: 'red'}}>
-                    {text}
+                  <span style={{ color: 'red' }}>
+                    {Math.abs(text)}
                   </span>
               }
             </div>

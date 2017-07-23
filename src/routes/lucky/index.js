@@ -18,14 +18,34 @@ class LuckyList extends Component {
     const userName = sessionStorage.getItem(sessionKey.userName);
     this.state = {
       userName,
-      value: '',
+      visible: false,
     };
   }
   componentDidMount() {
     this.props.getBalance();
   }
   goIntent() {
-
+    this.setState({
+      visible: true,
+    });
+    this.props.getApply();
+  }
+  handleOk() {
+    this.setState({
+      visible: false,
+    });
+    this.props.getBalance();
+  }
+  handleCancel() {
+    this.setState({
+      visible: false,
+    });
+  }
+  copy(){
+    message.success('已复制到剪贴板');
+  }
+  logoOut() {
+    this.props.logOut();
   }
   render() {
     const {
@@ -38,37 +58,37 @@ class LuckyList extends Component {
       } = menu;
     const {
       userName,
-      value,
     } = this.state;
     const {
       balance,
       profit,
+      value,
     } = lucky;
     return (
       <Col className={styles.contain}>
         <Row>
           <Col span={24} className={styles.containList}>
             <Col span={12}>
-              <Icon style={{color: '#e95525'}} type="user" /> 名字
+              <Icon style={{ color: '#e95525' }} type="user" /> 名字
             </Col>
             <Col span={12} className={styles.listRight}>{userName}</Col>
           </Col>
           <Col span={24} className={styles.containList}>
             <Col span={12}>
-              <Icon style={{color: '#e95525'}} type="user-add" /> 积分
+              <Icon style={{ color: '#e95525' }} type="user-add" /> 积分
             </Col>
             <Col span={12} className={styles.listRight}>{balance}</Col>
           </Col>
           <Col span={24} className={styles.containList}>
             <Col span={12}>
-              <Icon style={{color: '#e95525'}} type="bank" /> 中奖总额
+              <Icon style={{ color: '#e95525' }} type="bank" /> 中奖总额
             </Col>
             <Col span={12} className={styles.listRight}>{profit}</Col>
           </Col>
           <Link to={'/balance'}>
             <Col span={24} className={styles.containList}>
               <Col span={12}>
-                <Icon style={{color: '#e95525'}} type="star-o" /> 购彩记录
+                <Icon style={{ color: '#e95525' }} type="star-o" /> 购彩记录
               </Col>
               <Col span={12} className={styles.listRight}>
                 <Icon type="right" />
@@ -78,7 +98,7 @@ class LuckyList extends Component {
           <Link to={'/win'}>
             <Col span={24} className={styles.containList}>
               <Col span={12}>
-                <Icon style={{color: '#e95525'}} type="trophy" /> 我的中奖
+                <Icon style={{ color: '#e95525' }} type="trophy" /> 我的中奖
               </Col>
               <Col span={12} className={styles.listRight}>
                 <Icon type="right" />
@@ -87,14 +107,14 @@ class LuckyList extends Component {
           </Link>
           <Col span={24} className={styles.containList} onClick={this.goIntent.bind(this)}>
             <Col span={12}>
-              <Icon style={{color: '#e95525'}} type="pay-circle-o" /> 积分充值
+              <Icon style={{ color: '#e95525' }} type="pay-circle-o" /> 积分充值
             </Col>
             <Col span={12} className={styles.listRight}>{}</Col>
           </Col>
           <Link to={'/flow'}>
             <Col span={24} className={styles.containList}>
               <Col span={12}>
-                <Icon style={{color: '#e95525'}} type="clock-circle-o" /> 充值记录
+                <Icon style={{ color: '#e95525' }} type="clock-circle-o" /> 充值记录
               </Col>
               <Col span={12} className={styles.listRight}>
                 <Icon type="right" />
@@ -102,9 +122,39 @@ class LuckyList extends Component {
             </Col>
           </Link>
           <Col span={24} className={styles.exit}>
-            <Button style={{width: '100%', background: '#e95525', color: '#fff'}} size="large" >退出登陆</Button>
+            <Button style={{ width: '100%', background: '#e95525', color: '#fff' }} onClick={this.logoOut.bind(this)} size="large" >退出登陆</Button>
           </Col>
         </Row>
+        <Modal
+          title="积分充值"
+          visible={this.state.visible}
+          onOk={this.handleOk.bind(this)}
+          okText={'充值完成'}
+          onCancel={this.handleCancel.bind(this)}
+          cancelText={'取消充值'}
+        >
+          <Row>
+            <Col span={8} className={styles.img}>
+              <a href={require('../../assets/yay.jpg')} download={require('../../assets/yay.jpg')}>
+                <img src={require('../../assets/yay.jpg')} alt="长按保存到本地" />
+              </a>
+            </Col>
+            <Col span={16}>
+              <p>点击图片保存到相册</p>
+              <br />
+              <CopyToClipboard
+                text={value}
+                onCopy={this.copy.bind(this)}
+              >
+                <p>您当前的支付码为{value}，请在支付宝支付时将其填写到备注, 点击复制此支付码</p>
+              </CopyToClipboard>
+              <br />
+              <p>
+                <a rel="noopener noreferrer" target="_blank" href="https://ds.alipay.com/?from=mobileweb">点击打开支付宝</a>
+              </p>
+            </Col>
+          </Row>
+        </Modal>
         <FootNav menus={menus} menuMap={menuMap} />
       </Col>
     );
@@ -119,6 +169,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getBalance() {
       dispatch({ type: 'lucky/getBalance' });
+    },
+    getApply() {
+      dispatch({ type: 'lucky/getApply' });
+    },
+    logOut() {
+      dispatch({ type: 'login/logOut' });
     },
   };
 };

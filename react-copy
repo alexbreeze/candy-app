@@ -11,3 +11,21 @@
           </Col>
 打开支付宝
 <a target="_blank" href="https://ds.alipay.com/?from=mobileweb">点击打开支付宝</a>
+<a href="logo.png" download="logo.png">
+    <img src="logo.png" alt="">
+</a>
+
+
+//追注功能
+
+      { title: '操作',
+        dataIndex: 'continue',
+        key: 'continue',
+        width: 75,
+        render: (text, record) => {
+          return (
+            <Link onClick={this.continue.bind(this, record)}>
+              追
+            </Link>
+          );
+        } },

@@ -17,7 +17,7 @@
   top: 96px;
   left: 0;
   right: 0;
-  bottom: 50px;
+  bottom: 100px;
   overflow: auto;
   background: #fff;
   :global(.ant-tabs-bar){
@@ -89,6 +89,35 @@
 @media screen and (min-width: 769px) {
   .main{
     top: 50px;
+  }
+}
+.foot-modal{
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  background: @mainColor;
+  color: #fff;
+  padding: 9px 24px;
+  line-height: 32px;
+}
+.foot-inner{
+  display: flex;
+}
+.gray{
+  color: #333;
+}
+.icon-wrap{
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  line-height: 30px;
+  box-sizing: border-box;
+  text-align: center;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  i{
+    font-weight: bold;
   }
 }
 .foot{

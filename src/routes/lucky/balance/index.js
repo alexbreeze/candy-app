@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Tabs, Row, Col, Table } from 'antd';
+import { routerRedux, Link } from 'dva/router';
+import { Tabs, Row, Col, Table, Modal } from 'antd';
 import initReactFastclick from 'react-fastclick';
 import styles from './index.less';
 import HeadMenu from '../../../components/headMenu';
 
-const { TabPane } = Tabs;
-initReactFastclick()
+import { config } from '../../../utils';
+
+const { sessionKey } = config;
+initReactFastclick();
 
 class Tab extends Component {
   constructor(props) {
@@ -14,6 +17,7 @@ class Tab extends Component {
     this.state = {
       pageIndex: 0,
       pageSize: 10,
+      isShow: false,
     };
   }
   componentDidMount() {
@@ -30,7 +34,7 @@ class Tab extends Component {
       pageSize: 10000000,
     });*/
   }
-  goNext(){
+  goNext() {
     const self = this;
     this.state.pageIndex++;
     this.setState({
@@ -40,6 +44,9 @@ class Tab extends Component {
       pageIndex: self.state.pageIndex,
       pageSize: self.state.pageSize,
     });
+  }
+  continue(record) {
+    // sessionStorage.setItem(sessionKey.continue, JSON.stringify(record));
   }
   render() {
     const {
@@ -88,7 +95,7 @@ const mapDispatchToProps = (dispatch) => {
     getMine(data) {
       dispatch({ type: 'lucky/getMine', payload: data });
     },
-    clearBalanceList(){
+    clearBalanceList() {
       dispatch({ type: 'lucky/clearBalanceList' });
     },
   };

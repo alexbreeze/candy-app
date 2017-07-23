@@ -1,6 +1,6 @@
 import { routerRedux } from 'dva/router';
 // import { queryURL } from '../utils';
-import { getBalanceDetail, getMine, getFlow } from '../services/lucky';
+import { getBalanceDetail, getMine, getFlow, getApply } from '../services/lucky';
 
 export default {
   namespace: 'lucky',
@@ -13,6 +13,7 @@ export default {
     isLoading: false,
     profit: '',
     balance: '',
+    value: '',
   },
   effects: {
     *getBalance({ payload }, { put, call }) {
@@ -41,13 +42,20 @@ export default {
       if (!data.success) {
         throw data;
       } else {
-        console.log(data)
         if (data.list.length < 10) {
           data.text = '';
         } else {
           data.text = '加载更多...';
         }
         yield put({ type: 'flow', payload: data });
+      }
+    },
+    *getApply({ payload }, { put, call }) {
+      const data = yield call(getApply, payload);
+      if (!data.success) {
+        throw data;
+      } else {
+        yield put({ type: 'apply', payload: data });
       }
     },
     *clearBalanceList({ payload }, { put, call }) {
@@ -89,6 +97,12 @@ export default {
         ...state,
         flowList: state.flowList.concat(payload.list),
         flowText: payload.text,
+      };
+    },
+    apply(state, { payload }) {
+      return {
+        ...state,
+        value: payload.code,
       };
     },
   },

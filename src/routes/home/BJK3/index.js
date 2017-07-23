@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Row, Col, Tabs, Button, Carousel, InputNumber, Modal, Table, Icon, message } from 'antd';
+import { Row, Col, Tabs, Button, Carousel, Input, Modal, Table, Icon, message } from 'antd';
 import initReactFastclick from 'react-fastclick';
 import HeadMenu from '../../../components/headMenu';
 import BJK3TOP from '../../../components/BJK3Top';
+import { config } from '../../../utils';
 import styles from './index.less';
 import '../../../iconfont/iconfont.css';
+
+const { sessionKey } = config;
 
 const { TabPane } = Tabs;
 initReactFastclick();
@@ -860,7 +863,17 @@ class BJK3 extends React.Component {
     this.staticCount.call(this);
   }
   // 更改倍数
-  calcRate(rate) {
+  calcRate(e) {
+    const rate = +e.target.value;
+    if (isNaN(rate)) {
+      return false;
+    }
+    this.props.updateRate(rate);
+  }
+  changeRate(flag) {
+    let rate = this.props.home.rate;
+    rate += +flag;
+    rate = rate <= 0 ? 1 : rate;
     this.props.updateRate(rate);
   }
   openModal() {
@@ -1310,19 +1323,29 @@ class BJK3 extends React.Component {
             </TabPane>
           </Tabs>
         </Col>
-        <Col span={24} className={styles.foot} >
-          <Col span={8} className={styles.detail} >{BJK3.length}注，共{2 * BJK3.length * rate}分</Col>
-          <Col span={10} >
+        <Col span={BJK3.length ? 24 : 0} className={styles['foot-modal']}>
+          <Col span={24} className={styles['foot-inner']} >
             投
-            <InputNumber
-              min={1}
-              defaultValue={1}
-              value={rate}
-              onChange={this.calcRate.bind(this)}
-            />
+            <div className={`${styles['icon-wrap']} ${rate === 1 ? styles.gray : ''}`} style={{ borderRight: 'none', borderRadius: '4px 0 0 4px' }} >
+              <Icon type="minus" onClick={this.changeRate.bind(this, -1)} />
+            </div>
+            <div>
+              <Input
+                type="text"
+                value={rate}
+                onChange={this.calcRate.bind(this)}
+                style={{ border: 'none', outline: 'none', width: '60px', borderRadius: 0, height: '32px' }}
+              />
+            </div>
+            <div className={styles['icon-wrap']} style={{ borderLeft: 'none', borderRadius: '0 4px 4px 0' }}>
+              <Icon type="plus" onClick={this.changeRate.bind(this, 1)} />
+            </div>
             倍
           </Col>
-          <Col span={6} className={styles.submit} >
+        </Col>
+        <Col span={24} className={styles.foot} >
+          <Col span={8} className={styles.detail} >{BJK3.length}注，共{2 * BJK3.length * rate}分</Col>
+          <Col span={6} offset={10} className={styles.submit} >
             <Button size="large" style={{ background: '#f00', color: '#fff' }} onClick={this.openModal.bind(this)}>投注</Button>
           </Col>
         </Col>
