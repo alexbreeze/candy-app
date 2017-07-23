@@ -19,21 +19,22 @@ class NormalLoginForm extends React.Component {
   }
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { global } = this.props.loading;
+    const { login } = this.props;
+    const {loginLoading} = login;
     return (
       <Form onSubmit={this.handleSubmit} className={styles['login-form']}>
         <FormItem>
           {getFieldDecorator('phone', {
-            rules: [{ required: true, message: 'Please input your username!' }],
+            rules: [{ required: true, message: '请输入手机号!' }],
           })(
-            <Input prefix={<Icon type="phone" style={{ fontSize: 13 }} />} placeholder="phone" />,
+            <Input prefix={<Icon type="phone" style={{ fontSize: 13 }} />} placeholder="手机号" />,
           )}
         </FormItem>
         <FormItem>
           {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please input your Password!' }],
+            rules: [{ required: true, message: '请输入密码!' }],
           })(
-            <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />,
+            <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="密码" />,
           )}
         </FormItem>
         <FormItem>
@@ -41,11 +42,11 @@ class NormalLoginForm extends React.Component {
             valuePropName: 'checked',
             initialValue: true,
           })(
-            <Checkbox>Remember me</Checkbox>,
+            <Checkbox>记住密码</Checkbox>,
           )}
-          <a className={styles['login-form-forgot']} href="">Forgot password</a>
-          <Button type="primary" loading={global} htmlType="submit" className={styles['login-form-button']}>
-            Log in
+          <a className={styles['login-form-forgot']} href="">忘记密码</a>
+          <Button type="primary" loading={loginLoading} htmlType="submit" className={styles['login-form-button']}>
+            登陆
           </Button>
         </FormItem>
       </Form>

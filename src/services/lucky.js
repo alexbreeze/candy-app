@@ -1,7 +1,7 @@
 import { request, config } from '../utils';
 
 const { api } = config;
-const { winList, banbleDetail, mine } = api;
+const { winList, banbleDetail, mine, flow } = api;
 
 export async function getWinListDetail(data) {
   return request({
@@ -20,6 +20,13 @@ export async function getBalanceDetail() {
 export async function getMine(data) {
   return request({
     url: mine,
+    method: 'get',
+    data,
+  });
+}
+export async function getFlow(data) {
+  return request({
+    url: flow,
     method: 'get',
     data,
   });

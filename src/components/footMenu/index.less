@@ -1,3 +1,4 @@
+@mainColor: #e95525;
 .foot-menu {
   width: 33.3333333333%!important;
   padding: 0 10px!important;
@@ -8,8 +9,30 @@
   bottom: 0;
   left: 0;
   right: 0;
+  border-top: 1px solid #ddd;
 }
 .foot-text{
   text-align: center;
-  background: #faa;
+}
+
+:global(.ant-menu.ant-menu-dark .ant-menu-item-selected){
+  background: #fff;
+  color: @mainColor;
+}
+:global(.ant-menu-dark),
+:global(.ant-menu-dark .ant-menu-sub){
+  color: #333;
+  background: #fff;
+}
+:global(.ant-menu-dark .ant-menu-item),
+:global(.ant-menu-dark .ant-menu-item-group-title),
+:global(.ant-menu-dark .ant-menu-item a){
+  color: #999;
+}
+:global(.ant-menu-dark .ant-menu-item-selected a),
+:global(.ant-menu-dark a:hover){
+  color: @mainColor !important;
+}
+:global(.ant-menu-dark.ant-menu-horizontal){
+  border-bottom: none;
 }

@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Row, Col, Tabs, Button, Carousel, InputNumber, Modal, Table, Icon, message } from 'antd';
+import initReactFastclick from 'react-fastclick';
 import HeadMenu from '../../../components/headMenu';
 import BJPK10TOP from '../../../components/BJPK10Top';
 import styles from './index.less';
 import '../../../iconfont/iconfont.css';
 
 const { TabPane } = Tabs;
+initReactFastclick()
 
 class BJPK10 extends React.Component {
   constructor() {
@@ -17,7 +19,9 @@ class BJPK10 extends React.Component {
         {
           title: '冠军',
           type: 'Z1',
-          total: [{
+          rate: 2,
+          total: [
+            {
             id: 'Z10',
             displayName: '大',
             value: '小',
@@ -58,7 +62,9 @@ class BJPK10 extends React.Component {
         {
           title: '亚军',
           type: 'Z2',
-          total: [{
+          rate: 2,
+          total: [
+            {
             id: 'Z20',
             displayName: '大',
             value: '大',
@@ -99,7 +105,9 @@ class BJPK10 extends React.Component {
         {
           title: '第3名',
           type: 'Z3',
-          total: [{
+          rate: 2,
+          total: [
+            {
             id: 'Z30',
             displayName: '大',
             value: '大',
@@ -140,7 +148,9 @@ class BJPK10 extends React.Component {
         {
           title: '第4名',
           type: 'Z4',
-          total: [{
+          rate: 2,
+          total: [
+            {
             id: 'Z40',
             displayName: '大',
             value: '大',
@@ -181,7 +191,9 @@ class BJPK10 extends React.Component {
         {
           title: '第5名',
           type: 'Z5',
-          total: [{
+          rate: 2,
+          total: [
+            {
             id: 'Z50',
             displayName: '大',
             value: '大',
@@ -222,7 +234,9 @@ class BJPK10 extends React.Component {
         {
           title: '第6名',
           type: 'Z6',
-          total: [{
+          rate: 2,
+          total: [
+            {
             id: 'Z60',
             displayName: '大',
             value: '大',
@@ -251,7 +265,9 @@ class BJPK10 extends React.Component {
         {
           title: '第7名',
           type: 'Z7',
-          total: [{
+          rate: 2,
+          total: [
+            {
             id: 'Z70',
             displayName: '大',
             value: '大',
@@ -280,7 +296,8 @@ class BJPK10 extends React.Component {
         {
           title: '第8名',
           type: 'Z8',
-          total: [{
+          total: [
+            {
             id: 'Z80',
             displayName: '大',
             value: '大',
@@ -309,7 +326,8 @@ class BJPK10 extends React.Component {
         {
           title: '第9名',
           type: 'Z9',
-          total: [{
+          total: [
+            {
             id: 'Z90',
             displayName: '大',
             value: '大',
@@ -338,7 +356,8 @@ class BJPK10 extends React.Component {
         {
           title: '第10名',
           type: 'Z10',
-          total: [{
+          total: [
+            {
             id: 'Z100',
             displayName: '大',
             value: '大',
@@ -369,6 +388,7 @@ class BJPK10 extends React.Component {
         {
           title: '冠军',
           type: 'S1',
+          rate: 2,
           total: [
             {
               id: 'S10',
@@ -436,6 +456,7 @@ class BJPK10 extends React.Component {
         {
           title: '亚军',
           type: 'S2',
+          rate: 2,
           total: [
             {
               id: 'S20',
@@ -503,6 +524,7 @@ class BJPK10 extends React.Component {
         {
           title: '第3名',
           type: 'S3',
+          rate: 2,
           total: [
             {
               id: 'S30',
@@ -570,6 +592,7 @@ class BJPK10 extends React.Component {
         {
           title: '第4名',
           type: 'S4',
+          rate: 2,
           total: [
             {
               id: 'S40',
@@ -637,6 +660,7 @@ class BJPK10 extends React.Component {
         {
           title: '第5名',
           type: 'S5',
+          rate: 2,
           total: [
             {
               id: 'S50',
@@ -704,6 +728,7 @@ class BJPK10 extends React.Component {
         {
           title: '第6名',
           type: 'S6',
+          rate: 2,
           total: [
             {
               id: 'S60',
@@ -771,6 +796,7 @@ class BJPK10 extends React.Component {
         {
           title: '第7名',
           type: 'S7',
+          rate: 2,
           total: [
             {
               id: 'S70',
@@ -838,6 +864,7 @@ class BJPK10 extends React.Component {
         {
           title: '第8名',
           type: 'S8',
+          rate: 2,
           total: [
             {
               id: 'S80',
@@ -905,6 +932,7 @@ class BJPK10 extends React.Component {
         {
           title: '第9名',
           type: 'S9',
+          rate: 2,
           total: [
             {
               id: 'S90',
@@ -972,6 +1000,7 @@ class BJPK10 extends React.Component {
         {
           title: '第10名',
           type: 'S10',
+          rate: 2,
           total: [
             {
               id: 'S100',
@@ -1042,7 +1071,30 @@ class BJPK10 extends React.Component {
     };
   }
   componentDidMount() {
+    const self = this;
     this.props.getOpenList();
+    this.props.getRate({
+      data: {
+        type: 'BJPK10',
+      },
+      cb(data) {
+        const state = self.state;
+        for (const i in data) {
+          addRate(state.totalList, i, data[i]);
+          addRate(state.pkList, i, data[i]);
+        }
+        self.setState({
+          state,
+        });
+      },
+    });
+    function addRate(arr, name, value) {
+      arr.forEach((item) => {
+        if (item.type === name) {
+          item.rate = value;
+        }
+      });
+    }
   }
   changeShow(){
       this.setState({
@@ -1063,9 +1115,11 @@ class BJPK10 extends React.Component {
         tempArr[i].checked = !tempArr[i].checked;
       }
     }
-    this.setState(
-      list,
-    );
+    setTimeout(() => {
+      this.setState(
+        list,
+      );
+    }, 20)
     this.staticCount.call(this);
   }
   // 统计
@@ -1132,9 +1186,11 @@ class BJPK10 extends React.Component {
               item.checked = false;
             });
           });
-          self.setState({
-            list,
-          });
+          setTimeout(() => {
+            self.setState({
+              list,
+            });
+          }, 20)
         }
         self.props.updateRate(1);
       },
@@ -1183,11 +1239,14 @@ class BJPK10 extends React.Component {
           <Row>
             <Col span={12} >
               <Row>
-                <Col span={24}>北京PK拾 第33333期</Col>
-                <Col span={24}>000000000</Col>
+                <Col span={24}>{headInfo.latestSerialCode}</Col>
+                <Col span={24}>{headInfo.latestOpenCode || '开奖中'}</Col>
               </Row>
             </Col>
-            <Col span={4} onClick={this.changeShow.bind(this)}>下拉</Col>
+            <Col span={4} onClick={this.changeShow.bind(this)}>
+              历史
+              <Icon type="down" />
+            </Col>
             <Col span={8} className={styles.nextSerialCode} >
               <Row>
                 <Col span={24}>
@@ -1218,8 +1277,8 @@ class BJPK10 extends React.Component {
                   totalList.map((items, index) => {
                     return (
                       <Col span={24} className={styles.selContainer} key={index}>
-                        <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
-                        <Col xs={17} sm={19} offset={2}>{
+                        <Col xs={3} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                        <Col xs={19} sm={19} offset={2}>{
                           items.total.map((item, index) => {
                             return (
                               <Col xs={6} sm={4} className={styles.selWrap} key={index} >
@@ -1228,7 +1287,7 @@ class BJPK10 extends React.Component {
                                   <Col span={6} className={styles.selBox}>
                                     <Col className={styles.selTitle}>{item.displayName}</Col>
                                   </Col>
-                                  <Col className={styles.rate}>{item.rate}</Col>
+                                  <Col className={styles.rate}>{items.rate}</Col>
                                 </label>
                               </Col>
                             );
@@ -1256,7 +1315,7 @@ class BJPK10 extends React.Component {
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
-                                  <Col className={styles.rate}>{item.rate}</Col>
+                                  <Col className={styles.rate}>{items.rate}</Col>
                                 </label>
                               </Col>
                             );
@@ -1329,6 +1388,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     sendBuy(payload) {
       dispatch({ type: 'home/sendBuy', payload });
+    },
+    getRate(payload) {
+      dispatch({ type: 'home/getRate', payload });
     },
   };
 };

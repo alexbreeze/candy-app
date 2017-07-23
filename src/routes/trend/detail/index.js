@@ -1,11 +1,13 @@
 import { Row, Col } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'dva';
+import initReactFastclick from 'react-fastclick';
 import HeadMenu from '../../../components/headMenu';
 import Tab from '../../../components/openListDetail';
 
-import './index.less';
+import styles from './index.less';
 
+initReactFastclick()
 // const TabPane = Tabs.TabPane;
 
 class OpenListDetail extends Component {
@@ -14,11 +16,11 @@ class OpenListDetail extends Component {
       items,
     } = this.props;
     return (
-      <Row>
+      <Row style={{height: '100%'}} >
         <Col xs={24} sm={0}>
           <HeadMenu title="详情" back="/trend" />
         </Col>
-        <Col span={24}>
+        <Col span={24} className={styles.content} >
           <Tab items={items} />
         </Col>
       </Row>

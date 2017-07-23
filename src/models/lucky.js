@@ -1,12 +1,15 @@
 import { routerRedux } from 'dva/router';
 // import { queryURL } from '../utils';
-import { getWinListDetail, getBalanceDetail, getMine } from '../services/lucky';
+import { getBalanceDetail, getMine, getFlow } from '../services/lucky';
 
 export default {
   namespace: 'lucky',
   state: {
     winList: [],
     balanceList: [],
+    balanceText: '加载更多...',
+    flowList: [],
+    flowText: '加载更多...',
     isLoading: false,
     profit: '',
     balance: '',
@@ -25,8 +28,33 @@ export default {
       if (!data.success) {
         throw data;
       } else {
+        if (data.list.length < 10) {
+          data.text = '';
+        } else {
+          data.text = '加载更多...';
+        }
         yield put({ type: 'mine', payload: data });
       }
+    },
+    *getFlow({ payload }, { put, call }) {
+      const data = yield call(getFlow, payload);
+      if (!data.success) {
+        throw data;
+      } else {
+        console.log(data)
+        if (data.list.length < 10) {
+          data.text = '';
+        } else {
+          data.text = '加载更多...';
+        }
+        yield put({ type: 'flow', payload: data });
+      }
+    },
+    *clearBalanceList({ payload }, { put, call }) {
+      yield put({ type: 'clearBalance' });
+    },
+    *clearFlowList({ payload }, { put, call }) {
+      yield put({ type: 'clearFlow' });
     },
   },
   reducers: {
@@ -37,10 +65,30 @@ export default {
         balance: payload.balance,
       };
     },
+    clearBalance(state, { payload }) {
+      return {
+        ...state,
+        balanceList: [],
+      };
+    },
+    clearFlow(state, { payload }) {
+      return {
+        ...state,
+        flowList: [],
+      };
+    },
     mine(state, { payload }) {
       return {
         ...state,
-        balanceList: payload.list,
+        balanceList: state.balanceList.concat(payload.list),
+        balanceText: payload.text,
+      };
+    },
+    flow(state, { payload }) {
+      return {
+        ...state,
+        flowList: state.flowList.concat(payload.list),
+        flowText: payload.text,
       };
     },
   },

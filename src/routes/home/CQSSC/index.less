@@ -1,11 +1,13 @@
+@mainColor: #e95525;
 .CQSSC{
   height: 100%;
 }
 .head{
   height: 50px;
-  background: #1e8ce0;
-  color: #fff;
+  background: #fff;
+  color: @mainColor;
   padding: 7px;
+  white-space: nowrap;
   .nextSerialCode{
     text-align: right;
   }
@@ -17,19 +19,22 @@
   right: 0;
   bottom: 50px;
   overflow: auto;
-  background: #6de2e3;
+  background: #fff;
   :global(.ant-tabs-bar){
     margin-bottom: 0;
   }
   .selContainer{
+    margin: 5px;
     padding: 5px;
+    border-bottom: 1px solid @mainColor;
     .selCtitle{
       height: 30px;
       margin-top: 10px;
       color: #fff;
+      font-size: 12px;
       line-height: 30px;
       text-align: center;
-      font-weight: bold;
+      white-space: nowrap;
       background: url('../../../assets/tag.png');
       background-size: 100% 100%;
     }
@@ -42,8 +47,9 @@
     height: 40px;
     width: 40px;
     border-radius: 30px;
-    color: #fff;
-    border: 1px solid #4cb4b5;
+    color: @mainColor;
+    background: #fff;
+    border: 1px solid @mainColor;
     .selTitle{
       font-size: 14px;
       font-weight: bold;
@@ -56,16 +62,17 @@
   }
   .selCheckBox:checked+.selBox,
   .selCheckBox:checked+.selHandle{
-    color: #a3fb66;
-    border: 1px solid #a3fb66;
-    background: #1e8ce0;
+    color: #fff;
+    border: 1px solid @mainColor;
+    background: @mainColor;
   }
   .itemWrap{
-    color: #fff;
+    color: #333;
     padding: 8px;
+    border-bottom: 1px solid #ddd;
   }
   .rate{
-    color: #fff;
+    color: @mainColor;
     width: 40px;
   }
   .itemTitle{
@@ -75,8 +82,8 @@
   }
 }
 :global(.ant-input-number-input){
-  background: #6de2e3;
-  color: #fff;
+  background: #fff;
+  color: @mainColor;
   font-weight: bold;
 }
 @media screen and (min-width: 769px) {
@@ -91,7 +98,7 @@
   right: 0;
   height: 50px;
   line-height: 32px;
-  background: #404040;
+  background: #676767;
   color: #fff;
   padding: 9px 24px;
   .detail{
@@ -106,4 +113,12 @@
 }
 :global(.ant-table-tbody tr td){
   text-align: center;
+}
+
+:global(.ant-tabs-nav .ant-tabs-tab-active),
+:global(.ant-tabs-nav .ant-tabs-tab:hover){
+  color: @mainColor;
+}
+:global(.ant-tabs-ink-bar){
+  background-color: @mainColor;
 }

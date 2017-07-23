@@ -1,11 +1,13 @@
+@mainColor: #e95525;
 .BJPK10{
   height: 100%;
 }
 .head{
   height: 50px;
-  background: #1e8ce0;
-  color: #fff;
+  background: #fff;
+  color: @mainColor;
   padding: 7px;
+  white-space: nowrap;
   .nextSerialCode{
     text-align: right;
   }
@@ -17,7 +19,7 @@
   right: 0;
   bottom: 50px;
   overflow: auto;
-  background: #6de2e3;
+  background: #fff;
   :global(.ant-tabs-bar){
     margin-bottom: 0;
   }
@@ -27,9 +29,10 @@
       height: 30px;
       margin-top: 10px;
       color: #fff;
+      font-size: 12px;
       line-height: 30px;
       text-align: center;
-      font-weight: bold;
+      white-space: nowrap;
       background: url('../../../assets/tag.png');
       background-size: 100% 100%;
     }
@@ -39,18 +42,17 @@
     text-align: center;
   }
   .rate{
-    color: #fff;
+    color: @mainColor;
     width: 40px;
   }
   .selBox{
     height: 40px;
     width: 40px;
     border-radius: 30px;
-    color: #fff;
-    border: 1px solid #4cb4b5;
+    color: @mainColor;
+    border: 1px solid @mainColor;
     .selTitle{
       font-size: 14px;
-      font-weight: bold;
       line-height: 40px;
       text-align: center;
     }
@@ -59,12 +61,12 @@
     display: none;
   }
   .selCheckBox:checked+.selBox{
-    color: #a3fb66;
-    border: 1px solid #a3fb66;
-    background: #1e8ce0;
+    color: #fff;
+    border: 1px solid @mainColor;
+    background: @mainColor;
   }
   .selCheckBox:checked~.rate{
-    color: #1e8ce0;
+    color: @mainColor;
   }
   .itemWrap{
     padding: 0 8px;
@@ -92,7 +94,7 @@
   right: 0;
   height: 50px;
   line-height: 32px;
-  background: #404040;
+  background: #676767;
   color: #fff;
   padding: 9px 24px;
   .detail{
@@ -107,4 +109,12 @@
 }
 :global(.ant-table-tbody tr td){
   text-align: center;
+}
+
+:global(.ant-tabs-nav .ant-tabs-tab-active),
+:global(.ant-tabs-nav .ant-tabs-tab:hover){
+  color: @mainColor;
+}
+:global(.ant-tabs-ink-bar){
+  background-color: @mainColor;
 }

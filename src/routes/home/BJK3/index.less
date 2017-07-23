@@ -1,11 +1,13 @@
+@mainColor: #e95525;
 .BJK3{
   height: 100%;
 }
 .head{
   height: 50px;
-  background: #1e8ce0;
-  color: #fff;
+  background: #fff;
+  color: @mainColor;
   padding: 7px;
+  white-space: nowrap;
   .latestOpenCode{
     line-height: 36px;
     text-align: left;
@@ -25,7 +27,8 @@
   left: 0;
   right: 0;
   bottom: 50px;
-  background: #6de2e3;
+  background: #fff;
+  overflow: auto;
   :global(.ant-tabs-bar){
     margin-bottom: 0;
   }
@@ -46,9 +49,9 @@
   .selBox,
   .selHandle{
     height: 50px;
-    background: #4cb4b5;
-    color: #fff;
-    border: 1px solid #7bf7f8;
+    background: #fff;
+    color: @mainColor;
+    border: 1px solid @mainColor;
     .selTitle{
       font-size: 18px;
       font-weight: bold;
@@ -63,15 +66,16 @@
   }
   .selCheckBox:checked+.selBox,
   .selCheckBox:checked+.selHandle{
-    color: #a3fb66;
-    border: 1px solid #a3fb66;
+    color: #fff;
+    background: @mainColor;
+    border: 1px solid @mainColor;
   }
   .itemWrap{
     padding: 0 8px;
   }
   .itemTitle{
     font-size: 16px;
-    color: #fff;
+    color: @mainColor;
     margin-right: 12px;
   }
   .itemDetail{
@@ -95,11 +99,12 @@
   right: 0;
   height: 50px;
   line-height: 32px;
-  background: #404040;
+  background: #676767;
   color: #fff;
   padding: 9px 24px;
+  white-space: nowrap;
   .detail{
-    font-size: 16px;
+    font-size: 14px;
   }
   .submit{
     text-align: right;
@@ -110,4 +115,11 @@
 }
 :global(.ant-table-tbody tr td){
   text-align: center;
+}
+:global(.ant-tabs-nav .ant-tabs-tab-active),
+:global(.ant-tabs-nav .ant-tabs-tab:hover){
+  color: @mainColor;
+}
+:global(.ant-tabs-ink-bar){
+  background-color: @mainColor;
 }

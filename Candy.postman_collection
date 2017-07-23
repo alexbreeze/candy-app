@@ -33,8 +33,9 @@
 							"urlencoded": [
 								{
 									"key": "password",
-									"value": "777@uuu",
-									"type": "text"
+									"value": "TimHNc6cxqmr67lppd1oHyEJO1GxTzMhsRJjfNk03WA=",
+									"type": "text",
+									"description": "777@uuu"
 								}
 							]
 						},
@@ -872,6 +873,47 @@
 			"name": "Balance",
 			"request": {
 				"url": "{{url}}/account/balance",
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-candy-terminal",
+						"value": "PC",
+						"description": ""
+					},
+					{
+						"key": "x-candy-version",
+						"value": "1",
+						"description": ""
+					},
+					{
+						"key": "x-candy-token",
+						"value": "{{token}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "type",
+							"value": "BJK3",
+							"type": "text"
+						},
+						{
+							"key": "pageSize",
+							"value": "200",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "AccountFlow",
+			"request": {
+				"url": "{{url}}/account/flow",
 				"method": "GET",
 				"header": [
 					{

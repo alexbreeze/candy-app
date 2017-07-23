@@ -1,7 +1,7 @@
 // import { routerRedux } from 'dva/router';
 // import { queryURL } from '../utils';
 import { message } from 'antd';
-import { sendBuyService } from '../services/home';
+import { sendBuyService, getRate } from '../services/home';
 
 export default {
   namespace: 'home',
@@ -47,6 +47,16 @@ export default {
     *updateRate({ payload }, { put }) {
       yield put({ type: 'updateRateValue', payload });
     },
+    *getRate({ payload }, { put, call }) {
+      const rate = yield call(getRate, payload.data);
+      if (rate.success) {
+        if (payload.cb) {
+          payload.cb(rate);
+        }
+      } else {
+        throw rate;
+      }
+    },
     *sendBuy({ payload }, { put, call }) {
       yield put({ type: 'trend/showLoading' });
       const data = yield call(sendBuyService, payload.data);
@@ -84,7 +94,7 @@ export default {
         BJK3: state.BJK3,
       };
     },
-    updateBJPK10List(state, {payload}){
+    updateBJPK10List(state, { payload }) {
       return {
         ...state,
         BJPK10: payload,
@@ -101,7 +111,7 @@ export default {
         BJPK10: state.BJPK10,
       };
     },
-    updateCQSSCList(state, {payload}){
+    updateCQSSCList(state, { payload }) {
       return {
         ...state,
         CQSSC: payload,

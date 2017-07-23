@@ -1,0 +1,13 @@
+
+          <Col span={24} className={styles.containList}>
+            <input value={this.state.value}
+                   onChange={({target: {value}}) => this.setState({value, copied: false})} />
+            <CopyToClipboard
+              text={this.state.value}
+              onCopy={() => this.setState({ copied: true })}
+            >
+              <button>Copy to clipboard with button</button>
+            </CopyToClipboard>
+          </Col>
+打开支付宝
+<a target="_blank" href="https://ds.alipay.com/?from=mobileweb">点击打开支付宝</a>

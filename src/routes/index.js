@@ -2,12 +2,12 @@ import { Row, Col } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
+import initReactFastclick from 'react-fastclick';
 import { config } from '../utils';
 import styles from './index.less';
 import Nav from '../components/menu';
-import HeadMenu from '../components/headMenu';
-import FootNav from '../components/footMenu';
 
+initReactFastclick();
 const { sessionKey } = config;
 const { token } = sessionKey;
 

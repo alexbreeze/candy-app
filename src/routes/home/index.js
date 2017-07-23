@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import { Row, Col, Carousel } from 'antd';
+import { Row, Col, Carousel, Icon } from 'antd';
 import FootNav from '../../components/footMenu';
 
 import styles from './index.less';
@@ -64,7 +64,7 @@ class HomePage extends React.Component {
               setTimeout(() => {
                 clearInterval(timer);
               }, 1000);
-            }, 5000);
+            }, 30000);
           }
         }, 1000);
       }
@@ -109,11 +109,15 @@ class HomePage extends React.Component {
                         <Col xs={3} sm={2} className={styles.smLeft}>
                           {
                             item.type === 'BJK3' ?
-                              <img src={require('../../assets/PC.png')} alt="" />
-                              : <img src={require('../../assets/PK.png')} alt="" />
+                              <img src={require('../../assets/BJK3.png')} alt="" />
+                              :
+                            item.type === 'BJPK10' ?
+                              <img src={require('../../assets/BJPK10.png')} alt="" />
+                              :
+                              <img src={require('../../assets/CQSSC.png')} alt="" />
                           }
                         </Col>
-                        <Col xs={20} sm={20} offset={1} className={styles.smRight} >
+                        <Col xs={16} sm={17} offset={1} className={styles.smRight} >
                           <Col xs={24} sm={24}>
                             <Col xs={11} sm={10}>{item.title}</Col>
                             <Col
@@ -138,6 +142,9 @@ class HomePage extends React.Component {
                             </Col>
                             <Col xs={6} sm={6} className={styles.openTime}>{item.showTime}</Col>
                           </Col>
+                        </Col>
+                        <Col span={1} offset={1} style={{lineHeight: '50px', fontSize: '20px'}}>
+                          <Icon type="right" />
                         </Col>
                       </Col>
                     </Row>

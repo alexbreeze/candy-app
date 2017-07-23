@@ -18,6 +18,23 @@ class Tab extends Component {
       pageSize: 10,
     });
   }
+  /* bak
+   {
+   (item.type === 'BJPK10') ?
+   item.openCodeList.map((item, index) => {
+   return (
+   <Col xs={8} sm={8} key={index} className={`${styles.bjpkCode} ${styles[`index${item}`]}`}>
+   {item}
+   </Col>
+   );
+   }) :
+   item.openCodeList.map((item, index) => {
+   return (
+   <Col xs={8} sm={8} key={index} className={`${styles.code} ${styles.index}`}>{item}</Col>
+   );
+   })
+   }
+   */
   callback = (key) => {
     const pageSize = key === '0' ? 10 : key === '1' ? 50 : key === '2' ? 100 : 10;
     this.props.getOpenListDetail({
@@ -53,17 +70,21 @@ class Tab extends Component {
                                 <Col xs={5} sm={8} className={styles.left}>{item.serialCode}</Col>
                                 <Col xs={13} sm={8} className={styles.middle}>
                                   {
-                                    (item.type === 'BJPK10') ?
-                                    item.openCodeList.map((item, index) => {
-                                      return (
-                                        <Col xs={8} sm={8} key={index} className={`${styles.bjpkCode} ${styles[`index${item}`]}`}>{item}</Col>
-                                      );
-                                    }) :
-                                      item.openCodeList.map((item, index) => {
+                                    item.openCodeList.map((i, index) => {
+                                      if (index < item.openCodeList.length - 1) {
                                         return (
-                                          <Col xs={8} sm={8} key={index} className={`${styles.code} ${styles.index}`}>{item}</Col>
+                                          <span>
+                                            {i},
+                                          </span>
                                         );
-                                      })
+                                      } else {
+                                        return (
+                                          <span>
+                                            {i}
+                                          </span>
+                                        );
+                                      }
+                                    })
                                   }
                                 </Col>
                                 <Col xs={4} sm={8} className={styles.right}>{item.userReward > 0 ? '已中奖' : '未中奖'}</Col>

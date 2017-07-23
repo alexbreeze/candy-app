@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Row, Col, Tabs, Button, Carousel, InputNumber, Modal, Table, Icon, message } from 'antd';
+import initReactFastclick from 'react-fastclick';
 import HeadMenu from '../../../components/headMenu';
-import BJK3TOP from '../../../components/BJK3Top'
+import BJK3TOP from '../../../components/BJK3Top';
 import styles from './index.less';
 import '../../../iconfont/iconfont.css';
 
 const { TabPane } = Tabs;
+initReactFastclick();
 
 class BJK3 extends React.Component {
   constructor(props) {
@@ -722,7 +724,36 @@ class BJK3 extends React.Component {
     };
   }
   componentDidMount() {
+    const self = this;
     this.props.getOpenList();
+    this.props.getRate({
+      data: {
+        type: 'BJK3',
+      },
+      cb(data) {
+        const state = self.state;
+        for (const i in data) {
+          addRate(state.totalList, i, data[i]);
+          addRate(state.threeSame, i, data[i]);
+          addRate(state.threeSameAll, i, data[i]);
+          addRate(state.twoSame, i, data[i]);
+          addRate(state.twoSameAll, i, data[i]);
+          addRate(state.threeDif, i, data[i]);
+          addRate(state.threeDifAll, i, data[i]);
+          addRate(state.twoDif, i, data[i]);
+        }
+        self.setState({
+          state,
+        });
+      },
+    });
+    function addRate(arr, name, value) {
+      arr.forEach((item) => {
+        if (item.displayName === name) {
+          item.rate = value;
+        }
+      });
+    }
   }
   // 计算数量
   staticCount() {
@@ -768,9 +799,11 @@ class BJK3 extends React.Component {
         i.checked = !i.checked;
       }
     });
-    this.setState(
-      list,
-    );
+    setTimeout(() => {
+      this.setState(
+        list,
+      );
+    }, 20);
     this.staticCount.call(this);
   }
   // 快速选择
@@ -795,9 +828,11 @@ class BJK3 extends React.Component {
     } else if (id !== 'sellAll') {
       handleList.sellAll = false;
     }
-    this.setState(
-      handleList,
-    );
+    setTimeout(() => {
+      this.setState(
+        handleList,
+      );
+    }, 20);
     const totalList = this.state.totalList;
     totalList.forEach((i) => {
       if (handleList.selEven ||
@@ -898,10 +933,10 @@ class BJK3 extends React.Component {
   delItem(item) {
     this.props.delBJK3Item(item.index);
   }
-  changeShow(){
-      this.setState({
-        isShow: !this.state.isShow
-      })
+  changeShow() {
+    this.setState({
+      isShow: !this.state.isShow,
+    });
   }
   render() {
     const {
@@ -938,7 +973,7 @@ class BJK3 extends React.Component {
     return (
       <Row className={styles.BJK3}>
         <Col xs={24} sm={0}>
-          <HeadMenu title="北京快3" back="/home" detail='/BJK3-detail'/>
+          <HeadMenu title="北京快3" back="/home" detail="/BJK3-detail" />
         </Col>
         <Col span={24} className={styles.head} >
           <Row>
@@ -967,7 +1002,10 @@ class BJK3 extends React.Component {
                 </Col>
               </Row>
             </Col>
-            <Col span={4} onClick={this.changeShow.bind(this)}>下拉</Col>
+            <Col span={4} onClick={this.changeShow.bind(this)}>
+              历史
+              <Icon type="down" />
+            </Col>
             <Col span={8} className={styles.nextSerialCode} >
               <Row>
                 <Col span={24} >
@@ -988,7 +1026,7 @@ class BJK3 extends React.Component {
                 <Row style={{ color: '#fff' }}>我是一段tip信息</Row>
                 <Row style={{ color: '#fff' }}>我是一段tip信息</Row>
               </Carousel> */}
-              <BJK3TOP isShow={isShow}></BJK3TOP>
+              <BJK3TOP isShow={isShow} />
             </Col>
           </Row>
           <Tabs renderTabBar renderTabContent defaultActiveKey="0">
@@ -1012,7 +1050,7 @@ class BJK3 extends React.Component {
                                 {i.value}
                               </Col>
                               <Col className={styles.selContent} >
-                                <span>奖金{i.rate}元</span>
+                                <span>奖金{i.rate}分</span>
                               </Col>
                             </Row>
                           </label>
@@ -1076,7 +1114,7 @@ class BJK3 extends React.Component {
               <Row>
                 <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemTitle}>三同号单选</span>
-                  <span className={styles.itemTitle}>奖金{240}元</span>
+                  <span className={styles.itemTitle}>奖金{240}分</span>
                   <span className={styles.itemDetail}>猜三个相同号码</span>
                 </Col>
               </Row>
@@ -1103,7 +1141,7 @@ class BJK3 extends React.Component {
               <Row>
                 <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemTitle}>三同号通选</span>
-                  <span className={styles.itemTitle}>奖金{40}元</span>
+                  <span className={styles.itemTitle}>奖金{40}分</span>
                   <span className={styles.itemDetail}>任一组号码开出即中奖</span>
                 </Col>
               </Row>
@@ -1132,7 +1170,7 @@ class BJK3 extends React.Component {
               <Row>
                 <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemTitle}>二同号单选</span>
-                  <span className={styles.itemTitle}>奖金{80}元</span>
+                  <span className={styles.itemTitle}>奖金{80}分</span>
                   <span className={styles.itemDetail}>猜两个相同号码和一个不同号码</span>
                 </Col>
               </Row>
@@ -1159,7 +1197,7 @@ class BJK3 extends React.Component {
               <Row>
                 <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemTitle}>二同号复选</span>
-                  <span className={styles.itemTitle}>奖金{15}元</span>
+                  <span className={styles.itemTitle}>奖金{15}分</span>
                   <span className={styles.itemDetail}>猜两个相同号码</span>
                 </Col>
               </Row>
@@ -1188,7 +1226,7 @@ class BJK3 extends React.Component {
               <Row>
                 <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemTitle}>三不同号</span>
-                  <span className={styles.itemTitle}>奖金{40}元</span>
+                  <span className={styles.itemTitle}>奖金{40}分</span>
                   <span className={styles.itemDetail}>猜3个不同号码</span>
                 </Col>
               </Row>
@@ -1215,7 +1253,7 @@ class BJK3 extends React.Component {
               <Row>
                 <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemTitle}>三连号通选</span>
-                  <span className={styles.itemTitle}>奖金{40}元</span>
+                  <span className={styles.itemTitle}>奖金{40}分</span>
                   <span className={styles.itemDetail}>猜3个不同号码</span>
                 </Col>
               </Row>
@@ -1245,7 +1283,7 @@ class BJK3 extends React.Component {
               <Row>
                 <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemTitle}>二不同号</span>
-                  <span className={styles.itemTitle}>奖金{8}元</span>
+                  <span className={styles.itemTitle}>奖金{8}分</span>
                   <span className={styles.itemDetail}>猜2个不同号码</span>
                 </Col>
               </Row>
@@ -1331,6 +1369,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     sendBuy(payload) {
       dispatch({ type: 'home/sendBuy', payload });
+    },
+    getRate(payload) {
+      dispatch({ type: 'home/getRate', payload });
     },
   };
 };
