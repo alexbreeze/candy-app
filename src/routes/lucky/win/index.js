@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Tabs, Row, Col, Table } from 'antd';
-import initReactFastclick from 'react-fastclick';
 import styles from './index.less';
 import HeadMenu from '../../../components/headMenu';
 
 const { TabPane } = Tabs;
-initReactFastclick()
 
 class Tab extends Component {
   constructor(props) {

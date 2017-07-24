@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Row, Col, Tabs, Button, Carousel, Input, Modal, Table, Icon, message } from 'antd';
-import initReactFastclick from 'react-fastclick';
 import HeadMenu from '../../../components/headMenu';
 import BJK3TOP from '../../../components/BJK3Top';
 import { config } from '../../../utils';
@@ -11,7 +10,6 @@ import '../../../iconfont/iconfont.css';
 const { sessionKey } = config;
 
 const { TabPane } = Tabs;
-initReactFastclick();
 
 class BJK3 extends React.Component {
   constructor(props) {

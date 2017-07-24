@@ -2,11 +2,9 @@ import { Row, Col, Card, Icon } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import initReactFastclick from 'react-fastclick';
 import FootNav from '../../components/footMenu';
 import styles from './index.less';
 
-initReactFastclick();
 class OpenList extends Component {
   componentDidMount() {
     this.props.getOpenList();

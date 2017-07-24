@@ -2,14 +2,12 @@ import { Row, Col, Icon, Modal, message, Button } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import initReactFastclick from 'react-fastclick';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import FootNav from '../../components/footMenu';
 import { config } from '../../utils';
 
 import styles from './index.less';
 
-initReactFastclick();
 const { sessionKey } = config;
 
 class LuckyList extends Component {

@@ -1,14 +1,12 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Row, Col, Tabs, Button, Carousel, Input, Modal, Table, Icon, message } from 'antd';
-import initReactFastclick from 'react-fastclick';
 import HeadMenu from '../../../components/headMenu';
 import CQSSCTOP from '../../../components/CQSSCTop';
 import styles from './index.less';
 import '../../../iconfont/iconfont.css';
 
 const { TabPane } = Tabs;
-initReactFastclick();
 
 class CQSSC extends React.Component {
   constructor() {

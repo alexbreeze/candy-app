@@ -1,13 +1,10 @@
 import { Row, Col } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { routerRedux } from 'dva/router';
-import initReactFastclick from 'react-fastclick';
 import { config } from '../utils';
 import styles from './index.less';
 import Nav from '../components/menu';
 
-initReactFastclick();
 const { sessionKey } = config;
 const { token } = sessionKey;
 
@@ -26,16 +23,14 @@ class IndexPage extends Component {
     } = this.props;
     const { menus, menuMap } = menu;
     return (
-      <Row>
+      <Row className={styles.main}>
         <Col xs={0} sm={4} className={styles.main}>
           <Nav menus={menus} menuMap={menuMap} />
         </Col>
         <Col xs={24} sm={20} className={styles.main}>
-          <Row className={styles.main}>
-            <Col span={24} className={styles.content}>
-              {children}
-            </Col>
-          </Row>
+          <Col span={24} className={styles.content}>
+            {children}
+          </Col>
         </Col>
       </Row>
     );

@@ -1,13 +1,11 @@
 import { Row, Col } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import initReactFastclick from 'react-fastclick';
 import HeadMenu from '../../../components/headMenu';
 import Tab from '../../../components/openListDetail';
 
 import styles from './index.less';
 
-initReactFastclick()
 // const TabPane = Tabs.TabPane;
 
 class OpenListDetail extends Component {

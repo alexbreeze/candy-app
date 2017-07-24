@@ -81,7 +81,7 @@ class HomePage extends React.Component {
     const { menus, menuMap } = menu;
     const { showTime } = this.state;
     return (
-      <Col>
+      <Col style={{height: '100%'}}>
         <Row>
           <Col xs={24} sm={0}>
             <Carousel autoplay>
@@ -98,7 +98,7 @@ class HomePage extends React.Component {
             </Carousel>
           </Col>
         </Row>
-        <Row>
+        <Row className={styles.body}>
           {
             content.length ?
               content.map((item, index) => {

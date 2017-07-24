@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import { routerRedux, Link } from 'dva/router';
 import { Tabs, Row, Col, Table, Modal } from 'antd';
-import initReactFastclick from 'react-fastclick';
 import styles from './index.less';
 import HeadMenu from '../../../components/headMenu';
 
 import { config } from '../../../utils';
 
 const { sessionKey } = config;
-initReactFastclick();
 
 class Tab extends Component {
   constructor(props) {
