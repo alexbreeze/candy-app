@@ -785,7 +785,7 @@ class BJK3 extends React.Component {
           tempList.push({
             index: count,
             type: i.type,
-            code: i.type === '和' ? i.value : i.value.split('').join(','),
+            code: i.value,
           });
           count += 1;
         }
@@ -881,10 +881,19 @@ class BJK3 extends React.Component {
   }
   handleOk(BJK3, times, serialCode) {
     const self = this;
+    let numberType = '';
+    let numbers = '';
+    BJK3.forEach((item, index) => {
+      numberType = item.type;
+      index !== BJK3.length-1 ?
+        numbers += `${item.code}|` :
+        numbers += item.code;
+    });
     const payload = {
       data: {
         category: 'BJK3',
-        numbers: JSON.stringify(BJK3),
+        numberType,
+        numbers,
         times,
         serialCode,
       },

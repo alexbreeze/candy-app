@@ -449,7 +449,7 @@
 							"urlencoded": [
 								{
 									"key": "updateUserId",
-									"value": "0",
+									"value": "1",
 									"description": "需要充值的用户ID",
 									"type": "text"
 								},
@@ -461,7 +461,7 @@
 								},
 								{
 									"key": "delta",
-									"value": "600",
+									"value": "456",
 									"description": "积分数",
 									"type": "text"
 								}
@@ -510,6 +510,57 @@
 								}
 							]
 						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "ad_FLow",
+					"request": {
+						"url": {
+							"raw": "{{url}}/account/flow?startDate=2017-07-01&endDate=2017-07-31",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"account",
+								"flow"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2017-07-01",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "endDate",
+									"value": "2017-07-31",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-candy-terminal",
+								"value": "Manager",
+								"description": ""
+							},
+							{
+								"key": "x-candy-version",
+								"value": "1",
+								"description": ""
+							},
+							{
+								"key": "x-candy-token",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
 						"description": ""
 					},
 					"response": []
@@ -711,8 +762,14 @@
 							"type": "text"
 						},
 						{
+							"key": "numberType",
+							"value": "和",
+							"description": "",
+							"type": "text"
+						},
+						{
 							"key": "numbers",
-							"value": "[{'type':'和','code':'6'},{'type':'三同号单选','code':'666'}]",
+							"value": "4|5|16",
 							"type": "text"
 						},
 						{
@@ -723,7 +780,13 @@
 						},
 						{
 							"key": "serialCode",
-							"value": "082767",
+							"value": "083852",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "repeatTimes",
+							"value": "3",
 							"description": "",
 							"type": "text"
 						}
