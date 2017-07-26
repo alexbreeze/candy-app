@@ -722,6 +722,7 @@ class BJK3 extends React.Component {
       visible: false,
       isShow: false,
       showTime: '00:00',
+      maxRate: 0,
     };
   }
   componentDidMount() {
@@ -782,19 +783,58 @@ class BJK3 extends React.Component {
     function calcCount(list) {
       list.forEach((i) => {
         if (i.checked) {
+          let tempV = '';
+          if (i.type === '三同号通选') {
+            tempV = '';
+          } else if (i.type === '二同号复选') {
+            tempV = i.value.substr(0, 2);
+          } else {
+            tempV = i.value;
+          }
           tempList.push({
             index: count,
             type: i.type,
-            code: i.value,
+            code: tempV,
+            rate: i.rate,
           });
           count += 1;
         }
       });
     }
+    let maxRate = 0;
+    let totalRate = 0;
+    tempList.forEach((item) => {
+      totalRate += item.rate;
+    });
+    maxRate = totalRate * this.props.home.rate;
+    this.setState({
+      maxRate,
+    });
     this.props.updateBJK3(tempList);
   }
   // 改变状态
   changeChecked(list, ev) {
+    const BJK3 = this.props.home.BJK3;
+    const {
+      threeDif,
+      threeDifAll,
+      threeSame,
+      threeSameAll,
+      totalList,
+      twoDif,
+      twoSame,
+      twoSameAll,
+    } = this.state;
+    if (BJK3.length && list[0].type !== BJK3[0].type) {
+      this.clear.call(this, threeDif);
+      this.clear.call(this, threeDifAll);
+      this.clear.call(this, threeSame);
+      this.clear.call(this, threeSameAll);
+      this.clear.call(this, totalList);
+      this.clear.call(this, twoDif);
+      this.clear.call(this, twoSame);
+      this.clear.call(this, twoSameAll);
+    }
     list.forEach((i) => {
       if (i.id === ev.target.id) {
         i.checked = !i.checked;
@@ -809,6 +849,22 @@ class BJK3 extends React.Component {
   }
   // 快速选择
   filChecked(ev) {
+    const {
+      threeDif,
+      threeDifAll,
+      threeSame,
+      threeSameAll,
+      twoDif,
+      twoSame,
+      twoSameAll,
+    } = this.state;
+    this.clear.call(this, threeDif);
+    this.clear.call(this, threeDifAll);
+    this.clear.call(this, threeSame);
+    this.clear.call(this, threeSameAll);
+    this.clear.call(this, twoDif);
+    this.clear.call(this, twoSame);
+    this.clear.call(this, twoSameAll);
     const id = ev.target.id;
     const handleList = this.state.handleList;
     handleList[id] = !handleList[id];
@@ -867,25 +923,45 @@ class BJK3 extends React.Component {
       return false;
     }
     this.props.updateRate(rate);
+    setTimeout(() => {
+      this.staticCount.call(this);
+    }, 20);
   }
   changeRate(flag) {
     let rate = this.props.home.rate;
     rate += +flag;
     rate = rate <= 0 ? 1 : rate;
     this.props.updateRate(rate);
+    setTimeout(() => {
+      this.staticCount.call(this);
+    }, 20);
+  }
+  // 更改追注
+  calcRepeat(e) {
+    const repeat = +e.target.value;
+    if (isNaN(repeat)) {
+      return false;
+    }
+    this.props.updateRepeat(repeat);
+  }
+  changeRepeat(flag) {
+    let repeat = this.props.home.repeat;
+    repeat += +flag;
+    repeat = repeat < 0 ? 0 : repeat;
+    this.props.updateRepeat(repeat);
   }
   openModal() {
     this.setState({
       visible: true,
     });
   }
-  handleOk(BJK3, times, serialCode) {
+  handleOk(BJK3, times, repeatTimes, serialCode) {
     const self = this;
     let numberType = '';
     let numbers = '';
     BJK3.forEach((item, index) => {
       numberType = item.type;
-      index !== BJK3.length-1 ?
+      index !== BJK3.length - 1 ?
         numbers += `${item.code}|` :
         numbers += item.code;
     });
@@ -895,6 +971,7 @@ class BJK3 extends React.Component {
         numberType,
         numbers,
         times,
+        repeatTimes,
         serialCode,
       },
       cb() {
@@ -914,22 +991,14 @@ class BJK3 extends React.Component {
           twoSame,
           twoSameAll,
         } = self.state;
-        clear(threeDif);
-        clear(threeDifAll);
-        clear(threeSame);
-        clear(threeSameAll);
-        clear(totalList);
-        clear(twoDif);
-        clear(twoSame);
-        clear(twoSameAll);
-        function clear(list) {
-          list.forEach((i) => {
-            i.checked = false;
-          });
-          self.setState({
-            list,
-          });
-        }
+        self.clear.call(self, threeDif);
+        self.clear.call(self, threeDifAll);
+        self.clear.call(self, threeSame);
+        self.clear.call(self, threeSameAll);
+        self.clear.call(self, totalList);
+        self.clear.call(self, twoDif);
+        self.clear.call(self, twoSame);
+        self.clear.call(self, twoSameAll);
         const handleList = {
           selBig: false,
           selSmall: false,
@@ -944,6 +1013,15 @@ class BJK3 extends React.Component {
       },
     };
     this.props.sendBuy(payload);
+  }
+
+  clear(list) {
+    list.forEach((i) => {
+      i.checked = false;
+    });
+    this.setState({
+      list,
+    });
   }
   handleCancel() {
     this.setState({
@@ -971,6 +1049,7 @@ class BJK3 extends React.Component {
     const {
       BJK3,
       rate,
+      repeat,
     } = home;
     const {
       totalList,
@@ -1331,7 +1410,7 @@ class BJK3 extends React.Component {
           </Tabs>
         </Col>
         <Col span={BJK3.length ? 24 : 0} className={styles['foot-modal']}>
-          <Col span={24} className={styles['foot-inner']} >
+          <Col span={12} className={styles['foot-inner']} >
             投
             <div className={`${styles['icon-wrap']} ${rate === 1 ? styles.gray : ''}`} style={{ borderRight: 'none', borderRadius: '4px 0 0 4px' }} >
               <Icon type="minus" onClick={this.changeRate.bind(this, -1)} />
@@ -1349,17 +1428,36 @@ class BJK3 extends React.Component {
             </div>
             倍
           </Col>
+          <Col span={12} className={styles['foot-inner']} >
+            追
+            <div className={`${styles['icon-wrap']} ${repeat === 0 ? styles.gray : ''}`} style={{ borderRight: 'none', borderRadius: '4px 0 0 4px' }} >
+              <Icon type="minus" onClick={this.changeRepeat.bind(this, -1)} />
+            </div>
+            <div>
+              <Input
+                type="text"
+                value={repeat}
+                onChange={this.calcRepeat.bind(this)}
+                style={{ border: 'none', outline: 'none', width: '60px', borderRadius: 0, height: '32px' }}
+              />
+            </div>
+            <div className={styles['icon-wrap']} style={{ borderLeft: 'none', borderRadius: '0 4px 4px 0' }}>
+              <Icon type="plus" onClick={this.changeRepeat.bind(this, 1)} />
+            </div>
+            注
+          </Col>
         </Col>
         <Col span={24} className={styles.foot} >
           <Col span={8} className={styles.detail} >{BJK3.length}注，共{2 * BJK3.length * rate}分</Col>
-          <Col span={6} offset={10} className={styles.submit} >
+          <Col span={8} className={styles.detail} >最高可中{this.state.maxRate}分</Col>
+          <Col span={6} offset={2} className={styles.submit} >
             <Button size="large" style={{ background: '#f00', color: '#fff' }} onClick={this.openModal.bind(this)}>投注</Button>
           </Col>
         </Col>
         <Modal
           title={`已选择列表 (共${BJK3.length}注,${rate}倍,${2 * BJK3.length * rate}分)`}
           visible={this.state.visible}
-          onOk={this.handleOk.bind(this, BJK3, rate, headInfo.nextSerialCode)}
+          onOk={this.handleOk.bind(this, BJK3, rate, repeat, headInfo.nextSerialCode)}
           confirmLoading={isLoading}
           onCancel={this.handleCancel.bind(this)}
         >
@@ -1390,6 +1488,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     updateRate(v) {
       dispatch({ type: 'home/updateRate', payload: v });
+    },
+    updateRepeat(v) {
+      dispatch({ type: 'home/updateRepeat', payload: v });
     },
     delBJK3Item(index) {
       dispatch({ type: 'home/delBJK3Item', payload: index });

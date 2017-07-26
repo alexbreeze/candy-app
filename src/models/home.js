@@ -10,6 +10,7 @@ export default {
     BJPK10: [],
     CQSSC: [],
     rate: 1,
+    repeat: 0,
     timerCtrl: true,
   },
 
@@ -46,6 +47,9 @@ export default {
     },
     *updateRate({ payload }, { put }) {
       yield put({ type: 'updateRateValue', payload });
+    },
+    *updateRepeat({ payload }, { put }) {
+      yield put({ type: 'updateRepeatValue', payload });
     },
     *getRate({ payload }, { put, call }) {
       const rate = yield call(getRate, payload.data);
@@ -132,6 +136,12 @@ export default {
       return {
         ...state,
         rate: payload,
+      };
+    },
+    updateRepeatValue(state, { payload }) {
+      return {
+        ...state,
+        repeat: payload,
       };
     },
   },

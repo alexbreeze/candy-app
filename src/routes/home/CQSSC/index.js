@@ -1261,6 +1261,8 @@ class CQSSC extends React.Component {
           },
           ],
         },
+      ],
+      sizeTotal: [
         {
           title: '总和/龙虎',
           type: 'S10All',
@@ -1268,49 +1270,49 @@ class CQSSC extends React.Component {
           total: [{
             id: 'SAB',
             displayName: '大',
-            type: '总和大小',
+            type: '总和/龙虎',
             rate: '5',
             checked: false,
           },
           {
             id: 'SAS',
             displayName: '小',
-            type: '总和大小',
+            type: '总和/龙虎',
             rate: '10',
             checked: false,
           },
           {
             id: 'SAO',
             displayName: '单',
-            type: '总和单双',
+            type: '总和/龙虎',
             rate: '3',
             checked: false,
           },
           {
             id: 'SAE',
             displayName: '双',
-            type: '总和单双',
+            type: '总和/龙虎',
             rate: '4',
             checked: false,
           },
           {
             id: 'SAA1',
             displayName: '龙',
-            type: '龙',
+            type: '总和/龙虎',
             rate: '4',
             checked: false,
           },
           {
             id: 'SAB2',
             displayName: '虎',
-            type: '虎',
+            type: '总和/龙虎',
             rate: '4',
             checked: false,
           },
           {
             id: 'SAC3',
             displayName: '和',
-            type: '和',
+            type: '总和/龙虎',
             rate: '4',
             checked: false,
           },
@@ -1336,6 +1338,8 @@ class CQSSC extends React.Component {
       three: [],
       four: [],
       five: [],
+      maxRate: 0,
+      result: {},
     };
   }
   componentDidMount() {
@@ -1361,12 +1365,24 @@ class CQSSC extends React.Component {
   }
   // 改变状态
   changeChecked(list, ev) {
+    const CQSSC = this.props.home.CQSSC;
+    const self = this;
+    if (CQSSC.length && list[0].displayName !== CQSSC[0].type) {
+      self.clear.call(self, self.state.oneStarList);
+      self.clear.call(self, self.state.twoStarList);
+      self.clear.call(self, self.state.twoGStarList);
+      self.clear.call(self, self.state.threeStarList);
+      self.clear.call(self, self.state.threeDStarList);
+      self.clear.call(self, self.state.threeSStarList);
+      self.clear.call(self, self.state.fiveStarList);
+      self.clear.call(self, self.state.fiveTStarList);
+      self.clear.call(self, self.state.sizeStarList);
+      self.clear.call(self, self.state.sizeTotal);
+    }
     let tempArr = [];
-    let tempInfo = {};
     for (let i = 0; i < list.length; i++) {
       if (list[i].title === ev.target.value) {
         tempArr = list[i].total;
-        tempInfo = list[i];
         break;
       }
     }
@@ -1383,6 +1399,7 @@ class CQSSC extends React.Component {
     this.staticCount.call(this);
   }
   staticCount() {
+    const self = this;
     const {
       oneStarList,
       twoStarList,
@@ -1393,6 +1410,7 @@ class CQSSC extends React.Component {
       fiveStarList,
       fiveTStarList,
       sizeStarList,
+      sizeTotal,
     } = this.state;
     let {
       one,
@@ -1403,6 +1421,7 @@ class CQSSC extends React.Component {
       showTime,
     } = this.state;
     const tempList = [];
+    let result = {};
     calcCount(oneStarList, '一星直选', 1, 1);
     calcCount(twoStarList, '二星直选', 1, 2);
     calcCount(twoGStarList, '二星组选', 2, 2);
@@ -1412,6 +1431,7 @@ class CQSSC extends React.Component {
     calcCount(fiveStarList, '五星直选', 1, 5);
     calcCount(fiveTStarList, '五星通选', 1, 5);
     calcCount(sizeStarList, '大小单双', 1, 2);
+    calcCount(sizeTotal, '总和', 1, 1);
     this.props.clearCQSSC();
     function calcCount(list, name, flag, max) {
       one = [];
@@ -1419,7 +1439,13 @@ class CQSSC extends React.Component {
       three = [];
       four = [];
       five = [];
+      let tempOne = '';
+      let tempTwo = '';
+      let tempThree = '';
+      let tempFour = '';
+      let tempFive = '';
       const extra = [];
+      const rateObj = self.state.rateObj;
       if (flag === 1) {
         list.forEach((i) => {
           i.total.forEach((item) => {
@@ -1461,13 +1487,15 @@ class CQSSC extends React.Component {
                             tempList.push({
                               index: tempList.length,
                               type: name,
-                              code: `${e},${d},${c}${b},${a}`,
+                              rate: rateObj[name],
+                              code: `${e},${d},${c},${b},${a}`,
                             });
                           });
                         } else if (max <= 4) {
                           tempList.push({
                             index: tempList.length,
                             type: name,
+                            rate: rateObj[name],
                             code: `${d},${c}${b},${a}`,
                           });
                         }
@@ -1476,6 +1504,7 @@ class CQSSC extends React.Component {
                       tempList.push({
                         index: tempList.length,
                         type: name,
+                        rate: rateObj[name],
                         code: `${c},${b},${a}`,
                       });
                     }
@@ -1484,6 +1513,7 @@ class CQSSC extends React.Component {
                   tempList.push({
                     index: tempList.length,
                     type: name,
+                    rate: rateObj[name],
                     code: `${b},${a}`,
                   });
                 }
@@ -1492,19 +1522,67 @@ class CQSSC extends React.Component {
               tempList.push({
                 index: tempList.length,
                 type: name,
+                rate: rateObj[name],
                 code: a,
               });
             }
           });
         }
+        if (one.length) {
+          tempOne = one.join('|');
+          if (two.length) {
+            tempTwo = two.join('|');
+            if (three.length) {
+              tempThree = three.join('|');
+              if (four.length) {
+                tempFour = four.join('|');
+                if (five.length) {
+                  tempFive = five.join('|');
+                  result = {
+                    type: name,
+                    code: `${tempFive},${tempFour},${tempThree},${tempTwo},${tempOne}`,
+                  };
+                } else if (max <= 4) {
+                  result = {
+                    type: name,
+                    code: `${tempFour},${tempThree},${tempTwo},${tempOne}`,
+                  };
+                }
+              } else if (max <= 3) {
+                result = {
+                  type: name,
+                  code: `${tempThree},${tempTwo},${tempOne}`,
+                };
+              }
+            } else if (max <= 2) {
+              result = {
+                type: name,
+                code: `${tempTwo},${tempOne}`,
+              };
+            }
+          } else if (max <= 1) {
+            result = {
+              type: name,
+              code: `${tempOne}`,
+            };
+          }
+        }
         if (extra.length) {
+          let tempV = '';
           extra.forEach((i) => {
             tempList.push({
               index: tempList.length,
               type: i.type,
+              rate: name === '总和' ? rateObj['大小单双'] : rateObj[name],
               code: i.code,
             });
+            tempV += `${i.code}|`;
           });
+          tempV = tempV.substr(0, tempV.length - 1);
+          result = {
+            type: name,
+            code: tempV,
+          };
         }
       } else if (flag === 2) {
         list.forEach((i) => {
@@ -1513,22 +1591,53 @@ class CQSSC extends React.Component {
               one.push(item.displayName);
             }
           });
-          if (one.length >= max) {
+          if (one.length) {
+            const tempV = one.join('|');
+            result = {
+              type: name,
+              code: tempV,
+            };
+          }
+          if (one.length >= max && max === 3) {
             for (let i = 0; i < one.length; i++) {
               for (let j = 0; j < i; j++) {
                 for (let k = 0; k < j; k++) {
                   tempList.push({
                     index: tempList.length,
                     type: name,
+                    rate: rateObj[name],
                     code: `${one[i]},${one[j]},${one[k]}`,
                   });
                 }
+              }
+            }
+          } else if (one.length >= max && max === 2) {
+            for (let i = 0; i < one.length; i++) {
+              for (let j = 0; j < i; j++) {
+                tempList.push({
+                  index: tempList.length,
+                  type: name,
+                  rate: rateObj[name],
+                  code: `${one[i]},${one[j]}`,
+                });
               }
             }
           }
         });
       }
     }
+    self.setState({
+      result,
+    });
+    let maxRate = 0;
+    let totalRate = 0;
+    tempList.forEach((item) => {
+      totalRate += item.rate;
+    });
+    maxRate = totalRate * this.props.home.rate;
+    this.setState({
+      maxRate,
+    });
     this.props.updateCQSSC(tempList);
   }
 
@@ -1539,25 +1648,47 @@ class CQSSC extends React.Component {
       return false;
     }
     this.props.updateRate(rate);
+    setTimeout(() => {
+      this.staticCount.call(this);
+    }, 20);
   }
   changeRate(flag) {
     let rate = this.props.home.rate;
     rate += +flag;
     rate = rate <= 0 ? 1 : rate;
     this.props.updateRate(rate);
+    setTimeout(() => {
+      this.staticCount.call(this);
+    }, 20);
+  }
+  // 更改追注
+  calcRepeat(e) {
+    const repeat = +e.target.value;
+    if (isNaN(repeat)) {
+      return false;
+    }
+    this.props.updateRepeat(repeat);
+  }
+  changeRepeat(flag) {
+    let repeat = this.props.home.repeat;
+    repeat += +flag;
+    repeat = repeat < 0 ? 0 : repeat;
+    this.props.updateRepeat(repeat);
   }
   openModal() {
     this.setState({
       visible: true,
     });
   }
-  handleOk(CQSSC, times, serialCode) {
+  handleOk(result, times, repeatTimes, serialCode) {
     const self = this;
     const payload = {
       data: {
         category: 'CQSSC',
-        numbers: JSON.stringify(CQSSC),
+        numberType: result.type,
+        numbers: result.code,
         times,
+        repeatTimes,
         serialCode,
       },
       cb() {
@@ -1565,34 +1696,34 @@ class CQSSC extends React.Component {
         self.setState({
           visible: false,
         });
-        CQSSC = [];
-        self.props.updateCQSSC(CQSSC);
-        clear(self.state.oneStarList);
-        clear(self.state.twoStarList);
-        clear(self.state.twoGStarList);
-        clear(self.state.threeStarList);
-        clear(self.state.threeDStarList);
-        clear(self.state.threeSStarList);
-        clear(self.state.fiveStarList);
-        clear(self.state.fiveTStarList);
-        clear(self.state.sizeStarList);
-        function clear(list) {
-          console.log(list, 'list');
-          list.forEach((i) => {
-            i.total.forEach((item) => {
-              item.checked = false;
-            });
-          });
-          setTimeout(() => {
-            self.setState({
-              list,
-            });
-          }, 20);
-        }
+        const arr = [];
+        self.props.updateCQSSC(arr);
+        self.clear.call(self, self.state.oneStarList);
+        self.clear.call(self, self.state.twoStarList);
+        self.clear.call(self, self.state.twoGStarList);
+        self.clear.call(self, self.state.threeStarList);
+        self.clear.call(self, self.state.threeDStarList);
+        self.clear.call(self, self.state.threeSStarList);
+        self.clear.call(self, self.state.fiveStarList);
+        self.clear.call(self, self.state.fiveTStarList);
+        self.clear.call(self, self.state.sizeStarList);
+        self.clear.call(self, self.state.sizeTotal);
         self.props.updateRate(1);
       },
     };
     this.props.sendBuy(payload);
+  }
+  clear(list) {
+    list.forEach((i) => {
+      i.total.forEach((item) => {
+        item.checked = false;
+      });
+    });
+    setTimeout(() => {
+      this.setState({
+        list,
+      });
+    }, 20);
   }
   handleCancel() {
     this.setState({
@@ -1615,6 +1746,7 @@ class CQSSC extends React.Component {
     const {
       CQSSC,
       rate,
+      repeat,
     } = home;
     const {
       oneStarList,
@@ -1626,9 +1758,11 @@ class CQSSC extends React.Component {
       fiveStarList,
       fiveTStarList,
       sizeStarList,
+      sizeTotal,
       isShow,
       showTime,
       rateObj,
+      result,
     } = this.state;
     const columns = [
       { title: '种类', dataIndex: 'type', key: 'type' },
@@ -1992,11 +2126,37 @@ class CQSSC extends React.Component {
                   })
                   : ''
               }
+              {
+                sizeTotal.length ?
+                  sizeTotal.map((items, index) => {
+                    return (
+                      <Col span={24} className={styles.selContainer} key={index}>
+                        <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                        <Col xs={17} sm={19} offset={2}>{
+                          items.total.map((item, index) => {
+                            return (
+                              <Col span={6} className={styles.selWrap} key={index} >
+                                <label htmlFor={item.id}>
+                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, sizeTotal)} id={item.id} checked={item.checked} />
+                                  <Row className={styles.selBox}>
+                                    <Col className={styles.selTitle} >{item.displayName}</Col>
+                                  </Row>
+                                  {/* <Col className={styles.rate}>{item.rate}</Col> */}
+                                </label>
+                              </Col>
+                            );
+                          })
+                        }</Col>
+                      </Col>
+                    );
+                  })
+                  : ''
+              }
             </TabPane>
           </Tabs>
         </Col>
         <Col span={CQSSC.length ? 24 : 0} className={styles['foot-modal']}>
-          <Col span={24} className={styles['foot-inner']} >
+          <Col span={12} className={styles['foot-inner']} >
             投
             <div className={`${styles['icon-wrap']} ${rate === 1 ? styles.gray : ''}`} style={{ borderRight: 'none', borderRadius: '4px 0 0 4px' }} >
               <Icon type="minus" onClick={this.changeRate.bind(this, -1)} />
@@ -2014,17 +2174,36 @@ class CQSSC extends React.Component {
             </div>
             倍
           </Col>
+          <Col span={12} className={styles['foot-inner']} >
+            追
+            <div className={`${styles['icon-wrap']} ${repeat === 0 ? styles.gray : ''}`} style={{ borderRight: 'none', borderRadius: '4px 0 0 4px' }} >
+              <Icon type="minus" onClick={this.changeRepeat.bind(this, -1)} />
+            </div>
+            <div>
+              <Input
+                type="text"
+                value={repeat}
+                onChange={this.calcRepeat.bind(this)}
+                style={{ border: 'none', outline: 'none', width: '60px', borderRadius: 0, height: '32px' }}
+              />
+            </div>
+            <div className={styles['icon-wrap']} style={{ borderLeft: 'none', borderRadius: '0 4px 4px 0' }}>
+              <Icon type="plus" onClick={this.changeRepeat.bind(this, 1)} />
+            </div>
+            注
+          </Col>
         </Col>
         <Col span={24} className={styles.foot} >
           <Col span={8} className={styles.detail} >{CQSSC.length}注，共{2 * CQSSC.length * rate}分</Col>
-          <Col span={6} offset={10} className={styles.submit} >
+          <Col span={8} className={styles.detail} >最高可中{this.state.maxRate}分</Col>
+          <Col span={6} offset={2} className={styles.submit} >
             <Button size="large" type="primary" onClick={this.openModal.bind(this)}>投注</Button>
           </Col>
         </Col>
         <Modal
           title={`已选择列表 (共${CQSSC.length}注,${rate}倍,${2 * CQSSC.length * rate}分)`}
           visible={this.state.visible}
-          onOk={this.handleOk.bind(this, CQSSC, rate, headInfo.nextSerialCode)}
+          onOk={this.handleOk.bind(this, result, rate, repeat, headInfo.nextSerialCode)}
           confirmLoading={isLoading}
           onCancel={this.handleCancel.bind(this)}
         >
@@ -2055,6 +2234,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     updateRate(v) {
       dispatch({ type: 'home/updateRate', payload: v });
+    },
+    updateRepeat(v) {
+      dispatch({ type: 'home/updateRepeat', payload: v });
     },
     delCQSSCItem(index) {
       dispatch({ type: 'home/delCQSSCItem', payload: index });
