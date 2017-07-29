@@ -53,21 +53,21 @@ class Tab extends Component {
         key: 'sourceType',
         width: 75,
         render: (text, record) => {
-          return (
-            <div className="editable-row-operations">
-              {
-                text === 'topUp'
-                  ?
+            return (
+              <div className="editable-row-operations">
+                {
+                  text === 'topUp'
+                    ?
                     <span>
                       充值
                     </span>
-                  :
+                    :
                     <span>
                       兑分
                     </span>
-              }
-            </div>
-          );
+                }
+              </div>
+            );
         },
       },
       {
