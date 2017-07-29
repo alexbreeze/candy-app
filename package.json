@@ -15,7 +15,8 @@
     "qs": "latest",
     "react": "^15.4.0",
     "react-copy-to-clipboard": "^5.0.0",
-    "react-dom": "^15.4.0"
+    "react-dom": "^15.4.0",
+    "react-draggable": "^2.2.6"
   },
   "devDependencies": {
     "axios": "latest",

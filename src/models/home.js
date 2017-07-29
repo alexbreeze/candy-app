@@ -1,7 +1,7 @@
 // import { routerRedux } from 'dva/router';
 // import { queryURL } from '../utils';
 import { message } from 'antd';
-import { sendBuyService, getRate } from '../services/home';
+import { sendBuyService, getRate, getBuyList } from '../services/home';
 
 export default {
   namespace: 'home',
@@ -12,6 +12,7 @@ export default {
     rate: 1,
     repeat: 0,
     timerCtrl: true,
+    buyList: {},
   },
 
   effects: {
@@ -50,6 +51,24 @@ export default {
     },
     *updateRepeat({ payload }, { put }) {
       yield put({ type: 'updateRepeatValue', payload });
+    },
+    *updateBuyList({ payload }, { put }) {
+      yield put({ type: 'buyList', payload });
+    },
+    *getBuyList({ payload }, { put, call }) {
+      const data = yield call(getBuyList, payload.data);
+      if (data.success){
+        if(data.serialCode){
+          if(payload.cb) {
+            payload.cb();
+          }
+          yield put({ type: 'buyList', data });
+        }else {
+          message.info('未查询到上期购彩信息');
+        }
+      }else {
+        throw data;
+      }
     },
     *getRate({ payload }, { put, call }) {
       const rate = yield call(getRate, payload.data);
@@ -142,6 +161,12 @@ export default {
       return {
         ...state,
         repeat: payload,
+      };
+    },
+    buyList(state, { payload }) {
+      return {
+        ...state,
+        buyList: payload,
       };
     },
   },

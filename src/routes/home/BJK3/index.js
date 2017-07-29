@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Row, Col, Tabs, Button, Carousel, Input, Modal, Table, Icon, message } from 'antd';
+import { Row, Col, Tabs, Button, Input, Modal, Table, Icon, message } from 'antd';
+import Draggable, { DraggableCore } from 'react-draggable';
 import HeadMenu from '../../../components/headMenu';
 import BJK3TOP from '../../../components/BJK3Top';
 import { config } from '../../../utils';
@@ -464,141 +465,141 @@ class BJK3 extends React.Component {
       threeDif: [
         {
           id: 'selTd1',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '123',
           checked: false,
         },
         {
           id: 'selTd2',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '124',
           checked: false,
         },
         {
           id: 'selTd3',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '125',
           checked: false,
         },
         {
           id: 'selTd4',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '126',
           checked: false,
         },
         {
           id: 'selTd5',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '134',
           checked: false,
         },
         {
           id: 'selTd6',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '135',
           checked: false,
         },
         {
           id: 'selTd7',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '136',
           checked: false,
         },
         {
           id: 'selTd8',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '145',
           checked: false,
         },
         {
           id: 'selTd9',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '146',
           checked: false,
         },
         {
           id: 'selTd10',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '156',
           checked: false,
         },
         {
           id: 'selTd11',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '234',
           checked: false,
         },
         {
           id: 'selTd12',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '235',
           checked: false,
         },
         {
           id: 'selTd13',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '236',
           checked: false,
         },
         {
           id: 'selTd14',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '245',
           checked: false,
         },
         {
           id: 'selTd15',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '246',
           checked: false,
         },
         {
           id: 'selTd16',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '256',
           checked: false,
         },
         {
           id: 'selTd17',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '345',
           checked: false,
         },
         {
           id: 'selTd18',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '346',
           checked: false,
         },
         {
           id: 'selTd19',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '356',
           checked: false,
         },
         {
           id: 'selTd20',
-          displayName: '三不同号',
-          type: '三不同号',
+          displayName: '三号不同',
+          type: '三号不同',
           value: '456',
           checked: false,
         },
@@ -723,7 +724,7 @@ class BJK3 extends React.Component {
       isShow: false,
       showTime: '00:00',
       maxRate: 0,
-      buyList: {},
+      tab: '和',
     };
   }
   componentDidMount() {
@@ -821,14 +822,57 @@ class BJK3 extends React.Component {
         numbers += item.code;
     });
     const buyList = {
+      category: 'BJK3',
+      serialCode: this.props.trend.headInfo.nextSerialCode,
+      times: this.props.home.rate,
+      count: tempList.length,
+      amount: this.props.home.rate * tempList.length * 2,
       numberType,
       numbers,
     };
-    setTimeout(() => {
-      this.setState({
-        buyList,
-      });
-    }, 200);
+    this.props.updateBuyList(buyList);
+  }
+  // 获取buyList
+  getBuyList() {
+    const self = this;
+    this.props.getBuyList({
+      data: {
+        category: 'BJK3',
+        serialCode: this.props.trend.headInfo.latestSerialCode,
+        numberType: this.state.tab,
+      },
+      cb() {
+        self.setState({
+          visible: true,
+        });
+      },
+    });
+  }
+  chooseTab(index) {
+    const self = this;
+    let tab = '和';
+    switch (index) {
+      case '0':
+        tab = '和';
+        break;
+      case '1':
+        tab = '三同号单选';
+        break;
+      case '2':
+        tab = '二同号单选';
+        break;
+      case '3':
+        tab = '三号不同';
+        break;
+      case '4':
+        tab = '二不同号';
+        break;
+      default:
+        break;
+    }
+    self.setState({
+      tab,
+    });
   }
   // 改变状态
   changeChecked(list, ev) {
@@ -996,8 +1040,18 @@ class BJK3 extends React.Component {
         message.success('购买成功');
         self.setState({
           visible: false,
+          maxRate: 0,
         });
         BJK3 = [];
+        self.props.updateBuyList({
+          category: 'BJK3',
+          serialCode: '',
+          times: 0,
+          count: 0,
+          amount: 0,
+          numberType: '',
+          numbers: '',
+        });
         self.props.updateBJK3(BJK3);
         const {
           threeDif,
@@ -1055,8 +1109,14 @@ class BJK3 extends React.Component {
     });
   }
   clearBuyList() {
-    this.setState({
-      buyList: {},
+    this.props.updateBuyList({
+      category: 'BJK3',
+      serialCode: '',
+      times: 0,
+      count: 0,
+      amount: 0,
+      numberType: '',
+      numbers: '',
     });
     this.props.clearBJK3();
     this.clear.call(this, this.state.threeDif);
@@ -1082,6 +1142,7 @@ class BJK3 extends React.Component {
       BJK3,
       rate,
       repeat,
+      buyList,
     } = home;
     const {
       totalList,
@@ -1095,7 +1156,6 @@ class BJK3 extends React.Component {
       twoDif,
       showTime,
       isShow,
-      buyList,
     } = this.state;
     const columns = [
       { title: '种类', dataIndex: 'type', key: 'type' },
@@ -1161,7 +1221,7 @@ class BJK3 extends React.Component {
               <BJK3TOP isShow={isShow} />
             </Col>
           </Row>
-          <Tabs renderTabBar renderTabContent defaultActiveKey="0">
+          <Tabs renderTabBar renderTabContent defaultActiveKey="0" onTabClick={this.chooseTab.bind(this)}>
             <TabPane tab="和值" key="0" >
               <Row>
                 <Col span={24} className={styles.itemWrap}>
@@ -1354,10 +1414,10 @@ class BJK3 extends React.Component {
                 }
               </Row>
             </TabPane>
-            <TabPane tab="三不同号" key="3">
+            <TabPane tab="三号不同" key="3">
               <Row>
                 <Col span={24} className={styles.itemWrap}>
-                  <span className={styles.itemTitle}>三不同号</span>
+                  <span className={styles.itemTitle}>三号不同</span>
                   <span className={styles.itemTitle}>奖金{40}分</span>
                   <span className={styles.itemDetail}>猜3个不同号码</span>
                 </Col>
@@ -1441,6 +1501,11 @@ class BJK3 extends React.Component {
               </Row>
             </TabPane>
           </Tabs>
+          <div className={styles.lastWrap}>
+            <Draggable defaultPosition={{ x: 0, y: 0 }}>
+              <div className={styles.lastOne} onClick={this.getBuyList.bind(this)} >追上期</div>
+            </Draggable>
+          </div>
         </Col>
         <Col span={BJK3.length ? 24 : 0} className={styles['foot-modal']}>
           <Col span={12} className={styles['foot-inner']} >
@@ -1461,6 +1526,7 @@ class BJK3 extends React.Component {
             </div>
             倍
           </Col>
+          {/*
           <Col span={12} className={styles['foot-inner']} >
             追
             <div className={`${styles['icon-wrap']} ${repeat === 0 ? styles.gray : ''}`} style={{ borderRight: 'none', borderRadius: '4px 0 0 4px' }} >
@@ -1479,6 +1545,7 @@ class BJK3 extends React.Component {
             </div>
             注
           </Col>
+          */}
         </Col>
         <Col span={24} className={styles.foot} >
           <Col span={8} className={styles.detail} >{BJK3.length}注，共{2 * BJK3.length * rate}分</Col>
@@ -1488,7 +1555,7 @@ class BJK3 extends React.Component {
           </Col>
         </Col>
         <Modal
-          title={`已选择彩票 (共${BJK3.length}注,${rate}倍,${2 * BJK3.length * rate}分)`}
+          title={`已选择彩票 (共${buyList.count}注,${buyList.times}倍,${buyList.amount}分)`}
           visible={this.state.visible}
           onOk={this.handleOk.bind(this, BJK3, rate, repeat, headInfo.nextSerialCode)}
           confirmLoading={isLoading}
@@ -1545,6 +1612,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     getRate(payload) {
       dispatch({ type: 'home/getRate', payload });
+    },
+    updateBuyList(payload) {
+      dispatch({ type: 'home/updateBuyList', payload });
+    },
+    getBuyList(payload) {
+      dispatch({ type: 'home/getBuyList', payload });
     },
   };
 };
