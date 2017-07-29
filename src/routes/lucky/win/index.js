@@ -11,7 +11,7 @@ class Tab extends Component {
     super(props);
     this.state = {
       pageIndex: 0,
-      pageSize: 10,
+      pageSize: 20,
     };
   }
   componentDidMount() {
