@@ -66,10 +66,10 @@ export default {
     *getBuyList({ payload }, { call }) {
       const data = yield call(getBuyList, payload.data);
       if (data.success) {
-        if (data.nextSerialCode) {
+        if (data.lottery) {
           const buyList = {
             category: data.category,
-            serialCode: data.nextSerialCode,
+            serialCode: data.lottery.nextSerialCode,
             times: data.times,
             count: data.count,
             amount: data.amount,

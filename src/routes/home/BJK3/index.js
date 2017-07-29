@@ -759,29 +759,29 @@ class BJK3 extends React.Component {
       });
     }
   }
+  // 获取buyList
+  getBuyList() {
+    const self = this;
+    this.props.getBuyList({
+      data: {
+        category: 'BJK3',
+        serialCode: this.props.trend.headInfo.latestSerialCode,
+        numberType: this.state.tab,
+      },
+      cb(buyList) {
+        self.props.updateBuyList(buyList);
+        self.setState({
+          visible: true,
+        });
+      },
+    });
+  }
   // 计算数量
-  staticCount() {
-    const {
-      threeDif,
-      threeDifAll,
-      threeSame,
-      threeSameAll,
-      totalList,
-      twoDif,
-      twoSame,
-      twoSameAll,
-    } = this.state;
+  staticCount(data) {
+    this.props.clearBJK3();
     const tempList = [];
     let count = 0;
-    calcCount(threeDif);
-    calcCount(threeDifAll);
-    calcCount(threeSame);
-    calcCount(threeSameAll);
-    calcCount(totalList);
-    calcCount(twoDif);
-    calcCount(twoSame);
-    calcCount(twoSameAll);
-    this.props.clearBJK3();
+    calcCount(data);
     function calcCount(list) {
       list.forEach((i) => {
         if (i.checked) {
@@ -831,23 +831,6 @@ class BJK3 extends React.Component {
       numbers,
     };
     this.props.updateBuyList(buyList);
-  }
-  // 获取buyList
-  getBuyList() {
-    const self = this;
-    this.props.getBuyList({
-      data: {
-        category: 'BJK3',
-        serialCode: this.props.trend.headInfo.latestSerialCode,
-        numberType: this.state.tab,
-      },
-      cb(buyList) {
-        self.props.updateBuyList(buyList);
-        self.setState({
-          visible: true,
-        });
-      },
-    });
   }
   chooseTab(index) {
     const self = this;
@@ -908,7 +891,7 @@ class BJK3 extends React.Component {
         list,
       );
     }, 20);
-    this.staticCount.call(this);
+    this.staticCount.call(this, list);
   }
   // 快速选择
   filChecked(ev) {
@@ -977,7 +960,7 @@ class BJK3 extends React.Component {
         i.checked = false;
       }
     });
-    this.staticCount.call(this);
+    this.staticCount.call(this, totalList);
   }
   // 更改倍数
   calcRate(e) {
@@ -987,7 +970,7 @@ class BJK3 extends React.Component {
     }
     this.props.updateRate(rate);
     setTimeout(() => {
-      this.staticCount.call(this);
+      this.staticCount.call(this, null);
     }, 20);
   }
   changeRate(flag) {
@@ -1093,6 +1076,7 @@ class BJK3 extends React.Component {
     this.setState({
       visible: false,
     });
+    this.props.updateRate(1);
   }
   delItem(item) {
     this.props.delBJK3Item(item.index);

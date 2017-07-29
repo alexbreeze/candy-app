@@ -1321,6 +1321,7 @@ class BJPK10 extends React.Component {
     this.setState({
       visible: false,
     });
+    this.props.updateRate(1);
   }
   delItem(item) {
     this.props.delBJPK10Item(item.index);

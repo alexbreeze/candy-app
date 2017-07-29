@@ -4,10 +4,12 @@ import { connect } from 'dva';
 import { config } from '../utils';
 import styles from './index.less';
 import Nav from '../components/menu';
+import initReactFastclick from 'react-fastclick';
 
 const { sessionKey } = config;
 const { token } = sessionKey;
 
+initReactFastclick();
 class IndexPage extends Component {
   componentDidMount() {
     this.props.getMenuList();

@@ -1418,10 +1418,11 @@ class CQSSC extends React.Component {
     });
   }
   // 改变状态
-  changeChecked(list, ev) {
+  changeChecked(list, str, ev) {
     const CQSSC = this.props.home.CQSSC;
     const self = this;
     if (CQSSC.length && list[0].displayName !== CQSSC[0].type) {
+      self.props.updateRate(1);
       self.clear.call(self, self.state.oneStarList);
       self.clear.call(self, self.state.twoStarList);
       self.clear.call(self, self.state.twoGStarList);
@@ -1450,22 +1451,60 @@ class CQSSC extends React.Component {
         list,
       );
     }, 20);
-    this.staticCount.call(this);
+    this.staticCount.call(this, list, str);
   }
-  staticCount() {
+  staticCount(data, str) {
     const self = this;
-    const {
-      oneStarList,
-      twoStarList,
-      twoGStarList,
-      threeStarList,
-      threeDStarList,
-      threeSStarList,
-      fiveStarList,
-      fiveTStarList,
-      sizeStarList,
-      sizeTotal,
-    } = this.state;
+    const detail = {};
+    switch (str) {
+      case 'oneStarList':
+        detail.name = '一星直选';
+        detail.flag = 1;
+        detail.max = 1;
+        break;
+      case 'twoStarList':
+        detail.name = '二星直选';
+        detail.flag = 1;
+        detail.max = 2;
+        break;
+      case 'twoGStarList':
+        detail.name = '二星组选';
+        detail.flag = 2;
+        detail.max = 2;
+        break;
+      case 'threeStarList':
+        detail.name = '三星直选';
+        detail.flag = 1;
+        detail.max = 3;
+        break;
+      case 'threeSStarList':
+        detail.name = '三星组六';
+        detail.flag = 2;
+        detail.max = 3;
+        break;
+      case 'fiveStarList':
+        detail.name = '五星直选';
+        detail.flag = 1;
+        detail.max = 5;
+        break;
+      case 'fiveTStarList':
+        detail.name = '五星通选';
+        detail.flag = 1;
+        detail.max = 5;
+        break;
+      case 'sizeStarList':
+        detail.name = '大小单双';
+        detail.flag = 1;
+        detail.max = 2;
+        break;
+      case 'sizeTotal':
+        detail.name = '总和';
+        detail.flag = 1;
+        detail.max = 1;
+        break;
+      default:
+        break;
+    }
     let {
       one,
       two,
@@ -1476,16 +1515,7 @@ class CQSSC extends React.Component {
     } = this.state;
     const tempList = [];
     let result = {};
-    calcCount(oneStarList, '一星直选', 1, 1);
-    calcCount(twoStarList, '二星直选', 1, 2);
-    calcCount(twoGStarList, '二星组选', 2, 2);
-    calcCount(threeStarList, '三星直选', 1, 3);
-    calcCount(threeDStarList, '三星组三', 2, 2);
-    calcCount(threeSStarList, '三星组六', 2, 3);
-    calcCount(fiveStarList, '五星直选', 1, 5);
-    calcCount(fiveTStarList, '五星通选', 1, 5);
-    calcCount(sizeStarList, '大小单双', 1, 2);
-    calcCount(sizeTotal, '总和', 1, 1);
+    calcCount(data, detail.name, detail.flag, detail.max);
     this.props.clearCQSSC();
     function calcCount(list, name, flag, max) {
       one = [];
@@ -1716,7 +1746,15 @@ class CQSSC extends React.Component {
     }
     this.props.updateRate(rate);
     setTimeout(() => {
-      this.staticCount.call(this);
+      let maxRate = 0;
+      let totalRate = 0;
+      this.props.home.CQSSC.forEach((item) => {
+        totalRate += item.rate;
+      });
+      maxRate = totalRate * this.props.home.rate;
+      this.setState({
+        maxRate,
+      });
     }, 20);
   }
   changeRate(flag) {
@@ -1725,7 +1763,15 @@ class CQSSC extends React.Component {
     rate = rate <= 0 ? 1 : rate;
     this.props.updateRate(rate);
     setTimeout(() => {
-      this.staticCount.call(this);
+      let maxRate = 0;
+      let totalRate = 0;
+      this.props.home.CQSSC.forEach((item) => {
+        totalRate += item.rate;
+      });
+      maxRate = totalRate * this.props.home.rate;
+      this.setState({
+        maxRate,
+      });
     }, 20);
   }
   // 更改追注
@@ -1796,6 +1842,7 @@ class CQSSC extends React.Component {
     this.setState({
       visible: false,
     });
+    this.props.updateRate(1);
   }
   delItem(item) {
     this.props.delCQSSCItem(item.index);
@@ -1920,7 +1967,7 @@ class CQSSC extends React.Component {
                             return (
                               <Col xs={6} sm={4} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, oneStarList)} id={item.id} checked={item.checked} />
+                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, oneStarList, 'oneStarList')} id={item.id} checked={item.checked} />
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
@@ -1955,7 +2002,7 @@ class CQSSC extends React.Component {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, twoStarList)} id={item.id} checked={item.checked} />
+                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, twoStarList, 'twoStarList')} id={item.id} checked={item.checked} />
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
@@ -1990,7 +2037,7 @@ class CQSSC extends React.Component {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, twoGStarList)} id={item.id} checked={item.checked} />
+                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, twoGStarList, 'twoGStarList')} id={item.id} checked={item.checked} />
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
@@ -2025,7 +2072,7 @@ class CQSSC extends React.Component {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, threeStarList)} id={item.id} checked={item.checked} />
+                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, threeStarList, 'threeStarList')} id={item.id} checked={item.checked} />
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
@@ -2097,7 +2144,7 @@ class CQSSC extends React.Component {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, threeSStarList)} id={item.id} checked={item.checked} />
+                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, threeSStarList, 'threeSStarList')} id={item.id} checked={item.checked} />
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
@@ -2132,7 +2179,7 @@ class CQSSC extends React.Component {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, fiveStarList)} id={item.id} checked={item.checked} />
+                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, fiveStarList, 'fiveStarList')} id={item.id} checked={item.checked} />
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
@@ -2167,7 +2214,7 @@ class CQSSC extends React.Component {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, fiveTStarList)} id={item.id} checked={item.checked} />
+                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, fiveTStarList, 'fiveTStarList')} id={item.id} checked={item.checked} />
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
@@ -2202,7 +2249,7 @@ class CQSSC extends React.Component {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, sizeStarList)} id={item.id} checked={item.checked} />
+                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, sizeStarList, 'sizeStarList')} id={item.id} checked={item.checked} />
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
@@ -2228,7 +2275,7 @@ class CQSSC extends React.Component {
                             return (
                               <Col span={6} className={styles.selWrap} key={index} >
                                 <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, sizeTotal)} id={item.id} checked={item.checked} />
+                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, sizeTotal, 'sizeTotal')} id={item.id} checked={item.checked} />
                                   <Row className={styles.selBox}>
                                     <Col className={styles.selTitle} >{item.displayName}</Col>
                                   </Row>
@@ -2295,7 +2342,7 @@ class CQSSC extends React.Component {
           <Col span={8} className={styles.detail} >{CQSSC.length}注，共{2 * CQSSC.length * rate}分</Col>
           <Col span={8} className={styles.detail} >最高可中{this.state.maxRate}分</Col>
           <Col span={6} offset={2} className={styles.submit} >
-            <Button size="large" type="primary" style={{background: '#e95525'}} onClick={this.openModal.bind(this)}>投注</Button>
+            <Button size="large" type="primary" style={{ background: '#e95525' }} onClick={this.openModal.bind(this)}>投注</Button>
           </Col>
         </Col>
         <Modal
