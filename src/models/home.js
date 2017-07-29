@@ -12,7 +12,15 @@ export default {
     rate: 1,
     repeat: 0,
     timerCtrl: true,
-    buyList: {},
+    buyList: {
+      category: '',
+      serialCode: '',
+      times: 0,
+      count: 0,
+      amount: 0,
+      numberType: '',
+      numbers: '',
+    },
   },
 
   effects: {
@@ -55,18 +63,26 @@ export default {
     *updateBuyList({ payload }, { put }) {
       yield put({ type: 'buyList', payload });
     },
-    *getBuyList({ payload }, { put, call }) {
+    *getBuyList({ payload }, { call }) {
       const data = yield call(getBuyList, payload.data);
-      if (data.success){
-        if(data.serialCode){
-          if(payload.cb) {
-            payload.cb();
+      if (data.success) {
+        if (data.nextSerialCode) {
+          const buyList = {
+            category: data.category,
+            serialCode: data.nextSerialCode,
+            times: data.times,
+            count: data.count,
+            amount: data.amount,
+            numberType: data.numberType,
+            numbers: data.number,
+          };
+          if (payload.cb) {
+            payload.cb(buyList);
           }
-          yield put({ type: 'buyList', data });
-        }else {
+        } else {
           message.info('未查询到上期购彩信息');
         }
-      }else {
+      } else {
         throw data;
       }
     },

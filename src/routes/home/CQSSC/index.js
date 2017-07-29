@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Row, Col, Tabs, Button, Carousel, Input, Modal, Table, Icon, message } from 'antd';
+import Draggable, { DraggableCore } from 'react-draggable';
 import HeadMenu from '../../../components/headMenu';
 import CQSSCTOP from '../../../components/CQSSCTop';
 import styles from './index.less';
@@ -973,55 +974,55 @@ class CQSSC extends React.Component {
         },
         {
           title: '千位',
-          type: 'ST8',
+          type: 'ST9',
           displayName: '五星通选',
           total: [{
-            id: 'ST80',
+            id: 'ST90',
             displayName: '0',
             rate: '1',
             checked: false,
           }, {
-            id: 'ST81',
+            id: 'ST91',
             displayName: '1',
             rate: '8',
             checked: false,
           }, {
-            id: 'ST82',
+            id: 'ST92',
             displayName: '2',
             rate: '4',
             checked: false,
           }, {
-            id: 'ST83',
+            id: 'ST93',
             displayName: '3',
             rate: '3',
             checked: false,
           }, {
-            id: 'ST84',
+            id: 'ST94',
             displayName: '4',
             rate: '0',
             checked: false,
           }, {
-            id: 'ST85',
+            id: 'ST95',
             displayName: '5',
             rate: '1',
             checked: false,
           }, {
-            id: 'ST86',
+            id: 'ST96',
             displayName: '6',
             rate: '2',
             checked: false,
           }, {
-            id: 'ST87',
+            id: 'ST97',
             displayName: '7',
             rate: '14',
             checked: false,
           }, {
-            id: 'ST88',
+            id: 'ST98',
             displayName: '8',
             rate: '5',
             checked: false,
           }, {
-            id: 'ST89',
+            id: 'ST99',
             displayName: '9',
             rate: '11',
             checked: false,
@@ -1030,55 +1031,55 @@ class CQSSC extends React.Component {
         },
         {
           title: '百位',
-          type: 'SH8',
+          type: 'SH9',
           displayName: '五星通选',
           total: [{
-            id: 'SH80',
+            id: 'SH90',
             displayName: '0',
             rate: '3',
             checked: false,
           }, {
-            id: 'SH81',
+            id: 'SH91',
             displayName: '1',
             rate: '8',
             checked: false,
           }, {
-            id: 'SH82',
+            id: 'SH92',
             displayName: '2',
             rate: '2',
             checked: false,
           }, {
-            id: 'SH83',
+            id: 'SH93',
             displayName: '3',
             rate: '9',
             checked: false,
           }, {
-            id: 'SH84',
+            id: 'SH94',
             displayName: '4',
             rate: '15',
             checked: false,
           }, {
-            id: 'SH85',
+            id: 'SH95',
             displayName: '5',
             rate: '4',
             checked: false,
           }, {
-            id: 'SH86',
+            id: 'SH96',
             displayName: '6',
             rate: '20',
             checked: false,
           }, {
-            id: 'SH87',
+            id: 'SH97',
             displayName: '7',
             rate: '0',
             checked: false,
           }, {
-            id: 'SH88',
+            id: 'SH98',
             displayName: '8',
             rate: '1',
             checked: false,
           }, {
-            id: 'SH89',
+            id: 'SH99',
             displayName: '9',
             rate: '16',
             checked: false,
@@ -1340,6 +1341,7 @@ class CQSSC extends React.Component {
       five: [],
       maxRate: 0,
       result: {},
+      tab: '一星直选',
     };
   }
   componentDidMount() {
@@ -1361,6 +1363,58 @@ class CQSSC extends React.Component {
   changeShow() {
     this.setState({
       isShow: !this.state.isShow,
+    });
+  }
+  // 获取buyList
+  getBuyList() {
+    const self = this;
+    this.props.getBuyList({
+      data: {
+        category: 'CQSSC',
+        serialCode: this.props.trend.headInfo.latestSerialCode,
+        numberType: this.state.tab,
+      },
+      cb(buyList) {
+        self.props.updateBuyList(buyList);
+        self.setState({
+          visible: true,
+        });
+      },
+    });
+  }
+  chooseTab(index) {
+    const self = this;
+    let tab = '一星直选';
+    switch (index) {
+      case '0':
+        tab = '一星直选';
+        break;
+      case '1':
+        tab = '二星直选';
+        break;
+      case '2':
+        tab = '二星组选';
+        break;
+      case '3':
+        tab = '三星直选';
+        break;
+      case '6':
+        tab = '三星组六';
+        break;
+      case '7':
+        tab = '五星直选';
+        break;
+      case '8':
+        tab = '五星通选';
+        break;
+      case '9':
+        tab = '大小单双';
+        break;
+      default:
+        break;
+    }
+    self.setState({
+      tab,
     });
   }
   // 改变状态
@@ -1639,6 +1693,19 @@ class CQSSC extends React.Component {
       maxRate,
     });
     this.props.updateCQSSC(tempList);
+    setTimeout(() => {
+      const buyList = {
+        category: 'CQSSC',
+        numberType: this.state.result.type,
+        numbers: this.state.result.code,
+        serialCode: this.props.trend.headInfo.nextSerialCode,
+        times: this.props.home.rate,
+        count: tempList.length,
+        amount: this.props.home.rate * tempList.length * 2,
+        repeatTimes: 0,
+      };
+      this.props.updateBuyList(buyList);
+    }, 20);
   }
 
   // 更改倍数
@@ -1733,6 +1800,29 @@ class CQSSC extends React.Component {
   delItem(item) {
     this.props.delCQSSCItem(item.index);
   }
+  clearBuyList() {
+    this.props.updateBuyList({
+      category: 'CQSSC',
+      serialCode: '',
+      times: 0,
+      count: 0,
+      amount: 0,
+      numberType: '',
+      numbers: '',
+    });
+    const arr = [];
+    this.props.updateCQSSC(arr);
+    this.clear.call(this, this.state.oneStarList);
+    this.clear.call(this, this.state.twoStarList);
+    this.clear.call(this, this.state.twoGStarList);
+    this.clear.call(this, this.state.threeStarList);
+    this.clear.call(this, this.state.threeDStarList);
+    this.clear.call(this, this.state.threeSStarList);
+    this.clear.call(this, this.state.fiveStarList);
+    this.clear.call(this, this.state.fiveTStarList);
+    this.clear.call(this, this.state.sizeStarList);
+    this.clear.call(this, this.state.sizeTotal);
+  }
   render() {
     const {
       trend,
@@ -1747,6 +1837,7 @@ class CQSSC extends React.Component {
       CQSSC,
       rate,
       repeat,
+      buyList,
     } = home;
     const {
       oneStarList,
@@ -1809,7 +1900,7 @@ class CQSSC extends React.Component {
               <CQSSCTOP isShow={isShow} />
             </Col>
           </Row>
-          <Tabs renderTabBar renderTabContent defaultActiveKey="0">
+          <Tabs renderTabBar renderTabContent defaultActiveKey="0" onTabClick={this.chooseTab.bind(this)}>
             <TabPane tab="一星直选" key="0" >
               <Row>
                 <Col span={24} className={styles.itemWrap}>
@@ -2154,6 +2245,11 @@ class CQSSC extends React.Component {
               }
             </TabPane>
           </Tabs>
+          <div className={styles.lastWrap}>
+            <Draggable defaultPosition={{ x: 0, y: 0 }}>
+              <div className={styles.lastOne} onClick={this.getBuyList.bind(this)} >追上期</div>
+            </Draggable>
+          </div>
         </Col>
         <Col span={CQSSC.length ? 24 : 0} className={styles['foot-modal']}>
           <Col span={12} className={styles['foot-inner']} >
@@ -2174,6 +2270,7 @@ class CQSSC extends React.Component {
             </div>
             倍
           </Col>
+          {/*
           <Col span={12} className={styles['foot-inner']} >
             追
             <div className={`${styles['icon-wrap']} ${repeat === 0 ? styles.gray : ''}`} style={{ borderRight: 'none', borderRadius: '4px 0 0 4px' }} >
@@ -2192,27 +2289,37 @@ class CQSSC extends React.Component {
             </div>
             注
           </Col>
+          */}
         </Col>
         <Col span={24} className={styles.foot} >
           <Col span={8} className={styles.detail} >{CQSSC.length}注，共{2 * CQSSC.length * rate}分</Col>
           <Col span={8} className={styles.detail} >最高可中{this.state.maxRate}分</Col>
           <Col span={6} offset={2} className={styles.submit} >
-            <Button size="large" type="primary" onClick={this.openModal.bind(this)}>投注</Button>
+            <Button size="large" type="primary" style={{background: '#e95525'}} onClick={this.openModal.bind(this)}>投注</Button>
           </Col>
         </Col>
         <Modal
-          title={`已选择列表 (共${CQSSC.length}注,${rate}倍,${2 * CQSSC.length * rate}分)`}
+          title={`已选择彩票 (共${buyList.count}注,${buyList.times}倍,${buyList.amount}分)`}
           visible={this.state.visible}
           onOk={this.handleOk.bind(this, result, rate, repeat, headInfo.nextSerialCode)}
           confirmLoading={isLoading}
           onCancel={this.handleCancel.bind(this)}
         >
-          <Table
-            size="small"
-            columns={columns}
-            dataSource={CQSSC}
-            rowKey={record => record.index}
-          />
+          <Row>
+            <Col span={22} className={styles['modal-left']} >
+              <Col span={24} className={styles['modal-type']} >
+                <span>类型：</span>
+                <span>{buyList.numberType}</span>
+              </Col>
+              <Col span={24} className={styles['modal-code']} >
+                <span>号码：</span>
+                <span>{buyList.numbers}</span>
+              </Col>
+            </Col>
+            <Col span={1} className={styles['modal-del']} >
+              <Icon type="delete" onClick={this.clearBuyList.bind(this)} />
+            </Col>
+          </Row>
         </Modal>
       </Row>
     );
@@ -2249,6 +2356,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     getRate(payload) {
       dispatch({ type: 'home/getRate', payload });
+    },
+    updateBuyList(payload) {
+      dispatch({ type: 'home/updateBuyList', payload });
+    },
+    getBuyList(payload) {
+      dispatch({ type: 'home/getBuyList', payload });
     },
   };
 };

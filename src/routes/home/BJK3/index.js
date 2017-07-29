@@ -841,7 +841,8 @@ class BJK3 extends React.Component {
         serialCode: this.props.trend.headInfo.latestSerialCode,
         numberType: this.state.tab,
       },
-      cb() {
+      cb(buyList) {
+        self.props.updateBuyList(buyList);
         self.setState({
           visible: true,
         });
@@ -1019,23 +1020,16 @@ class BJK3 extends React.Component {
   }
   handleOk(BJK3, times, repeatTimes, serialCode) {
     const self = this;
-    let numberType = '';
-    let numbers = '';
-    BJK3.forEach((item, index) => {
-      numberType = item.type;
-      index !== BJK3.length - 1 ?
-        numbers += `${item.code}|` :
-        numbers += item.code;
-    });
+    // let numberType = '';
+    // let numbers = '';
+    // BJK3.forEach((item, index) => {
+    //   numberType = item.type;
+    //   index !== BJK3.length - 1 ?
+    //     numbers += `${item.code}|` :
+    //     numbers += item.code;
+    // });
     const payload = {
-      data: {
-        category: 'BJK3',
-        numberType,
-        numbers,
-        times,
-        repeatTimes,
-        serialCode,
-      },
+      data: this.props.home.buyList,
       cb() {
         message.success('购买成功');
         self.setState({
@@ -1551,7 +1545,7 @@ class BJK3 extends React.Component {
           <Col span={8} className={styles.detail} >{BJK3.length}注，共{2 * BJK3.length * rate}分</Col>
           <Col span={8} className={styles.detail} >最高可中{this.state.maxRate}分</Col>
           <Col span={6} offset={2} className={styles.submit} >
-            <Button size="large" style={{ background: '#f00', color: '#fff' }} onClick={this.openModal.bind(this)}>投注</Button>
+            <Button size="large" style={{ background: '#e95525', color: '#fff' }} onClick={this.openModal.bind(this)}>投注</Button>
           </Col>
         </Col>
         <Modal

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Row, Col, Tabs, Button, Carousel, Input, Modal, Table, Icon, message } from 'antd';
+import Draggable, { DraggableCore } from 'react-draggable';
 import HeadMenu from '../../../components/headMenu';
 import BJPK10TOP from '../../../components/BJPK10Top';
 import styles from './index.less';
@@ -20,42 +21,42 @@ class BJPK10 extends React.Component {
           rate: 2,
           total: [
             {
-            id: 'Z10',
-            displayName: '大',
-            value: '小',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z11',
-            displayName: '小',
-            value: '小',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z12',
-            displayName: '单',
-            value: '单',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z13',
-            displayName: '双',
-            value: '双',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z14',
-            displayName: '龙',
-            value: '龙',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z15',
-            displayName: '虎',
-            value: '虎',
-            rate: '1.985',
-            checked: false,
-          }],
+              id: 'Z10',
+              displayName: '大',
+              value: '大',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z11',
+              displayName: '小',
+              value: '小',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z12',
+              displayName: '单',
+              value: '单',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z13',
+              displayName: '双',
+              value: '双',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z14',
+              displayName: '龙',
+              value: '龙',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z15',
+              displayName: '虎',
+              value: '虎',
+              rate: '1.985',
+              checked: false,
+            }],
         },
         {
           title: '亚军',
@@ -63,42 +64,42 @@ class BJPK10 extends React.Component {
           rate: 2,
           total: [
             {
-            id: 'Z20',
-            displayName: '大',
-            value: '大',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z21',
-            displayName: '小',
-            value: '小',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z22',
-            displayName: '单',
-            value: '单',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z23',
-            displayName: '双',
-            value: '双',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z24',
-            displayName: '龙',
-            value: '龙',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z25',
-            displayName: '虎',
-            value: '虎',
-            rate: '1.985',
-            checked: false,
-          }],
+              id: 'Z20',
+              displayName: '大',
+              value: '大',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z21',
+              displayName: '小',
+              value: '小',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z22',
+              displayName: '单',
+              value: '单',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z23',
+              displayName: '双',
+              value: '双',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z24',
+              displayName: '龙',
+              value: '龙',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z25',
+              displayName: '虎',
+              value: '虎',
+              rate: '1.985',
+              checked: false,
+            }],
         },
         {
           title: '第3名',
@@ -106,42 +107,42 @@ class BJPK10 extends React.Component {
           rate: 2,
           total: [
             {
-            id: 'Z30',
-            displayName: '大',
-            value: '大',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z31',
-            displayName: '小',
-            value: '小',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z32',
-            displayName: '单',
-            value: '单',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z33',
-            displayName: '双',
-            value: '双',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z34',
-            displayName: '龙',
-            value: '龙',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z35',
-            displayName: '虎',
-            value: '虎',
-            rate: '1.985',
-            checked: false,
-          }],
+              id: 'Z30',
+              displayName: '大',
+              value: '大',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z31',
+              displayName: '小',
+              value: '小',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z32',
+              displayName: '单',
+              value: '单',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z33',
+              displayName: '双',
+              value: '双',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z34',
+              displayName: '龙',
+              value: '龙',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z35',
+              displayName: '虎',
+              value: '虎',
+              rate: '1.985',
+              checked: false,
+            }],
         },
         {
           title: '第4名',
@@ -149,42 +150,42 @@ class BJPK10 extends React.Component {
           rate: 2,
           total: [
             {
-            id: 'Z40',
-            displayName: '大',
-            value: '大',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z41',
-            displayName: '小',
-            value: '小',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z42',
-            displayName: '单',
-            value: '单',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z43',
-            displayName: '双',
-            value: '双',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z44',
-            displayName: '龙',
-            value: '龙',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z45',
-            displayName: '虎',
-            value: '虎',
-            rate: '1.985',
-            checked: false,
-          }],
+              id: 'Z40',
+              displayName: '大',
+              value: '大',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z41',
+              displayName: '小',
+              value: '小',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z42',
+              displayName: '单',
+              value: '单',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z43',
+              displayName: '双',
+              value: '双',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z44',
+              displayName: '龙',
+              value: '龙',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z45',
+              displayName: '虎',
+              value: '虎',
+              rate: '1.985',
+              checked: false,
+            }],
         },
         {
           title: '第5名',
@@ -192,42 +193,42 @@ class BJPK10 extends React.Component {
           rate: 2,
           total: [
             {
-            id: 'Z50',
-            displayName: '大',
-            value: '大',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z51',
-            displayName: '小',
-            value: '小',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z52',
-            displayName: '单',
-            value: '单',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z53',
-            displayName: '双',
-            value: '双',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z54',
-            displayName: '龙',
-            value: '龙',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z55',
-            displayName: '虎',
-            value: '虎',
-            rate: '1.985',
-            checked: false,
-          }],
+              id: 'Z50',
+              displayName: '大',
+              value: '大',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z51',
+              displayName: '小',
+              value: '小',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z52',
+              displayName: '单',
+              value: '单',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z53',
+              displayName: '双',
+              value: '双',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z54',
+              displayName: '龙',
+              value: '龙',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z55',
+              displayName: '虎',
+              value: '虎',
+              rate: '1.985',
+              checked: false,
+            }],
         },
         {
           title: '第6名',
@@ -235,30 +236,30 @@ class BJPK10 extends React.Component {
           rate: 2,
           total: [
             {
-            id: 'Z60',
-            displayName: '大',
-            value: '大',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z61',
-            displayName: '小',
-            value: '小',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z62',
-            displayName: '单',
-            value: '单',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z63',
-            displayName: '双',
-            value: '双',
-            rate: '1.985',
-            checked: false,
-          }],
+              id: 'Z60',
+              displayName: '大',
+              value: '大',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z61',
+              displayName: '小',
+              value: '小',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z62',
+              displayName: '单',
+              value: '单',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z63',
+              displayName: '双',
+              value: '双',
+              rate: '1.985',
+              checked: false,
+            }],
         },
         {
           title: '第7名',
@@ -266,120 +267,120 @@ class BJPK10 extends React.Component {
           rate: 2,
           total: [
             {
-            id: 'Z70',
-            displayName: '大',
-            value: '大',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z71',
-            displayName: '小',
-            value: '小',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z72',
-            displayName: '单',
-            value: '单',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z73',
-            displayName: '双',
-            value: '双',
-            rate: '1.985',
-            checked: false,
-          }],
+              id: 'Z70',
+              displayName: '大',
+              value: '大',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z71',
+              displayName: '小',
+              value: '小',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z72',
+              displayName: '单',
+              value: '单',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z73',
+              displayName: '双',
+              value: '双',
+              rate: '1.985',
+              checked: false,
+            }],
         },
         {
           title: '第8名',
           type: 'Z8',
           total: [
             {
-            id: 'Z80',
-            displayName: '大',
-            value: '大',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z81',
-            displayName: '小',
-            value: '小',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z82',
-            displayName: '单',
-            value: '单',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z83',
-            displayName: '双',
-            value: '双',
-            rate: '1.985',
-            checked: false,
-          }],
+              id: 'Z80',
+              displayName: '大',
+              value: '大',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z81',
+              displayName: '小',
+              value: '小',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z82',
+              displayName: '单',
+              value: '单',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z83',
+              displayName: '双',
+              value: '双',
+              rate: '1.985',
+              checked: false,
+            }],
         },
         {
           title: '第9名',
           type: 'Z9',
           total: [
             {
-            id: 'Z90',
-            displayName: '大',
-            value: '大',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z91',
-            displayName: '小',
-            value: '小',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z92',
-            displayName: '单',
-            value: '单',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z93',
-            displayName: '双',
-            value: '双',
-            rate: '1.985',
-            checked: false,
-          }],
+              id: 'Z90',
+              displayName: '大',
+              value: '大',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z91',
+              displayName: '小',
+              value: '小',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z92',
+              displayName: '单',
+              value: '单',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z93',
+              displayName: '双',
+              value: '双',
+              rate: '1.985',
+              checked: false,
+            }],
         },
         {
           title: '第10名',
           type: 'Z10',
           total: [
             {
-            id: 'Z100',
-            displayName: '大',
-            value: '大',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z101',
-            displayName: '小',
-            value: '小',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z102',
-            displayName: '单',
-            value: '单',
-            rate: '1.985',
-            checked: false,
-          }, {
-            id: 'Z103',
-            displayName: '双',
-            value: '双',
-            rate: '1.985',
-            checked: false,
-          }],
+              id: 'Z100',
+              displayName: '大',
+              value: '大',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z101',
+              displayName: '小',
+              value: '小',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z102',
+              displayName: '单',
+              value: '单',
+              rate: '1.985',
+              checked: false,
+            }, {
+              id: 'Z103',
+              displayName: '双',
+              value: '双',
+              rate: '1.985',
+              checked: false,
+            }],
         },
       ],
       pkList: [
@@ -1066,6 +1067,8 @@ class BJPK10 extends React.Component {
       ],
       showTime: '00:00',
       visible: false,
+      maxRate: 0,
+      tab: 'Z',
     };
   }
   componentDidMount() {
@@ -1094,14 +1097,70 @@ class BJPK10 extends React.Component {
       });
     }
   }
-  changeShow(){
-      this.setState({
-        isShow: !this.state.isShow
-      })
+  changeShow() {
+    this.setState({
+      isShow: !this.state.isShow,
+    });
+  }
+  clearBuyList() {
+    this.props.updateBuyList({
+      category: 'BJPK10',
+      serialCode: '',
+      times: 0,
+      count: 0,
+      amount: 0,
+      numberType: '',
+      numbers: '',
+    });
+  }
+  // 获取buyList
+  getBuyList() {
+    const self = this;
+    this.props.getBuyList({
+      data: {
+        category: 'BJPK10',
+        serialCode: this.props.trend.headInfo.latestSerialCode,
+        numberType: this.state.tab,
+      },
+      cb(buyList) {
+        self.props.updateBuyList(buyList);
+        self.setState({
+          visible: true,
+        });
+      },
+    });
+  }
+  chooseTab(index) {
+    const self = this;
+    let tab = 'Z';
+    switch (index) {
+      case '0':
+        tab = 'Z';
+        break;
+      case '1':
+        tab = 'S';
+        break;
+      default:
+        break;
+    }
+    self.setState({
+      tab,
+    });
   }
   // 改变状态
   changeChecked(list, ev) {
+    const {
+      BJPK10,
+    } = this.props.home;
+    const {
+      totalList,
+      pkList,
+    } = this.state;
     let tempArr = [];
+    if (BJPK10.length && BJPK10[0].type.split('')[0] !== ev.target.id.split('')[0]) {
+      this.clear.call(this, totalList);
+      this.clear.call(this, pkList);
+    }
     for (let i = 0; i < list.length; i++) {
       if (list[i].title === ev.target.value) {
         tempArr = list[i].total;
@@ -1117,7 +1176,7 @@ class BJPK10 extends React.Component {
       this.setState(
         list,
       );
-    }, 20)
+    }, 20);
     this.staticCount.call(this);
   }
   // 统计
@@ -1128,6 +1187,7 @@ class BJPK10 extends React.Component {
     } = this.state;
     const tempList = [];
     let count = 0;
+    const selArr = [];
     calcCount(totalList);
     calcCount(pkList);
     this.props.clearBJPK10();
@@ -1135,6 +1195,18 @@ class BJPK10 extends React.Component {
       list.forEach((i) => {
         i.total.forEach((item) => {
           if (item.checked) {
+            let id = '';
+            if (item.id.length === 4) {
+              id = 10;
+            } else {
+              id = item.id.split('')[1];
+            }
+            selArr.push({
+              id,
+              type: item.id.split('')[0],
+              value: item.value,
+              rate: i.rate,
+            });
             tempList.push({
               index: count,
               type: i.type,
@@ -1145,6 +1217,35 @@ class BJPK10 extends React.Component {
         });
       });
     }
+    let totalRate = 0;
+    let code = '';
+    let nowId = '0';
+    let numberType = '';
+    selArr.forEach((item) => {
+      totalRate += item.rate;
+      if (nowId === item.id) {
+        code += `|${item.value}`;
+      } else {
+        code += `,${item.id}:${item.value}`;
+        nowId = item.id;
+      }
+      numberType = item.type;
+    });
+    code = code.substr(1, code.length - 1);
+    const maxRate = totalRate * this.props.home.rate;
+    this.setState({
+      maxRate,
+    });
+    const buyList = {
+      category: 'BJPK10',
+      numbers: code,
+      numberType,
+      count: tempList.length,
+      times: this.props.home.rate,
+      serialCode: this.props.trend.headInfo.nextSerialCode,
+      amount: this.props.home.rate * tempList.length * 2,
+    };
+    this.props.updateBuyList(buyList);
     this.props.updateBJPK10(tempList);
   }
   // 更改倍数
@@ -1154,12 +1255,18 @@ class BJPK10 extends React.Component {
       return false;
     }
     this.props.updateRate(rate);
+    setTimeout(() => {
+      this.staticCount.call(this);
+    }, 20);
   }
   changeRate(flag) {
     let rate = this.props.home.rate;
     rate += +flag;
     rate = rate <= 0 ? 1 : rate;
     this.props.updateRate(rate);
+    setTimeout(() => {
+      this.staticCount.call(this);
+    }, 20);
   }
   openModal() {
     this.setState({
@@ -1169,41 +1276,46 @@ class BJPK10 extends React.Component {
   handleOk(BJPK10, times, serialCode) {
     const self = this;
     const payload = {
-      data: {
-        category: 'BJPK10',
-        numbers: JSON.stringify(BJPK10),
-        times,
-        serialCode,
-      },
+      data: this.props.home.buyList,
       cb() {
         message.success('购买成功');
         self.setState({
           visible: false,
+          maxRate: 0,
         });
         BJPK10 = [];
+        self.props.updateBuyList({
+          category: 'BJPK10',
+          serialCode: '',
+          times: 0,
+          count: 0,
+          amount: 0,
+          numberType: '',
+          numbers: '',
+        });
         self.props.updateBJPK10(BJPK10);
         const {
           totalList,
           pkList,
         } = self.state;
-        clear(totalList);
-        clear(pkList);
-        function clear(list) {
-          list.forEach((i) => {
-            i.total.forEach((item) => {
-              item.checked = false;
-            });
-          });
-          setTimeout(() => {
-            self.setState({
-              list,
-            });
-          }, 20)
-        }
+        self.clear.call(self, totalList);
+        self.clear.call(self, pkList);
         self.props.updateRate(1);
       },
     };
     this.props.sendBuy(payload);
+  }
+  clear(list) {
+    list.forEach((i) => {
+      i.total.forEach((item) => {
+        item.checked = false;
+      });
+    });
+    setTimeout(() => {
+      this.setState({
+        list,
+      });
+    }, 20);
   }
   handleCancel() {
     this.setState({
@@ -1226,6 +1338,8 @@ class BJPK10 extends React.Component {
     const {
       BJPK10,
       rate,
+      buyList,
+      repeat,
     } = home;
     const {
       totalList,
@@ -1241,7 +1355,7 @@ class BJPK10 extends React.Component {
     return (
       <Row className={styles.BJPK10}>
         <Col xs={24} sm={0}>
-          <HeadMenu title="北京PK10" back="/home" detail='/BJPK10-detail' showInfo />
+          <HeadMenu title="北京PK10" back="/home" detail="/BJPK10-detail" showInfo />
         </Col>
         <Col span={24} className={styles.head} >
           <Row>
@@ -1275,10 +1389,10 @@ class BJPK10 extends React.Component {
                 <Row style={{ color: '#fff' }}>我是一段tip信息</Row>
                 <Row style={{ color: '#fff' }}>我是一段tip信息</Row>
               </Carousel> */}
-              <BJPK10TOP isShow={isShow}></BJPK10TOP>
+              <BJPK10TOP isShow={isShow} />
             </Col>
           </Row>
-          <Tabs renderTabBar renderTabContent defaultActiveKey="0">
+          <Tabs renderTabBar renderTabContent defaultActiveKey="0" onTabClick={this.chooseTab.bind(this)}>
             <TabPane tab="两面盘" key="0" >
               {
                 totalList.length ?
@@ -1336,6 +1450,11 @@ class BJPK10 extends React.Component {
               }
             </TabPane>
           </Tabs>
+          <div className={styles.lastWrap}>
+            <Draggable defaultPosition={{ x: 0, y: 0 }}>
+              <div className={styles.lastOne} onClick={this.getBuyList.bind(this)} >追上期</div>
+            </Draggable>
+          </div>
         </Col>
         <Col span={BJPK10.length ? 24 : 0} className={styles['foot-modal']}>
           <Col span={24} className={styles['foot-inner']} >
@@ -1359,23 +1478,33 @@ class BJPK10 extends React.Component {
         </Col>
         <Col span={24} className={styles.foot} >
           <Col span={8} className={styles.detail} >{BJPK10.length}注，共{2 * BJPK10.length * rate}分</Col>
-          <Col span={6} offset={10} className={styles.submit} >
-            <Button size="large" type="primary" onClick={this.openModal.bind(this)}>投注</Button>
+          <Col span={8} className={styles.detail} >最高可中{this.state.maxRate}分</Col>
+          <Col span={6} offset={2} className={styles.submit} >
+            <Button size="large" type="primary" style={{ background: '#e95525' }} onClick={this.openModal.bind(this)}>投注</Button>
           </Col>
         </Col>
         <Modal
-          title={`已选择列表 (共${BJPK10.length}注,${rate}倍,${2 * BJPK10.length * rate}分)`}
+          title={`已选择彩票 (共${buyList.count}注,${buyList.times}倍,${buyList.amount}分)`}
           visible={this.state.visible}
-          onOk={this.handleOk.bind(this, BJPK10, rate, headInfo.nextSerialCode)}
+          onOk={this.handleOk.bind(this, BJPK10, rate, repeat, headInfo.nextSerialCode)}
           confirmLoading={isLoading}
           onCancel={this.handleCancel.bind(this)}
         >
-          <Table
-            size="small"
-            columns={columns}
-            dataSource={BJPK10}
-            rowKey={record => record.index}
-          />
+          <Row>
+            <Col span={22} className={styles['modal-left']} >
+              <Col span={24} className={styles['modal-type']} >
+                <span>类型：</span>
+                <span>{buyList.numberType}</span>
+              </Col>
+              <Col span={24} className={styles['modal-code']} >
+                <span>号码：</span>
+                <span>{buyList.numbers}</span>
+              </Col>
+            </Col>
+            <Col span={1} className={styles['modal-del']} >
+              <Icon type="delete" onClick={this.clearBuyList.bind(this)} />
+            </Col>
+          </Row>
         </Modal>
       </Row>
     );
@@ -1409,6 +1538,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     getRate(payload) {
       dispatch({ type: 'home/getRate', payload });
+    },
+    updateBuyList(payload) {
+      dispatch({ type: 'home/updateBuyList', payload });
+    },
+    getBuyList(payload) {
+      dispatch({ type: 'home/getBuyList', payload });
     },
   };
 };

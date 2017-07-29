@@ -123,7 +123,7 @@ class HomePage extends React.Component {
                             <Col
                               xs={13} sm={14}
                               className={styles.serialCode}
-                            >第 {item.latestSerialCode} 期</Col>
+                            >第 {item.nextSerialCode} 期</Col>
                           </Col>
                           <Col xs={24} sm={24}>
                             <Col xs={18} sm={18}>
