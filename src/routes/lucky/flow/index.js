@@ -95,7 +95,7 @@ class Tab extends Component {
     return (
       <Row className={styles.detailTab}>
         <Col xs={24} sm={0}>
-          <HeadMenu title="我的中奖记录" back="/lucky" showInfo={false} />
+          <HeadMenu title="充值记录" back="/lucky" showInfo={false} />
         </Col>
         <Col span={24} className={styles.content}>
           <Table

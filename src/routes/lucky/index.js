@@ -96,7 +96,7 @@ class LuckyList extends Component {
           <Link to={'/win'}>
             <Col span={24} className={styles.containList}>
               <Col span={12}>
-                <Icon style={{ color: '#e95525' }} type="trophy" /> 我的中奖
+                <Icon style={{ color: '#e95525' }} type="trophy" /> 中奖纪录
               </Col>
               <Col span={12} className={styles.listRight}>
                 <Icon type="right" />
@@ -109,6 +109,16 @@ class LuckyList extends Component {
             </Col>
             <Col span={12} className={styles.listRight}>{}</Col>
           </Col>
+          <Link to={'/approve'}>
+            <Col span={24} className={styles.containList}>
+              <Col span={12}>
+                <Icon style={{ color: '#e95525' }} type="red-envelope" /> 积分兑换
+              </Col>
+              <Col span={12} className={styles.listRight}>
+                <Icon type="right" />
+              </Col>
+            </Col>
+          </Link>
           <Link to={'/flow'}>
             <Col span={24} className={styles.containList}>
               <Col span={12}>

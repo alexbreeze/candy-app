@@ -63,9 +63,9 @@ class Tab extends Component {
                         <Col xs={4} sm={8} className={styles.right}>是否中奖</Col>
                       </Col>
                       {
-                        contentDetail.length ? contentDetail.map((item, index) => {
+                        contentDetail.length ? contentDetail.map((item, itemIndex) => {
                           return (
-                            <Row key={index}>
+                            <Row key={itemIndex}>
                               <Col xs={24} sm={24} className={styles.content}>
                                 <Col xs={5} sm={8} className={styles.left}>{item.serialCode}</Col>
                                 <Col xs={13} sm={8} className={styles.middle}>
@@ -73,13 +73,13 @@ class Tab extends Component {
                                     item.openCodeList.map((i, index) => {
                                       if (index < item.openCodeList.length - 1) {
                                         return (
-                                          <span>
+                                          <span key={index} className={styles.codeNum} >
                                             {i},
                                           </span>
                                         );
                                       } else {
                                         return (
-                                          <span>
+                                          <span key={index} className={styles.codeNum} >
                                             {i}
                                           </span>
                                         );

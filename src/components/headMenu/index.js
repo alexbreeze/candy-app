@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'dva/router'
+import { Link } from 'dva/router';
 import { Row, Icon, Col } from 'antd';
 import { connect } from 'dva';
 import styles from './index.less';
@@ -27,6 +27,8 @@ class HeadMenu extends Component {
       title,
       back,
       detail,
+      showInfo,
+      showPay,
     } = this.props;
     return (
       <Row className={styles['head-menu']}>
@@ -34,11 +36,26 @@ class HeadMenu extends Component {
           <Icon type="arrow-left" />
         </Col>
         <Col span={18} className={styles.title}>{title}</Col>
-        <Link to={detail}>
-          <Col span={3}>
-            <Icon type="question-circle-o" />
-          </Col>
-        </Link>
+        {
+          showInfo
+            ?
+              <Link to={detail}>
+                <Col span={3}>
+                  <Icon type="question-circle-o" />
+                </Col>
+              </Link>
+            :
+            ''
+        }
+        {
+          showPay
+            ?
+              <Col span={3} onClick={detail} style={{fontSize: '16px'}} >
+                <Icon type="red-envelope" />
+              </Col>
+            :
+            ''
+        }
       </Row>
     );
   }

@@ -21,6 +21,7 @@ module.exports = {
     rate: `${URL}/lottery/rate`,
     apply: `${URL}/account/apply`,
     flow: `${URL}/account/flow`,
+    approve: `${URL}/account/applyWithdraw`,
   },
   sessionKey: {
     token: '__token__',

@@ -1,6 +1,6 @@
 import { routerRedux } from 'dva/router';
 // import { queryURL } from '../utils';
-import { getBalanceDetail, getMine, getFlow, getApply } from '../services/lucky';
+import { getBalanceDetail, getMine, getFlow, getApply, getApprove, applyApprove } from '../services/lucky';
 
 export default {
   namespace: 'lucky',
@@ -14,6 +14,7 @@ export default {
     profit: '',
     balance: '',
     value: '',
+    approve: [],
   },
   effects: {
     *getBalance({ payload }, { put, call }) {
@@ -56,6 +57,22 @@ export default {
         throw data;
       } else {
         yield put({ type: 'apply', payload: data });
+      }
+    },
+    *getApprove({ payload }, { put, call }) {
+      const data = yield call(getApprove, payload);
+      if (!data.success) {
+        throw data;
+      } else {
+        yield put({ type: 'setApprove', payload: data.list });
+      }
+    },
+    *applyApprove({ payload }, { call }) {
+      const data = yield call(applyApprove, payload.data);
+      if (!data.success) {
+        throw data;
+      } else if (payload.cb) {
+        payload.cb();
       }
     },
     *clearBalanceList({ payload }, { put, call }) {
@@ -103,6 +120,12 @@ export default {
       return {
         ...state,
         value: payload.code,
+      };
+    },
+    setApprove(state, { payload }) {
+      return {
+        ...state,
+        approve: payload,
       };
     },
   },

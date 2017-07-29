@@ -1,0 +1,80 @@
+@mainColor: #e95525;
+:global(.ant-table-thead tr th){
+  text-align: center;
+}
+:global(.ant-table-tbody tr td){
+  text-align: center;
+}
+.detailTab{
+  height: 100vh;
+  overflow: auto;
+}
+.showMore{
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.content{
+  position: absolute;
+  top: 45px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+}
+
+@media screen and (min-width: 769px) {
+  .content{
+    top: 0;
+  }
+}
+.item-wrap{
+  margin-left: 10px;
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
+}
+.item-head{
+  display: flex;
+  justify-content: space-between;
+  line-height: 30px;
+}
+.item-amount{
+  text-align: left;
+  font-size: 18px;
+  color: @mainColor;
+}
+.item-state{
+  font-size: 14px;
+  text-align: right;
+}
+.item-note{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 14px;
+  margin: 10px 0;
+}
+.item-time{
+  text-align: right;
+}
+.pay{
+  font-size: 34px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: @mainColor;
+  height: 40px;
+  width: 40px;
+  line-height: 34px;
+  text-align: center;
+  color: #fff;
+  border-radius: 20px;
+  z-index: 99;
+  cursor: pointer;
+}
+.modal-note{
+  margin-top: 10px;
+  textarea{
+    resize: none;
+  }
+}

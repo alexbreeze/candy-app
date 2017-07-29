@@ -38,6 +38,11 @@ const Flow = (location, callback) => {
     callback(null, require('./routes/lucky/flow'));
   }, 'flow');
 };
+const Approve = (location, callback) => {
+  require.ensure([], (require) => {
+    callback(null, require('./routes/lucky/approve'));
+  }, 'approve');
+};
 const BJK3 = (location, callback) => {
   require.ensure([], (require) => {
     callback(null, require('./routes/home/BJK3'));
@@ -87,6 +92,7 @@ function RouterConfig({ history }) {
         <Route path="/balance" getComponent={BALANCE} />
         <Route path="/win" getComponent={WIN} />
         <Route path="/flow" getComponent={Flow} />
+        <Route path="/approve" getComponent={Approve} />
       </Route>
       <Route path="/login" component={Login} />
     </Router>

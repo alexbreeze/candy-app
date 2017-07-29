@@ -723,6 +723,7 @@ class BJK3 extends React.Component {
       isShow: false,
       showTime: '00:00',
       maxRate: 0,
+      buyList: {},
     };
   }
   componentDidMount() {
@@ -811,6 +812,23 @@ class BJK3 extends React.Component {
       maxRate,
     });
     this.props.updateBJK3(tempList);
+    let numberType = '';
+    let numbers = '';
+    tempList.forEach((item, index) => {
+      numberType = item.type;
+      index !== tempList.length - 1 ?
+        numbers += `${item.code}|` :
+        numbers += item.code;
+    });
+    const buyList = {
+      numberType,
+      numbers,
+    };
+    setTimeout(() => {
+      this.setState({
+        buyList,
+      });
+    }, 200);
   }
   // 改变状态
   changeChecked(list, ev) {
@@ -1036,6 +1054,20 @@ class BJK3 extends React.Component {
       isShow: !this.state.isShow,
     });
   }
+  clearBuyList() {
+    this.setState({
+      buyList: {},
+    });
+    this.props.clearBJK3();
+    this.clear.call(this, this.state.threeDif);
+    this.clear.call(this, this.state.threeDifAll);
+    this.clear.call(this, this.state.threeSame);
+    this.clear.call(this, this.state.threeSameAll);
+    this.clear.call(this, this.state.totalList);
+    this.clear.call(this, this.state.twoDif);
+    this.clear.call(this, this.state.twoSame);
+    this.clear.call(this, this.state.twoSameAll);
+  }
   render() {
     const {
       trend,
@@ -1063,6 +1095,7 @@ class BJK3 extends React.Component {
       twoDif,
       showTime,
       isShow,
+      buyList,
     } = this.state;
     const columns = [
       { title: '种类', dataIndex: 'type', key: 'type' },
@@ -1072,7 +1105,7 @@ class BJK3 extends React.Component {
     return (
       <Row className={styles.BJK3}>
         <Col xs={24} sm={0}>
-          <HeadMenu title="北京快3" back="/home" detail="/BJK3-detail" />
+          <HeadMenu title="北京快3" back="/home" detail="/BJK3-detail" showInfo />
         </Col>
         <Col span={24} className={styles.head} >
           <Row>
@@ -1455,18 +1488,27 @@ class BJK3 extends React.Component {
           </Col>
         </Col>
         <Modal
-          title={`已选择列表 (共${BJK3.length}注,${rate}倍,${2 * BJK3.length * rate}分)`}
+          title={`已选择彩票 (共${BJK3.length}注,${rate}倍,${2 * BJK3.length * rate}分)`}
           visible={this.state.visible}
           onOk={this.handleOk.bind(this, BJK3, rate, repeat, headInfo.nextSerialCode)}
           confirmLoading={isLoading}
           onCancel={this.handleCancel.bind(this)}
         >
-          <Table
-            size="small"
-            columns={columns}
-            dataSource={BJK3}
-            rowKey={record => record.index}
-          />
+          <Row>
+            <Col span={22} className={styles['modal-left']} >
+              <Col span={24} className={styles['modal-type']} >
+                <span>类型：</span>
+                <span>{buyList.numberType}</span>
+              </Col>
+              <Col span={24} className={styles['modal-code']} >
+                <span>号码：</span>
+                <span>{buyList.numbers}</span>
+              </Col>
+            </Col>
+            <Col span={1} className={styles['modal-del']} >
+              <Icon type="delete" onClick={this.clearBuyList.bind(this)} />
+            </Col>
+          </Row>
         </Modal>
       </Row>
     );

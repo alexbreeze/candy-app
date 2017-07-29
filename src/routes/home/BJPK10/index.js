@@ -1241,7 +1241,7 @@ class BJPK10 extends React.Component {
     return (
       <Row className={styles.BJPK10}>
         <Col xs={24} sm={0}>
-          <HeadMenu title="北京PK10" back="/home" detail='/BJPK10-detail' />
+          <HeadMenu title="北京PK10" back="/home" detail='/BJPK10-detail' showInfo />
         </Col>
         <Col span={24} className={styles.head} >
           <Row>
