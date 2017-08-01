@@ -1687,7 +1687,7 @@ decamelize@^1.0.0, decamelize@^1.1.1, decamelize@^1.1.2:
   version "1.2.0"
   resolved "http://registry.npm.taobao.org/decamelize/download/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
 
-deep-equal@^1.0.0:
+deep-equal@1.0.1, deep-equal@^1.0.0:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/deep-equal/download/deep-equal-1.0.1.tgz#f5d260292b660e084eff4cdbc9f08ad3247448b5"
 
@@ -3098,6 +3098,10 @@ isarray@0.0.1:
 isarray@1.0.0, isarray@^1.0.0, isarray@~1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/isarray/download/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
+
+iscroll@^5.2.0:
+  version "5.2.0"
+  resolved "http://registry.npm.taobao.org/iscroll/download/iscroll-5.2.0.tgz#d513307088b5b25a4f893af474804468481829c8"
 
 isexe@^2.0.0:
   version "2.0.0"
@@ -4828,6 +4832,22 @@ react-dom@^15.4.0:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "^15.5.10"
+
+react-draggable@^2.2.6:
+  version "2.2.6"
+  resolved "http://registry.npm.taobao.org/react-draggable/download/react-draggable-2.2.6.tgz#3a806e10f2da6babfea4136be6510e89b0d76901"
+  dependencies:
+    classnames "^2.2.5"
+
+react-fastclick@^3.0.2:
+  version "3.0.2"
+  resolved "http://registry.npm.taobao.org/react-fastclick/download/react-fastclick-3.0.2.tgz#2994c60088cda90b0b2cbfac4b6e7c6bc73d6a3a"
+
+react-iscroll@^2.0.3:
+  version "2.0.3"
+  resolved "http://registry.npm.taobao.org/react-iscroll/download/react-iscroll-2.0.3.tgz#365cc5a3f6300d0c01dd337745a50d80be634860"
+  dependencies:
+    deep-equal "1.0.1"
 
 react-lazy-load@^3.0.10:
   version "3.0.12"

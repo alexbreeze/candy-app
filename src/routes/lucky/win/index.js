@@ -49,7 +49,33 @@ class Tab extends Component {
     const { isLoading } = trend;
     const { balanceList, balanceText } = lucky;
     const columns = [
-      { title: '种类', dataIndex: 'category', key: 'category', width: 75 },
+      { title: '种类',
+        dataIndex: 'category',
+        key: 'category',
+        width: 75,
+        render: (text, record) => {
+          return (
+            <div className="editable-row-operations">
+              {
+                text === 'BJK3'
+                  ?
+                  <span>
+                    北京快三
+                  </span>
+                  :
+                  text === 'BJPK10'
+                    ?
+                    <span>
+                    北京PK拾
+                  </span>
+                    :
+                    <span>
+                    重庆时时彩
+                  </span>
+              }
+            </div>
+          );
+        } },
       { title: '期数', dataIndex: 'serialCode', key: 'serialCode', width: '' },
       { title: '中奖金额', dataIndex: 'winReward', key: 'winReward', width: 75 },
     ];
