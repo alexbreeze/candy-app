@@ -564,6 +564,107 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "ad_Withdraw_List",
+					"request": {
+						"url": "{{url}}/account/applyWithdraw",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-candy-terminal",
+								"value": "Manager",
+								"description": ""
+							},
+							{
+								"key": "x-candy-version",
+								"value": "1",
+								"description": ""
+							},
+							{
+								"key": "x-candy-token",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "ad_Withdraw_Cancel",
+					"request": {
+						"url": "{{url}}/account/applyWithdraw/cancel",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-candy-terminal",
+								"value": "Manager",
+								"description": ""
+							},
+							{
+								"key": "x-candy-version",
+								"value": "1",
+								"description": ""
+							},
+							{
+								"key": "x-candy-token",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "ad_Withdraw_Approve",
+					"request": {
+						"url": "{{url}}/account/applyWithdraw/approve",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-candy-terminal",
+								"value": "Manager",
+								"description": ""
+							},
+							{
+								"key": "x-candy-version",
+								"value": "1",
+								"description": ""
+							},
+							{
+								"key": "x-candy-token",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
 				}
 			]
 		},
@@ -595,6 +696,66 @@
 						{
 							"key": "password",
 							"value": "777@uuu",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "张三",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "recommendCode",
+							"value": "7890",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "signUp",
+			"request": {
+				"url": "{{url}}/user",
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-candy-terminal",
+						"value": "PC",
+						"description": ""
+					},
+					{
+						"key": "x-candy-version",
+						"value": "1",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "phone",
+							"value": "45678",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "777@uuu",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "张三",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "recommendCode",
+							"value": "7890",
+							"description": "",
 							"type": "text"
 						}
 					]
@@ -758,35 +919,35 @@
 					"urlencoded": [
 						{
 							"key": "category",
-							"value": "BJK3",
+							"value": "CQSSC",
 							"type": "text"
 						},
 						{
 							"key": "numberType",
-							"value": "和",
+							"value": "总和",
 							"description": "",
 							"type": "text"
 						},
 						{
 							"key": "numbers",
-							"value": "4|5|16",
+							"value": "龙|虎|和",
 							"type": "text"
 						},
 						{
 							"key": "times",
-							"value": "4",
+							"value": "1",
 							"description": "",
 							"type": "text"
 						},
 						{
 							"key": "serialCode",
-							"value": "083852",
+							"value": "201707300095",
 							"description": "",
 							"type": "text"
 						},
 						{
 							"key": "repeatTimes",
-							"value": "3",
+							"value": "0",
 							"description": "",
 							"type": "text"
 						}
@@ -992,6 +1153,215 @@
 					{
 						"key": "x-candy-token",
 						"value": "{{token}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "type",
+							"value": "BJK3",
+							"type": "text"
+						},
+						{
+							"key": "pageSize",
+							"value": "200",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "WithdrawApply",
+			"request": {
+				"url": "{{url}}/account/applyWithdraw",
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-candy-terminal",
+						"value": "PC",
+						"description": ""
+					},
+					{
+						"key": "x-candy-version",
+						"value": "1",
+						"description": ""
+					},
+					{
+						"key": "x-candy-token",
+						"value": "{{token}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "amount",
+							"value": "200",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "note",
+							"value": "微信123456",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "WithdrawList",
+			"request": {
+				"url": "{{url}}/account/applyWithdraw",
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-candy-terminal",
+						"value": "PC",
+						"description": ""
+					},
+					{
+						"key": "x-candy-version",
+						"value": "1",
+						"description": ""
+					},
+					{
+						"key": "x-candy-token",
+						"value": "{{token}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "type",
+							"value": "BJK3",
+							"type": "text"
+						},
+						{
+							"key": "pageSize",
+							"value": "200",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "oneLottery",
+			"request": {
+				"url": {
+					"raw": "{{url}}/lottery/one?category=BJK3&serialCode=084258&numberType=和",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"lottery",
+						"one"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "BJK3",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "serialCode",
+							"value": "084258",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "numberType",
+							"value": "和",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-candy-terminal",
+						"value": "PC",
+						"description": ""
+					},
+					{
+						"key": "x-candy-version",
+						"value": "1",
+						"description": ""
+					},
+					{
+						"key": "x-candy-token",
+						"value": "{{token}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "type",
+							"value": "BJK3",
+							"type": "text"
+						},
+						{
+							"key": "pageSize",
+							"value": "200",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "lotteryInfo",
+			"request": {
+				"url": {
+					"raw": "{{url}}/lottery/info?type=BJK3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"lottery",
+						"info"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "BJK3",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-candy-terminal",
+						"value": "PC",
+						"description": ""
+					},
+					{
+						"key": "x-candy-version",
+						"value": "1",
 						"description": ""
 					}
 				],
