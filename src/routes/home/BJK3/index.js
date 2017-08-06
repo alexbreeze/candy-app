@@ -758,6 +758,7 @@ class BJK3 extends React.Component {
         }
       });
     }
+    this.props.updateTypeNow('和值');
   }
   // 获取buyList
   getBuyList() {
@@ -1106,6 +1107,9 @@ class BJK3 extends React.Component {
     this.clear.call(this, this.state.twoSame);
     this.clear.call(this, this.state.twoSameAll);
   }
+  changeSel(value) {
+    this.props.updateTypeNow(value);
+  }
   render() {
     const {
       trend,
@@ -1115,6 +1119,7 @@ class BJK3 extends React.Component {
       headInfo,
       isLoading,
       content,
+      typeNow,
     } = trend;
     const {
       BJK3,
@@ -1140,10 +1145,27 @@ class BJK3 extends React.Component {
       { title: '号码', dataIndex: 'code', key: 'code' },
       { title: '操作', dataIndex: '', key: 'x', render: record => <Icon type="delete" onClick={this.delItem.bind(this, record)} /> },
     ];
+    const selTitle = [
+      {
+        value: '和值',
+      },
+      {
+        value: '三同号单选',
+      },
+      {
+        value: '二同号单选',
+      },
+      {
+        value: '三号不同',
+      },
+      {
+        value: '二不同号',
+      },
+    ];
     return (
       <Row className={styles.BJK3}>
-        <Col xs={24} sm={0}>
-          <HeadMenu title="北京快3" back="/home" detail="/BJK3-detail" showInfo />
+        <Col span={24}>
+          <HeadMenu back="/home" detail="/BJK3-detail" showInfo selTitle={selTitle} changeSel={this.changeSel.bind(this)} />
         </Col>
         <Col span={24} className={styles.head} >
           <Row>
@@ -1166,7 +1188,7 @@ class BJK3 extends React.Component {
                     )
                   }
                   <Row className={styles.rightContent} >
-                    <Col span={24} >{headInfo.latestSerialCode}</Col>
+                    <Col span={24} >{headInfo.latestSerialCode}期开奖</Col>
                     <Col span={24} >{headInfo.latestOpenCode || '开奖中'}</Col>
                   </Row>
                 </Col>
@@ -1199,286 +1221,320 @@ class BJK3 extends React.Component {
               <BJK3TOP isShow={isShow} />
             </Col>
           </Row>
-          <Tabs renderTabBar renderTabContent defaultActiveKey="0" onTabClick={this.chooseTab.bind(this)}>
-            <TabPane tab="和值" key="0" >
-              <Row>
-                <Col span={24} className={styles.itemWrap}>
-                  <span className={styles.itemTitle}>和值</span>
-                  <span className={styles.itemDetail}>猜开奖号码相加的和</span>
-                </Col>
-              </Row>
-              <Row className={styles.selContainer}>
-                {
-                  totalList.length ?
-                    totalList.map((i, index) => {
-                      return (
-                        <Col span={6} className={styles.selWrap} key={index} >
-                          <label htmlFor={i.id}>
-                            <input type="checkbox" onChange={this.changeChecked.bind(this, totalList)} className={styles.selCheckBox} id={i.id} checked={i.checked} />
-                            <Row className={styles.selBox}>
-                              <Col className={styles.selTitle} >
-                                {i.value}
-                              </Col>
-                              <Col className={styles.selContent} >
-                                <span>奖金{i.rate}分</span>
-                              </Col>
-                            </Row>
-                          </label>
-                        </Col>
-                      );
-                    })
-                    : ''
-                }
-              </Row>
-              <Row>
-                <Col span={24} className={styles.itemWrap}>
-                  <span className={styles.itemTitle}>快速选号</span>
-                </Col>
-              </Row>
-              <Row className={styles.selContainer}>
-                <Col span={6} >
-                  <label htmlFor="selBig">
-                    <input type="checkbox" className={styles.selCheckBox} checked={handleList.selBig} id="selBig" onChange={this.filChecked.bind(this)} />
-                    <Row className={styles.selHandle}>
-                      <Col className={styles.selTitle} >大</Col>
-                    </Row>
-                  </label>
-                </Col>
-                <Col span={6} >
-                  <label htmlFor="selSmall">
-                    <input type="checkbox" className={styles.selCheckBox} checked={handleList.selSmall} id="selSmall" onChange={this.filChecked.bind(this)} />
-                    <Row className={styles.selHandle}>
-                      <Col className={styles.selTitle} >小</Col>
-                    </Row>
-                  </label>
-                </Col>
-                <Col span={6} >
-                  <label htmlFor="selOdd">
-                    <input type="checkbox" className={styles.selCheckBox} checked={handleList.selOdd} id="selOdd" onChange={this.filChecked.bind(this)} />
-                    <Row className={styles.selHandle}>
-                      <Col className={styles.selTitle} >单</Col>
-                    </Row>
-                  </label>
-                </Col>
-                <Col span={6} >
-                  <label htmlFor="selEven">
-                    <input type="checkbox" className={styles.selCheckBox} checked={handleList.selEven} id="selEven" onChange={this.filChecked.bind(this)} />
-                    <Row className={styles.selHandle}>
-                      <Col className={styles.selTitle} >双</Col>
-                    </Row>
-                  </label>
-                </Col>
-              </Row>
-              <Row className={styles.selContainer}>
-                <Col span={24} >
-                  <label htmlFor="sellAll">
-                    <input type="checkbox" className={styles.selCheckBox} checked={handleList.sellAll} id="sellAll" onChange={this.filChecked.bind(this)} />
-                    <Row className={styles.selHandle}>
-                      <Col className={styles.selTitle} >全选</Col>
-                    </Row>
-                  </label>
-                </Col>
-              </Row>
-            </TabPane>
-            <TabPane tab="三同号单选" key="1">
-              <Row>
-                <Col span={24} className={styles.itemWrap}>
-                  <span className={styles.itemTitle}>三同号单选</span>
-                  <span className={styles.itemTitle}>奖金{240}分</span>
-                  <span className={styles.itemDetail}>猜三个相同号码</span>
-                </Col>
-              </Row>
-              <Row className={styles.selContainer}>
-                {
-                  threeSame.length ?
-                    threeSame.map((i, index) => {
-                      return (
-                        <Col span={8} className={styles.selWrap} key={index} >
-                          <label htmlFor={i.id}>
-                            <input type="checkbox" onChange={this.changeChecked.bind(this, threeSame)} className={styles.selCheckBox} id={i.id} checked={i.checked} />
-                            <Row className={styles.selBox}>
-                              <Col className={styles.selTitle} style={{ lineHeight: '50px' }} >
-                                {i.value}
-                              </Col>
-                            </Row>
-                          </label>
-                        </Col>
-                      );
-                    })
-                    : ''
-                }
-              </Row>
-              <Row>
-                <Col span={24} className={styles.itemWrap}>
-                  <span className={styles.itemTitle}>三同号通选</span>
-                  <span className={styles.itemTitle}>奖金{40}分</span>
-                  <span className={styles.itemDetail}>任一组号码开出即中奖</span>
-                </Col>
-              </Row>
-              <Row className={styles.selContainer}>
-                {
-                  threeSameAll.length ?
-                    threeSameAll.map((i, index) => {
-                      return (
-                        <Col span={24} className={styles.selWrap} key={index} >
-                          <label htmlFor={i.id}>
-                            <input type="checkbox" onChange={this.changeChecked.bind(this, threeSameAll)} className={styles.selCheckBox} id={i.id} checked={i.checked} />
-                            <Row className={styles.selBox}>
-                              <Col className={styles.selTitle} style={{ lineHeight: '50px' }} >
-                                {i.value}
-                              </Col>
-                            </Row>
-                          </label>
-                        </Col>
-                      );
-                    })
-                    : ''
-                }
-              </Row>
-            </TabPane>
-            <TabPane tab="二同号单选" key="2">
-              <Row>
-                <Col span={24} className={styles.itemWrap}>
-                  <span className={styles.itemTitle}>二同号单选</span>
-                  <span className={styles.itemTitle}>奖金{80}分</span>
-                  <span className={styles.itemDetail}>猜两个相同号码和一个不同号码</span>
-                </Col>
-              </Row>
-              <Row className={styles.selContainer}>
-                {
-                  twoSame.length ?
-                    twoSame.map((i, index) => {
-                      return (
-                        <Col span={4} className={styles.selWrap} key={index} >
-                          <label htmlFor={i.id}>
-                            <input type="checkbox" onChange={this.changeChecked.bind(this, twoSame)} className={styles.selCheckBox} id={i.id} checked={i.checked} />
-                            <Row className={styles.selBox}>
-                              <Col className={styles.selTitle} style={{ lineHeight: '50px' }} >
-                                {i.value}
-                              </Col>
-                            </Row>
-                          </label>
-                        </Col>
-                      );
-                    })
-                    : ''
-                }
-              </Row>
-              <Row>
-                <Col span={24} className={styles.itemWrap}>
-                  <span className={styles.itemTitle}>二同号复选</span>
-                  <span className={styles.itemTitle}>奖金{15}分</span>
-                  <span className={styles.itemDetail}>猜两个相同号码</span>
-                </Col>
-              </Row>
-              <Row className={styles.selContainer}>
-                {
-                  twoSameAll.length ?
-                    twoSameAll.map((i, index) => {
-                      return (
-                        <Col span={8} className={styles.selWrap} key={index} >
-                          <label htmlFor={i.id}>
-                            <input type="checkbox" onChange={this.changeChecked.bind(this, twoSameAll)} className={styles.selCheckBox} id={i.id} checked={i.checked} />
-                            <Row className={styles.selBox}>
-                              <Col className={styles.selTitle} style={{ lineHeight: '50px' }} >
-                                {i.value}
-                              </Col>
-                            </Row>
-                          </label>
-                        </Col>
-                      );
-                    })
-                    : ''
-                }
-              </Row>
-            </TabPane>
-            <TabPane tab="三号不同" key="3">
-              <Row>
-                <Col span={24} className={styles.itemWrap}>
-                  <span className={styles.itemTitle}>三号不同</span>
-                  <span className={styles.itemTitle}>奖金{40}分</span>
-                  <span className={styles.itemDetail}>猜3个不同号码</span>
-                </Col>
-              </Row>
-              <Row className={styles.selContainer}>
-                {
-                  threeDif.length ?
-                    threeDif.map((i, index) => {
-                      return (
-                        <Col span={6} className={styles.selWrap} key={index} >
-                          <label htmlFor={i.id}>
-                            <input type="checkbox" onChange={this.changeChecked.bind(this, threeDif)} className={styles.selCheckBox} id={i.id} checked={i.checked} />
-                            <Row className={styles.selBox}>
-                              <Col className={styles.selTitle} style={{ lineHeight: '50px' }} >
-                                {i.value}
-                              </Col>
-                            </Row>
-                          </label>
-                        </Col>
-                      );
-                    })
-                    : ''
-                }
-              </Row>
-              <Row>
-                <Col span={24} className={styles.itemWrap}>
-                  <span className={styles.itemTitle}>三连号通选</span>
-                  <span className={styles.itemTitle}>奖金{40}分</span>
-                  <span className={styles.itemDetail}>猜3个不同号码</span>
-                </Col>
-              </Row>
-              <Row className={styles.selContainer}>
-                {
-                  threeDifAll.length ?
-                    threeDifAll.map((i, index) => {
-                      return (
-                        <Col span={24} className={styles.selWrap} key={index} >
-                          <label htmlFor={i.id}>
-                            <input type="checkbox" onChange={this.changeChecked.bind(this, threeDifAll)} className={styles.selCheckBox} id={i.id} checked={i.checked} />
-                            <Row className={styles.selBox}>
-                              <Col className={styles.selTitle} style={{ lineHeight: '50px' }} >
-                                {i.value}
-                              </Col>
-                            </Row>
-                          </label>
-                        </Col>
-                      );
-                    })
-                    : ''
-                }
-              </Row>
-            </TabPane>
-            <TabPane tab="二不同号" key="4">
-
-              <Row>
-                <Col span={24} className={styles.itemWrap}>
-                  <span className={styles.itemTitle}>二不同号</span>
-                  <span className={styles.itemTitle}>奖金{8}分</span>
-                  <span className={styles.itemDetail}>猜2个不同号码</span>
-                </Col>
-              </Row>
-              <Row className={styles.selContainer}>
-                {
-                  twoDif.length ?
-                    twoDif.map((i, index) => {
-                      return (
-                        <Col span={8} className={styles.selWrap} key={index} >
-                          <label htmlFor={i.id}>
-                            <input type="checkbox" onChange={this.changeChecked.bind(this, twoDif)} className={styles.selCheckBox} id={i.id} checked={i.checked} />
-                            <Row className={styles.selBox}>
-                              <Col className={styles.selTitle} style={{ lineHeight: '50px' }} >
-                                {i.value}
-                              </Col>
-                            </Row>
-                          </label>
-                        </Col>
-                      );
-                    })
-                    : ''
-                }
-              </Row>
-            </TabPane>
-          </Tabs>
+          {/* <Tabs renderTabBar renderTabContent defaultActiveKey="0" onTabClick={this.chooseTab.bind(this)}>*/}
+          {/* <TabPane tab="和值" key="0" >*/}
+          {
+            typeNow === '和值' ?
+              (
+                <div>
+                  <Row>
+                    <Col span={24} className={styles.itemWrap}>
+                      <span className={styles.itemTitle}>和值</span>
+                      <span className={styles.itemDetail}>猜开奖号码相加的和</span>
+                    </Col>
+                  </Row>
+                  <Row className={styles.selContainer}>
+                    {
+                      totalList.length ?
+                        totalList.map((i, index) => {
+                          return (
+                            <Col span={6} className={styles.selWrap} key={index} >
+                              <label htmlFor={i.id}>
+                                <input type="checkbox" onChange={this.changeChecked.bind(this, totalList)} className={styles.selCheckBox} id={i.id} checked={i.checked} />
+                                <Row className={styles.selBox}>
+                                  <Col className={styles.selTitle} >
+                                    {i.value}
+                                  </Col>
+                                  <Col className={styles.selContent} >
+                                    <span>奖金{i.rate}分</span>
+                                  </Col>
+                                </Row>
+                              </label>
+                            </Col>
+                          );
+                        })
+                        : ''
+                    }
+                  </Row>
+                  <Row>
+                    <Col span={24} className={styles.itemWrap}>
+                      <span className={styles.itemTitle}>快速选号</span>
+                    </Col>
+                  </Row>
+                  <Row className={styles.selContainer}>
+                    <Col span={6} >
+                      <label htmlFor="selBig">
+                        <input type="checkbox" className={styles.selCheckBox} checked={handleList.selBig} id="selBig" onChange={this.filChecked.bind(this)} />
+                        <Row className={styles.selHandle}>
+                          <Col className={styles.selTitle} >大</Col>
+                        </Row>
+                      </label>
+                    </Col>
+                    <Col span={6} >
+                      <label htmlFor="selSmall">
+                        <input type="checkbox" className={styles.selCheckBox} checked={handleList.selSmall} id="selSmall" onChange={this.filChecked.bind(this)} />
+                        <Row className={styles.selHandle}>
+                          <Col className={styles.selTitle} >小</Col>
+                        </Row>
+                      </label>
+                    </Col>
+                    <Col span={6} >
+                      <label htmlFor="selOdd">
+                        <input type="checkbox" className={styles.selCheckBox} checked={handleList.selOdd} id="selOdd" onChange={this.filChecked.bind(this)} />
+                        <Row className={styles.selHandle}>
+                          <Col className={styles.selTitle} >单</Col>
+                        </Row>
+                      </label>
+                    </Col>
+                    <Col span={6} >
+                      <label htmlFor="selEven">
+                        <input type="checkbox" className={styles.selCheckBox} checked={handleList.selEven} id="selEven" onChange={this.filChecked.bind(this)} />
+                        <Row className={styles.selHandle}>
+                          <Col className={styles.selTitle} >双</Col>
+                        </Row>
+                      </label>
+                    </Col>
+                  </Row>
+                  <Row className={styles.selContainer}>
+                    <Col span={24} >
+                      <label htmlFor="sellAll">
+                        <input type="checkbox" className={styles.selCheckBox} checked={handleList.sellAll} id="sellAll" onChange={this.filChecked.bind(this)} />
+                        <Row className={styles.selHandle}>
+                          <Col className={styles.selTitle} >全选</Col>
+                        </Row>
+                      </label>
+                    </Col>
+                  </Row>
+                </div>
+              ) : ''
+          }
+          {/* </TabPane>*/}
+          {/* <TabPane tab="三同号单选" key="1">*/}
+          {
+            typeNow === '三同号单选' ?
+              (
+                <div>
+                  <Row>
+                    <Col span={24} className={styles.itemWrap}>
+                      <span className={styles.itemTitle}>三同号单选</span>
+                      <span className={styles.itemTitle}>奖金{240}分</span>
+                      <span className={styles.itemDetail}>猜三个相同号码</span>
+                    </Col>
+                  </Row>
+                  <Row className={styles.selContainer}>
+                    {
+                      threeSame.length ?
+                        threeSame.map((i, index) => {
+                          return (
+                            <Col span={8} className={styles.selWrap} key={index} >
+                              <label htmlFor={i.id}>
+                                <input type="checkbox" onChange={this.changeChecked.bind(this, threeSame)} className={styles.selCheckBox} id={i.id} checked={i.checked} />
+                                <Row className={styles.selBox}>
+                                  <Col className={styles.selTitle} style={{ lineHeight: '50px' }} >
+                                    {i.value}
+                                  </Col>
+                                </Row>
+                              </label>
+                            </Col>
+                          );
+                        })
+                        : ''
+                    }
+                  </Row>
+                  <Row>
+                    <Col span={24} className={styles.itemWrap}>
+                      <span className={styles.itemTitle}>三同号通选</span>
+                      <span className={styles.itemTitle}>奖金{40}分</span>
+                      <span className={styles.itemDetail}>任一组号码开出即中奖</span>
+                    </Col>
+                  </Row>
+                  <Row className={styles.selContainer}>
+                    {
+                      threeSameAll.length ?
+                        threeSameAll.map((i, index) => {
+                          return (
+                            <Col span={24} className={styles.selWrap} key={index} >
+                              <label htmlFor={i.id}>
+                                <input type="checkbox" onChange={this.changeChecked.bind(this, threeSameAll)} className={styles.selCheckBox} id={i.id} checked={i.checked} />
+                                <Row className={styles.selBox}>
+                                  <Col className={styles.selTitle} style={{ lineHeight: '50px' }} >
+                                    {i.value}
+                                  </Col>
+                                </Row>
+                              </label>
+                            </Col>
+                          );
+                        })
+                        : ''
+                    }
+                  </Row>
+                </div>
+              ) : ''
+          }
+          {/* </TabPane>*/}
+          {/* <TabPane tab="二同号单选" key="2">*/}
+          {
+            typeNow === '二同号单选' ?
+              (
+                <div>
+                  <Row>
+                    <Col span={24} className={styles.itemWrap}>
+                      <span className={styles.itemTitle}>二同号单选</span>
+                      <span className={styles.itemTitle}>奖金{80}分</span>
+                      <span className={styles.itemDetail}>猜两个相同号码和一个不同号码</span>
+                    </Col>
+                  </Row>
+                  <Row className={styles.selContainer}>
+                    {
+                      twoSame.length ?
+                        twoSame.map((i, index) => {
+                          return (
+                            <Col span={4} className={styles.selWrap} key={index} >
+                              <label htmlFor={i.id}>
+                                <input type="checkbox" onChange={this.changeChecked.bind(this, twoSame)} className={styles.selCheckBox} id={i.id} checked={i.checked} />
+                                <Row className={styles.selBox}>
+                                  <Col className={styles.selTitle} style={{ lineHeight: '50px' }} >
+                                    {i.value}
+                                  </Col>
+                                </Row>
+                              </label>
+                            </Col>
+                          );
+                        })
+                        : ''
+                    }
+                  </Row>
+                  <Row>
+                    <Col span={24} className={styles.itemWrap}>
+                      <span className={styles.itemTitle}>二同号复选</span>
+                      <span className={styles.itemTitle}>奖金{15}分</span>
+                      <span className={styles.itemDetail}>猜两个相同号码</span>
+                    </Col>
+                  </Row>
+                  <Row className={styles.selContainer}>
+                    {
+                      twoSameAll.length ?
+                        twoSameAll.map((i, index) => {
+                          return (
+                            <Col span={8} className={styles.selWrap} key={index} >
+                              <label htmlFor={i.id}>
+                                <input type="checkbox" onChange={this.changeChecked.bind(this, twoSameAll)} className={styles.selCheckBox} id={i.id} checked={i.checked} />
+                                <Row className={styles.selBox}>
+                                  <Col className={styles.selTitle} style={{ lineHeight: '50px' }} >
+                                    {i.value}
+                                  </Col>
+                                </Row>
+                              </label>
+                            </Col>
+                          );
+                        })
+                        : ''
+                    }
+                  </Row>
+                </div>
+              ) : ''
+          }
+          {/* </TabPane>*/}
+          {/* <TabPane tab="三号不同" key="3">*/}
+          {
+            typeNow === '三号不同' ?
+              (
+                <div>
+                  <Row>
+                    <Col span={24} className={styles.itemWrap}>
+                      <span className={styles.itemTitle}>三号不同</span>
+                      <span className={styles.itemTitle}>奖金{40}分</span>
+                      <span className={styles.itemDetail}>猜3个不同号码</span>
+                    </Col>
+                  </Row>
+                  <Row className={styles.selContainer}>
+                    {
+                      threeDif.length ?
+                        threeDif.map((i, index) => {
+                          return (
+                            <Col span={6} className={styles.selWrap} key={index} >
+                              <label htmlFor={i.id}>
+                                <input type="checkbox" onChange={this.changeChecked.bind(this, threeDif)} className={styles.selCheckBox} id={i.id} checked={i.checked} />
+                                <Row className={styles.selBox}>
+                                  <Col className={styles.selTitle} style={{ lineHeight: '50px' }} >
+                                    {i.value}
+                                  </Col>
+                                </Row>
+                              </label>
+                            </Col>
+                          );
+                        })
+                        : ''
+                    }
+                  </Row>
+                  <Row>
+                    <Col span={24} className={styles.itemWrap}>
+                      <span className={styles.itemTitle}>三连号通选</span>
+                      <span className={styles.itemTitle}>奖金{40}分</span>
+                      <span className={styles.itemDetail}>猜3个不同号码</span>
+                    </Col>
+                  </Row>
+                  <Row className={styles.selContainer}>
+                    {
+                      threeDifAll.length ?
+                        threeDifAll.map((i, index) => {
+                          return (
+                            <Col span={24} className={styles.selWrap} key={index} >
+                              <label htmlFor={i.id}>
+                                <input type="checkbox" onChange={this.changeChecked.bind(this, threeDifAll)} className={styles.selCheckBox} id={i.id} checked={i.checked} />
+                                <Row className={styles.selBox}>
+                                  <Col className={styles.selTitle} style={{ lineHeight: '50px' }} >
+                                    {i.value}
+                                  </Col>
+                                </Row>
+                              </label>
+                            </Col>
+                          );
+                        })
+                        : ''
+                    }
+                  </Row>
+                </div>
+              ) : ''
+          }
+          {/* </TabPane>*/}
+          {/* <TabPane tab="二不同号" key="4">*/}
+          {
+            typeNow === '二不同号' ?
+              (
+                <div>
+                  <Row>
+                    <Col span={24} className={styles.itemWrap}>
+                      <span className={styles.itemTitle}>二不同号</span>
+                      <span className={styles.itemTitle}>奖金{8}分</span>
+                      <span className={styles.itemDetail}>猜2个不同号码</span>
+                    </Col>
+                  </Row>
+                  <Row className={styles.selContainer}>
+                    {
+                      twoDif.length ?
+                        twoDif.map((i, index) => {
+                          return (
+                            <Col span={8} className={styles.selWrap} key={index} >
+                              <label htmlFor={i.id}>
+                                <input type="checkbox" onChange={this.changeChecked.bind(this, twoDif)} className={styles.selCheckBox} id={i.id} checked={i.checked} />
+                                <Row className={styles.selBox}>
+                                  <Col className={styles.selTitle} style={{ lineHeight: '50px' }} >
+                                    {i.value}
+                                  </Col>
+                                </Row>
+                              </label>
+                            </Col>
+                          );
+                        })
+                        : ''
+                    }
+                  </Row>
+                </div>
+              ) : ''
+          }
+          {/* </TabPane>*/}
+          {/* </Tabs>*/}
           <div className={styles.lastWrap}>
             <Draggable defaultPosition={{ x: 0, y: 0 }}>
               <div className={styles.lastOne} onClick={this.getBuyList.bind(this)} >追上期</div>
@@ -1596,6 +1652,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     getBuyList(payload) {
       dispatch({ type: 'home/getBuyList', payload });
+    },
+    updateTypeNow(payload) {
+      dispatch({ type: 'trend/updateTypeNow', payload });
     },
   };
 };

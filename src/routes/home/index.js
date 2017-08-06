@@ -182,8 +182,7 @@ class HomePage extends React.Component {
                           item.latestOpenCode ? item.latestOpenCode.split(',').map((i, index) => {
                             return (
                               <Col
-                                xs={2}
-                                sm={2}
+                                span={2}
                                 key={index}
                                 className={`openCode openCode${item.type}${i}`}
                               >

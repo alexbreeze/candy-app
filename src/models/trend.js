@@ -15,6 +15,7 @@ export default {
       latestOpenCode: '',
     },
     isLoading: false,
+    typeNow: '',
   },
 
   effects: {
@@ -54,6 +55,9 @@ export default {
     *logOut({ payload }, { put }) {
       yield put(routerRedux.push('/login'));
     },
+    * updateTypeNow({ payload }, { put }) {
+      yield put({ type: 'typeNow', payload });
+    },
     *getOpenListDetail({
              payload,
            }, { put, call }) {
@@ -87,6 +91,12 @@ export default {
       return {
         ...state,
         headInfo: payload,
+      };
+    },
+    typeNow(state, { payload }) {
+      return {
+        ...state,
+        typeNow: payload,
       };
     },
     showLoading(state) {

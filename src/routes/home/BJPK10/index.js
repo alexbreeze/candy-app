@@ -1096,6 +1096,7 @@ class BJPK10 extends React.Component {
         }
       });
     }
+    this.props.updateTypeNow('两面盘');
   }
   changeShow() {
     this.setState({
@@ -1326,6 +1327,9 @@ class BJPK10 extends React.Component {
   delItem(item) {
     this.props.delBJPK10Item(item.index);
   }
+  changeSel(value) {
+    this.props.updateTypeNow(value);
+  }
   render() {
     const {
       trend,
@@ -1335,6 +1339,7 @@ class BJPK10 extends React.Component {
       content,
       headInfo,
       isLoading,
+      typeNow,
     } = trend;
     const {
       BJPK10,
@@ -1348,6 +1353,14 @@ class BJPK10 extends React.Component {
       showTime,
       isShow,
     } = this.state;
+    const selTitle = [
+      {
+        value: '两面盘',
+      },
+      {
+        value: '1-10名',
+      },
+    ];
     const columns = [
       { title: '种类', dataIndex: 'type', key: 'type' },
       { title: '号码', dataIndex: 'code', key: 'code' },
@@ -1355,20 +1368,37 @@ class BJPK10 extends React.Component {
     ];
     return (
       <Row className={styles.BJPK10}>
-        <Col xs={24} sm={0}>
-          <HeadMenu title="北京PK10" back="/home" detail="/BJPK10-detail" showInfo />
+        <Col span={24}>
+          <HeadMenu back="/home" detail="/BJPK10-detail" showInfo selTitle={selTitle} changeSel={this.changeSel.bind(this)} />
         </Col>
         <Col span={24} className={styles.head} >
           <Row>
-            <Col span={12} >
+            <Col span={16} >
               <Row>
-                <Col span={24}>{headInfo.latestSerialCode}</Col>
-                <Col span={24}>{headInfo.latestOpenCode || '开奖中'}</Col>
+                <Col span={18}>{headInfo.latestSerialCode}期开奖</Col>
+                <Col span={2} onClick={this.changeShow.bind(this)}>
+                  历史
+                  <Icon type="down" />
+                </Col>
+                <Col span={24}>
+                  {
+                    headInfo.code ?
+                      headInfo.code.map((i, index) => {
+                        return (
+                          <Col
+                            span={2}
+                            key={index}
+                            className={`openCode openCodeSmall openCodeBJPK10${i}`}
+                          >
+                            {
+                              i
+                            }
+                          </Col>
+                        );
+                      }) : '开奖中'
+                  }
+                </Col>
               </Row>
-            </Col>
-            <Col span={4} onClick={this.changeShow.bind(this)}>
-              历史
-              <Icon type="down" />
             </Col>
             <Col span={8} className={styles.nextSerialCode} >
               <Row>
@@ -1393,9 +1423,10 @@ class BJPK10 extends React.Component {
               <BJPK10TOP isShow={isShow} />
             </Col>
           </Row>
-          <Tabs renderTabBar renderTabContent defaultActiveKey="0" onTabClick={this.chooseTab.bind(this)}>
-            <TabPane tab="两面盘" key="0" >
-              {
+          {/* <Tabs renderTabBar renderTabContent defaultActiveKey="0" onTabClick={this.chooseTab.bind(this)}>*/}
+          {/* <TabPane tab="两面盘" key="0" >*/}
+          {
+                typeNow === '两面盘' ?
                 totalList.length ?
                   totalList.map((items, index) => {
                     return (
@@ -1420,10 +1451,12 @@ class BJPK10 extends React.Component {
                     );
                   })
                   : ''
+                  : ''
               }
-            </TabPane>
-            <TabPane tab="1-10名" key="1" >
-              {
+          {/* </TabPane>*/}
+          {/* <TabPane tab="1-10名" key="1" >*/}
+          {
+                typeNow === '1-10名' ?
                 pkList.length ?
                   pkList.map((items, index) => {
                     return (
@@ -1448,9 +1481,10 @@ class BJPK10 extends React.Component {
                     );
                   })
                   : ''
+                  : ''
               }
-            </TabPane>
-          </Tabs>
+          {/* </TabPane>*/}
+          {/* </Tabs>*/}
           <div className={styles.lastWrap}>
             <Draggable defaultPosition={{ x: 0, y: 0 }}>
               <div className={styles.lastOne} onClick={this.getBuyList.bind(this)} >追上期</div>
@@ -1545,6 +1579,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     getBuyList(payload) {
       dispatch({ type: 'home/getBuyList', payload });
+    },
+    updateTypeNow(payload) {
+      dispatch({ type: 'trend/updateTypeNow', payload });
     },
   };
 };

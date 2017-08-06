@@ -1359,6 +1359,7 @@ class CQSSC extends React.Component {
         });
       },
     });
+    this.props.updateTypeNow('一星直选');
   }
   changeShow() {
     this.setState({
@@ -1870,6 +1871,9 @@ class CQSSC extends React.Component {
     this.clear.call(this, this.state.sizeStarList);
     this.clear.call(this, this.state.sizeTotal);
   }
+  changeSel(value) {
+    this.props.updateTypeNow(value);
+  }
   render() {
     const {
       trend,
@@ -1879,6 +1883,7 @@ class CQSSC extends React.Component {
       content,
       headInfo,
       isLoading,
+      typeNow,
     } = trend;
     const {
       CQSSC,
@@ -1902,6 +1907,32 @@ class CQSSC extends React.Component {
       rateObj,
       result,
     } = this.state;
+    const selTitle = [
+      {
+        value: '一星直选',
+      },
+      {
+        value: '二星直选',
+      },
+      {
+        value: '二星组选',
+      },
+      {
+        value: '三星直选',
+      },
+      {
+        value: '三星组六',
+      },
+      {
+        value: '五星直选',
+      },
+      {
+        value: '五星通选',
+      },
+      {
+        value: '大小单双',
+      },
+    ];
     const columns = [
       { title: '种类', dataIndex: 'type', key: 'type' },
       { title: '号码', dataIndex: 'code', key: 'code' },
@@ -1909,20 +1940,37 @@ class CQSSC extends React.Component {
     ];
     return (
       <Row className={styles.CQSSC}>
-        <Col xs={24} sm={0}>
-          <HeadMenu title="重庆时时彩" back="/home" detail="/CQSSC-detail" showInfo />
+        <Col span={24}>
+          <HeadMenu back="/home" detail="/CQSSC-detail" showInfo selTitle={selTitle} changeSel={this.changeSel.bind(this)} />
         </Col>
         <Col span={24} className={styles.head} >
           <Row>
-            <Col span={11} >
+            <Col span={16} >
               <Row>
-                <Col span={24}>{headInfo.latestSerialCode}</Col>
-                <Col span={24}>{headInfo.latestOpenCode || '开奖中'}</Col>
+                <Col span={18}>{headInfo.latestSerialCode}期开奖</Col>
+                <Col span={2} onClick={this.changeShow.bind(this)}>
+                  历史
+                  <Icon type="down" />
+                </Col>
+                <Col span={24}>
+                  {
+                    headInfo.code ?
+                      headInfo.code.map((i, index) => {
+                        return (
+                          <Col
+                            span={2}
+                            key={index}
+                            className={`openCode openCodeSmall openCodeCQSSC${i}`}
+                          >
+                            {
+                              i
+                            }
+                          </Col>
+                        );
+                      }) : '开奖中'
+                  }
+                </Col>
               </Row>
-            </Col>
-            <Col span={4} onClick={this.changeShow.bind(this)}>
-              历史
-              <Icon type="down" />
             </Col>
             <Col span={8} className={styles.nextSerialCode} >
               <Row>
@@ -1930,7 +1978,7 @@ class CQSSC extends React.Component {
                   距{headInfo.nextSerialCode}期截止
                 </Col>
                 <Col span={24}>
-                  {content.length ? content[2].showTime : showTime}
+                  {content.length ? content[1].showTime : showTime}
                 </Col>
               </Row>
             </Col>
@@ -1947,147 +1995,175 @@ class CQSSC extends React.Component {
               <CQSSCTOP isShow={isShow} />
             </Col>
           </Row>
-          <Tabs renderTabBar renderTabContent defaultActiveKey="0" onTabClick={this.chooseTab.bind(this)}>
-            <TabPane tab="一星直选" key="0" >
-              <Row>
-                <Col span={24} className={styles.itemWrap}>
+          {/*<Tabs renderTabBar renderTabContent defaultActiveKey="0" onTabClick={this.chooseTab.bind(this)}>*/}
+            {/*<TabPane tab="一星直选" key="0" >*/}
+          {
+            typeNow === '一星直选' ?
+              (
+                <div>
+                  <Row>
+                    <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemDetail}>
                     至少选1个号码，猜对开奖号码最后一位即中{rateObj['一星直选']}分
                   </span>
-                </Col>
-              </Row>
-              {
-                oneStarList.length ?
-                  oneStarList.map((items, index) => {
-                    return (
-                      <Col span={24} className={styles.selContainer} key={index}>
-                        <Col xs={3} sm={3} className={styles.selCtitle}>{items.title}</Col>
-                        <Col xs={19} sm={19} offset={2}>{
-                          items.total.map((item, index) => {
-                            return (
-                              <Col xs={6} sm={4} className={styles.selWrap} key={index} >
-                                <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, oneStarList, 'oneStarList')} id={item.id} checked={item.checked} />
-                                  <Row className={styles.selBox}>
-                                    <Col className={styles.selTitle} >{item.displayName}</Col>
-                                  </Row>
-                                  {/* <Col className={styles.rate}>{item.rate}</Col> */}
-                                </label>
-                              </Col>
-                            );
-                          })
-                        }</Col>
-                      </Col>
-                    );
-                  })
-                  : ''
-              }
-            </TabPane>
-            <TabPane tab="二星直选" key="1" >
-              <Row>
-                <Col span={24} className={styles.itemWrap}>
+                    </Col>
+                  </Row>
+                  {
+                    oneStarList.length ?
+                      oneStarList.map((items, index) => {
+                        return (
+                          <Col span={24} className={styles.selContainer} key={index}>
+                            <Col xs={3} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                            <Col xs={19} sm={19} offset={2}>{
+                              items.total.map((item, index) => {
+                                return (
+                                  <Col xs={6} sm={4} className={styles.selWrap} key={index} >
+                                    <label htmlFor={item.id}>
+                                      <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, oneStarList, 'oneStarList')} id={item.id} checked={item.checked} />
+                                      <Row className={styles.selBox}>
+                                        <Col className={styles.selTitle} >{item.displayName}</Col>
+                                      </Row>
+                                      {/* <Col className={styles.rate}>{item.rate}</Col> */}
+                                    </label>
+                                  </Col>
+                                );
+                              })
+                            }</Col>
+                          </Col>
+                        );
+                      })
+                      : ''
+                  }
+                </div>
+              ):''
+          }
+            {/*</TabPane>*/}
+            {/*<TabPane tab="二星直选" key="1" >*/}
+          {
+            typeNow === '二星直选' ?
+              (
+                <div>
+                  <Row>
+                    <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemDetail}>
                     至少选1个号码，按位猜对开奖后两位即中{rateObj['二星直选']}分
                   </span>
-                </Col>
-              </Row>
-              {
-                twoStarList.length ?
-                  twoStarList.map((items, index) => {
-                    return (
-                      <Col span={24} className={styles.selContainer} key={index}>
-                        <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
-                        <Col xs={17} sm={19} offset={2}>{
-                          items.total.map((item, index) => {
-                            return (
-                              <Col span={6} className={styles.selWrap} key={index} >
-                                <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, twoStarList, 'twoStarList')} id={item.id} checked={item.checked} />
-                                  <Row className={styles.selBox}>
-                                    <Col className={styles.selTitle} >{item.displayName}</Col>
-                                  </Row>
-                                  {/* <Col className={styles.rate}>{item.rate}</Col> */}
-                                </label>
-                              </Col>
-                            );
-                          })
-                        }</Col>
-                      </Col>
-                    );
-                  })
-                  : ''
-              }
-            </TabPane>
-            <TabPane tab="二星组选" key="2" >
-              <Row>
-                <Col span={24} className={styles.itemWrap}>
+                    </Col>
+                  </Row>
+                  {
+                    twoStarList.length ?
+                      twoStarList.map((items, index) => {
+                        return (
+                          <Col span={24} className={styles.selContainer} key={index}>
+                            <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                            <Col xs={17} sm={19} offset={2}>{
+                              items.total.map((item, index) => {
+                                return (
+                                  <Col span={6} className={styles.selWrap} key={index} >
+                                    <label htmlFor={item.id}>
+                                      <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, twoStarList, 'twoStarList')} id={item.id} checked={item.checked} />
+                                      <Row className={styles.selBox}>
+                                        <Col className={styles.selTitle} >{item.displayName}</Col>
+                                      </Row>
+                                      {/* <Col className={styles.rate}>{item.rate}</Col> */}
+                                    </label>
+                                  </Col>
+                                );
+                              })
+                            }</Col>
+                          </Col>
+                        );
+                      })
+                      : ''
+                  }
+                </div>
+              ):''
+          }
+            {/*</TabPane>*/}
+            {/*<TabPane tab="二星组选" key="2" >*/}
+          {
+           typeNow === '二星组选' ?
+             (
+               <div>
+                 <Row>
+                   <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemDetail}>
                     至少选2个号码，猜对开奖后两位(顺序不限)即中{rateObj['二星组选']}分
                   </span>
-                </Col>
-              </Row>
-              {
-                twoGStarList.length ?
-                  twoGStarList.map((items, index) => {
-                    return (
-                      <Col span={24} className={styles.selContainer} key={index}>
-                        <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
-                        <Col xs={17} sm={19} offset={2}>{
-                          items.total.map((item, index) => {
-                            return (
-                              <Col span={6} className={styles.selWrap} key={index} >
-                                <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, twoGStarList, 'twoGStarList')} id={item.id} checked={item.checked} />
-                                  <Row className={styles.selBox}>
-                                    <Col className={styles.selTitle} >{item.displayName}</Col>
-                                  </Row>
-                                  {/* <Col className={styles.rate}>{item.rate}</Col> */}
-                                </label>
-                              </Col>
-                            );
-                          })
-                        }</Col>
-                      </Col>
-                    );
-                  })
-                  : ''
-              }
-            </TabPane>
-            <TabPane tab="三星直选" key="3" >
-              <Row>
-                <Col span={24} className={styles.itemWrap}>
+                   </Col>
+                 </Row>
+                 {
+                   twoGStarList.length ?
+                     twoGStarList.map((items, index) => {
+                       return (
+                         <Col span={24} className={styles.selContainer} key={index}>
+                           <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                           <Col xs={17} sm={19} offset={2}>{
+                             items.total.map((item, index) => {
+                               return (
+                                 <Col span={6} className={styles.selWrap} key={index} >
+                                   <label htmlFor={item.id}>
+                                     <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, twoGStarList, 'twoGStarList')} id={item.id} checked={item.checked} />
+                                     <Row className={styles.selBox}>
+                                       <Col className={styles.selTitle} >{item.displayName}</Col>
+                                     </Row>
+                                     {/* <Col className={styles.rate}>{item.rate}</Col> */}
+                                   </label>
+                                 </Col>
+                               );
+                             })
+                           }</Col>
+                         </Col>
+                       );
+                     })
+                     : ''
+                 }
+               </div>
+             ):''
+          }
+            {/*</TabPane>*/}
+            {/*<TabPane tab="三星直选" key="3" >*/}
+            {
+              typeNow === '三星直选' ?
+                (
+                  <div>
+                    <Row>
+                      <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemDetail}>
                     每位至少选1个号码，按位猜对开奖后3位即中{rateObj['三星直选']}分
                   </span>
-                </Col>
-              </Row>
-              {
-                threeStarList.length ?
-                  threeStarList.map((items, index) => {
-                    return (
-                      <Col span={24} className={styles.selContainer} key={index}>
-                        <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
-                        <Col xs={17} sm={19} offset={2}>{
-                          items.total.map((item, index) => {
-                            return (
-                              <Col span={6} className={styles.selWrap} key={index} >
-                                <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, threeStarList, 'threeStarList')} id={item.id} checked={item.checked} />
-                                  <Row className={styles.selBox}>
-                                    <Col className={styles.selTitle} >{item.displayName}</Col>
-                                  </Row>
-                                  {/* <Col className={styles.rate}>{item.rate}</Col> */}
-                                </label>
-                              </Col>
-                            );
-                          })
-                        }</Col>
                       </Col>
-                    );
-                  })
-                  : ''
-              }
-            </TabPane>
+                    </Row>
+                    {
+                      threeStarList.length ?
+                        threeStarList.map((items, index) => {
+                          return (
+                            <Col span={24} className={styles.selContainer} key={index}>
+                              <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                              <Col xs={17} sm={19} offset={2}>{
+                                items.total.map((item, index) => {
+                                  return (
+                                    <Col span={6} className={styles.selWrap} key={index} >
+                                      <label htmlFor={item.id}>
+                                        <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, threeStarList, 'threeStarList')} id={item.id} checked={item.checked} />
+                                        <Row className={styles.selBox}>
+                                          <Col className={styles.selTitle} >{item.displayName}</Col>
+                                        </Row>
+                                        {/* <Col className={styles.rate}>{item.rate}</Col> */}
+                                      </label>
+                                    </Col>
+                                  );
+                                })
+                              }</Col>
+                            </Col>
+                          );
+                        })
+                        : ''
+                    }
+                  </div>
+                ):''
+            }
+            {/*</TabPane>*/}
             {/*
             <TabPane tab="三星组三复式" key="5" >
               <Row>
@@ -2125,173 +2201,201 @@ class CQSSC extends React.Component {
               }
             </TabPane>
             */}
-            <TabPane tab="三星组六" key="6" >
-              <Row>
-                <Col span={24} className={styles.itemWrap}>
+            {/*<TabPane tab="三星组六" key="6" >*/}
+          {
+            typeNow === '三星组六' ?
+              (
+                <div>
+                  <Row>
+                    <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemDetail}>
                     至少选3个号，猜对开奖后3位(顺序不限)即中{rateObj['三星组六']}分
                   </span>
-                </Col>
-              </Row>
-              {
-                threeSStarList.length ?
-                  threeSStarList.map((items, index) => {
-                    return (
-                      <Col span={24} className={styles.selContainer} key={index}>
-                        <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
-                        <Col xs={17} sm={19} offset={2}>{
-                          items.total.map((item, index) => {
-                            return (
-                              <Col span={6} className={styles.selWrap} key={index} >
-                                <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, threeSStarList, 'threeSStarList')} id={item.id} checked={item.checked} />
-                                  <Row className={styles.selBox}>
-                                    <Col className={styles.selTitle} >{item.displayName}</Col>
-                                  </Row>
-                                  {/* <Col className={styles.rate}>{item.rate}</Col> */}
-                                </label>
-                              </Col>
-                            );
-                          })
-                        }</Col>
-                      </Col>
-                    );
-                  })
-                  : ''
-              }
-            </TabPane>
-            <TabPane tab="五星直选" key="7" >
-              <Row>
-                <Col span={24} className={styles.itemWrap}>
+                    </Col>
+                  </Row>
+                  {
+                    threeSStarList.length ?
+                      threeSStarList.map((items, index) => {
+                        return (
+                          <Col span={24} className={styles.selContainer} key={index}>
+                            <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                            <Col xs={17} sm={19} offset={2}>{
+                              items.total.map((item, index) => {
+                                return (
+                                  <Col span={6} className={styles.selWrap} key={index} >
+                                    <label htmlFor={item.id}>
+                                      <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, threeSStarList, 'threeSStarList')} id={item.id} checked={item.checked} />
+                                      <Row className={styles.selBox}>
+                                        <Col className={styles.selTitle} >{item.displayName}</Col>
+                                      </Row>
+                                      {/* <Col className={styles.rate}>{item.rate}</Col> */}
+                                    </label>
+                                  </Col>
+                                );
+                              })
+                            }</Col>
+                          </Col>
+                        );
+                      })
+                      : ''
+                  }
+                </div>
+              ):''
+          }
+            {/*</TabPane>*/}
+            {/*<TabPane tab="五星直选" key="7" >*/}
+          {
+            typeNow === '五星直选' ?
+              (
+                <div>
+                  <Row>
+                    <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemDetail}>
                     每位至少选1个号码，按位猜对开奖号即中{rateObj['五星直选']}分
                   </span>
-                </Col>
-              </Row>
-              {
-                fiveStarList.length ?
-                  fiveStarList.map((items, index) => {
-                    return (
-                      <Col span={24} className={styles.selContainer} key={index}>
-                        <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
-                        <Col xs={17} sm={19} offset={2}>{
-                          items.total.map((item, index) => {
-                            return (
-                              <Col span={6} className={styles.selWrap} key={index} >
-                                <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, fiveStarList, 'fiveStarList')} id={item.id} checked={item.checked} />
-                                  <Row className={styles.selBox}>
-                                    <Col className={styles.selTitle} >{item.displayName}</Col>
-                                  </Row>
-                                  {/* <Col className={styles.rate}>{item.rate}</Col> */}
-                                </label>
-                              </Col>
-                            );
-                          })
-                        }</Col>
-                      </Col>
-                    );
-                  })
-                  : ''
-              }
-            </TabPane>
-            <TabPane tab="五星通选" key="8" >
-              <Row>
-                <Col span={24} className={styles.itemWrap}>
+                    </Col>
+                  </Row>
+                  {
+                    fiveStarList.length ?
+                      fiveStarList.map((items, index) => {
+                        return (
+                          <Col span={24} className={styles.selContainer} key={index}>
+                            <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                            <Col xs={17} sm={19} offset={2}>{
+                              items.total.map((item, index) => {
+                                return (
+                                  <Col span={6} className={styles.selWrap} key={index} >
+                                    <label htmlFor={item.id}>
+                                      <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, fiveStarList, 'fiveStarList')} id={item.id} checked={item.checked} />
+                                      <Row className={styles.selBox}>
+                                        <Col className={styles.selTitle} >{item.displayName}</Col>
+                                      </Row>
+                                      {/* <Col className={styles.rate}>{item.rate}</Col> */}
+                                    </label>
+                                  </Col>
+                                );
+                              })
+                            }</Col>
+                          </Col>
+                        );
+                      })
+                      : ''
+                  }
+                </div>
+              ):''
+          }
+            {/*</TabPane>*/}
+            {/*<TabPane tab="五星通选" key="8" >*/}
+          {
+            typeNow === '五星通选' ?
+              (
+                <div>
+                  <Row>
+                    <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemDetail}>
                     每位至少选1个号码，按位猜对开奖号最高奖{rateObj['五星通选']}分
                   </span>
-                </Col>
-              </Row>
-              {
-                fiveTStarList.length ?
-                  fiveTStarList.map((items, index) => {
-                    return (
-                      <Col span={24} className={styles.selContainer} key={index}>
-                        <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
-                        <Col xs={17} sm={19} offset={2}>{
-                          items.total.map((item, index) => {
-                            return (
-                              <Col span={6} className={styles.selWrap} key={index} >
-                                <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, fiveTStarList, 'fiveTStarList')} id={item.id} checked={item.checked} />
-                                  <Row className={styles.selBox}>
-                                    <Col className={styles.selTitle} >{item.displayName}</Col>
-                                  </Row>
-                                  {/* <Col className={styles.rate}>{item.rate}</Col> */}
-                                </label>
-                              </Col>
-                            );
-                          })
-                        }</Col>
-                      </Col>
-                    );
-                  })
-                  : ''
-              }
-            </TabPane>
-            <TabPane tab="大小单双" key="9" >
-              <Row>
-                <Col span={24} className={styles.itemWrap}>
+                    </Col>
+                  </Row>
+                  {
+                    fiveTStarList.length ?
+                      fiveTStarList.map((items, index) => {
+                        return (
+                          <Col span={24} className={styles.selContainer} key={index}>
+                            <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                            <Col xs={17} sm={19} offset={2}>{
+                              items.total.map((item, index) => {
+                                return (
+                                  <Col span={6} className={styles.selWrap} key={index} >
+                                    <label htmlFor={item.id}>
+                                      <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, fiveTStarList, 'fiveTStarList')} id={item.id} checked={item.checked} />
+                                      <Row className={styles.selBox}>
+                                        <Col className={styles.selTitle} >{item.displayName}</Col>
+                                      </Row>
+                                      {/* <Col className={styles.rate}>{item.rate}</Col> */}
+                                    </label>
+                                  </Col>
+                                );
+                              })
+                            }</Col>
+                          </Col>
+                        );
+                      })
+                      : ''
+                  }
+                </div>
+              ):''
+          }
+            {/*</TabPane>*/}
+            {/*<TabPane tab="大小单双" key="9" >*/}
+          {
+            typeNow === '大小单双' ?
+              (
+                <div>
+                  <Row>
+                    <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemDetail}>
                     每位至少选1个号码，猜对开奖后2位的属性即中{rateObj['大小单双']}分
                   </span>
-                </Col>
-              </Row>
-              {
-                sizeStarList.length ?
-                  sizeStarList.map((items, index) => {
-                    return (
-                      <Col span={24} className={styles.selContainer} key={index}>
-                        <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
-                        <Col xs={17} sm={19} offset={2}>{
-                          items.total.map((item, index) => {
-                            return (
-                              <Col span={6} className={styles.selWrap} key={index} >
-                                <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, sizeStarList, 'sizeStarList')} id={item.id} checked={item.checked} />
-                                  <Row className={styles.selBox}>
-                                    <Col className={styles.selTitle} >{item.displayName}</Col>
-                                  </Row>
-                                  {/* <Col className={styles.rate}>{item.rate}</Col> */}
-                                </label>
-                              </Col>
-                            );
-                          })
-                        }</Col>
-                      </Col>
-                    );
-                  })
-                  : ''
-              }
-              {
-                sizeTotal.length ?
-                  sizeTotal.map((items, index) => {
-                    return (
-                      <Col span={24} className={styles.selContainer} key={index}>
-                        <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
-                        <Col xs={17} sm={19} offset={2}>{
-                          items.total.map((item, index) => {
-                            return (
-                              <Col span={6} className={styles.selWrap} key={index} >
-                                <label htmlFor={item.id}>
-                                  <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, sizeTotal, 'sizeTotal')} id={item.id} checked={item.checked} />
-                                  <Row className={styles.selBox}>
-                                    <Col className={styles.selTitle} >{item.displayName}</Col>
-                                  </Row>
-                                  {/* <Col className={styles.rate}>{item.rate}</Col> */}
-                                </label>
-                              </Col>
-                            );
-                          })
-                        }</Col>
-                      </Col>
-                    );
-                  })
-                  : ''
-              }
-            </TabPane>
-          </Tabs>
+                    </Col>
+                  </Row>
+                  {
+                    sizeStarList.length ?
+                      sizeStarList.map((items, index) => {
+                        return (
+                          <Col span={24} className={styles.selContainer} key={index}>
+                            <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                            <Col xs={17} sm={19} offset={2}>{
+                              items.total.map((item, index) => {
+                                return (
+                                  <Col span={6} className={styles.selWrap} key={index} >
+                                    <label htmlFor={item.id}>
+                                      <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, sizeStarList, 'sizeStarList')} id={item.id} checked={item.checked} />
+                                      <Row className={styles.selBox}>
+                                        <Col className={styles.selTitle} >{item.displayName}</Col>
+                                      </Row>
+                                      {/* <Col className={styles.rate}>{item.rate}</Col> */}
+                                    </label>
+                                  </Col>
+                                );
+                              })
+                            }</Col>
+                          </Col>
+                        );
+                      })
+                      : ''
+                  }
+                  {
+                    sizeTotal.length ?
+                      sizeTotal.map((items, index) => {
+                        return (
+                          <Col span={24} className={styles.selContainer} key={index}>
+                            <Col xs={5} sm={3} className={styles.selCtitle}>{items.title}</Col>
+                            <Col xs={17} sm={19} offset={2}>{
+                              items.total.map((item, index) => {
+                                return (
+                                  <Col span={6} className={styles.selWrap} key={index} >
+                                    <label htmlFor={item.id}>
+                                      <input type="checkbox" className={styles.selCheckBox} value={items.title} onChange={this.changeChecked.bind(this, sizeTotal, 'sizeTotal')} id={item.id} checked={item.checked} />
+                                      <Row className={styles.selBox}>
+                                        <Col className={styles.selTitle} >{item.displayName}</Col>
+                                      </Row>
+                                      {/* <Col className={styles.rate}>{item.rate}</Col> */}
+                                    </label>
+                                  </Col>
+                                );
+                              })
+                            }</Col>
+                          </Col>
+                        );
+                      })
+                      : ''
+                  }
+                </div>
+              ):''
+          }
+            {/*</TabPane>*/}
+          {/*</Tabs>*/}
           <div className={styles.lastWrap}>
             <Draggable defaultPosition={{ x: 0, y: 0 }}>
               <div className={styles.lastOne} onClick={this.getBuyList.bind(this)} >追上期</div>
@@ -2409,6 +2513,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     getBuyList(payload) {
       dispatch({ type: 'home/getBuyList', payload });
+    },
+    updateTypeNow(payload) {
+      dispatch({ type: 'trend/updateTypeNow', payload });
     },
   };
 };
