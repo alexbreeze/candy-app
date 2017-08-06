@@ -4,9 +4,7 @@ import { Tabs, Row, Col, Table } from 'antd';
 import styles from './index.less';
 import HeadMenu from '../../../components/headMenu';
 
-const { TabPane } = Tabs;
-
-class Tab extends Component {
+class Win extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +27,7 @@ class Tab extends Component {
    pageSize: 10000000,
    });*/
   }
-  goNext(){
+  goNext() {
     const self = this;
     this.state.pageIndex++;
     this.setState({
@@ -46,53 +44,68 @@ class Tab extends Component {
       trend,
       lucky,
     } = this.props;
-    const { isLoading } = trend;
     const { balanceList, balanceText } = lucky;
-    const columns = [
-      { title: '种类',
-        dataIndex: 'category',
-        key: 'category',
-        width: 75,
-        render: (text, record) => {
-          return (
-            <div className="editable-row-operations">
-              {
-                text === 'BJK3'
-                  ?
-                  <span>
-                    北京快三
-                  </span>
-                  :
-                  text === 'BJPK10'
-                    ?
-                    <span>
-                    北京PK拾
-                  </span>
-                    :
-                    <span>
-                    重庆时时彩
-                  </span>
-              }
-            </div>
-          );
-        } },
-      { title: '期数', dataIndex: 'serialCode', key: 'serialCode', width: '' },
-      { title: '中奖金额', dataIndex: 'winReward', key: 'winReward', width: 75 },
-    ];
     return (
       <Row className={styles.detailTab}>
         <Col xs={24} sm={0}>
-          <HeadMenu title="中奖记录" back="/lucky" showInfo={false} />
+          <HeadMenu title="我的中奖记录" back="/lucky" />
         </Col>
         <Col span={24} className={styles.content}>
-          <Table
-            columns={columns}
-            dataSource={balanceList}
-            pagination={false}
-            loading={isLoading}
-            rowKey={(record, index) => index}
-            onChange={this.changePage.bind(this)}
-          />
+          {
+            balanceList.length ? balanceList.map((item, index) => {
+              return (
+                <Row className={styles.contain} key={index} >
+                  <Col span={24} className={styles.head} >
+                    <Col span={6} className={styles.title} >
+                      {
+                          item.category === 'BJK3'
+                            ?
+                              <span>
+                              北京快三
+                            </span>
+                            :
+                            item.category === 'BJPK10'
+                              ?
+                                <span>
+                                北京PK拾
+                              </span>
+                              :
+                                <span>
+                                重庆时时彩
+                              </span>
+                        }
+                    </Col>
+                    <Col span={6} className={styles.type} >
+                      {
+                          item.numberType === 'Z' ?
+                            '两面盘'
+                            :
+                            item.numberType === 'S' ?
+                              '1-10名'
+                              :
+                              item.numberType
+                        }
+                    </Col>
+                    <Col span={6} offset={6} className={styles.win} >
+                      中{item.winCount}注 奖{item.winReward}分
+                    </Col>
+                  </Col>
+                  <Col span={24} className={styles.body} >
+                    {item.number}
+                  </Col>
+                  <Col span={24} className={styles.foot} >
+                    <Col span={6}>
+                      {item.times}倍
+                      </Col>
+                    <Col span={16} offset={2} className={styles.time} >
+                        第{item.serialCode}期 {item.createTime}
+                    </Col>
+                  </Col>
+                </Row>
+              );
+            }) :
+              ''
+          }
           <Col span={24} className={styles.showMore}>
             <a onClick={this.goNext.bind(this)}>
               {balanceText}
@@ -114,10 +127,10 @@ const mapDispatchToProps = (dispatch) => {
     getMine(data) {
       dispatch({ type: 'lucky/getMine', payload: data });
     },
-    clearBalanceList(){
+    clearBalanceList() {
       dispatch({ type: 'lucky/clearBalanceList' });
     },
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Tab);
+export default connect(mapStateToProps, mapDispatchToProps)(Win);
 

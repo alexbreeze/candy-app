@@ -13,15 +13,15 @@ class NormalLoginForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        values.password = md5(md5(values.password+''));
-        this.props.login(values);
+        values.password = md5(md5(`${values.password}`));
+        this.props.signIn(values);
       }
     });
   }
   render() {
     const { getFieldDecorator } = this.props.form;
     const { login } = this.props;
-    const {loginLoading} = login;
+    const { loginLoading } = login;
     return (
       <Form onSubmit={this.handleSubmit} className={styles['login-form']}>
         <FormItem>
@@ -32,6 +32,13 @@ class NormalLoginForm extends React.Component {
           )}
         </FormItem>
         <FormItem>
+          {getFieldDecorator('name', {
+            rules: [{ required: true, message: '请输入用户名!' }],
+          })(
+            <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="用户名" />,
+          )}
+        </FormItem>
+        <FormItem>
           {getFieldDecorator('password', {
             rules: [{ required: true, message: '请输入密码!' }],
           })(
@@ -39,9 +46,15 @@ class NormalLoginForm extends React.Component {
           )}
         </FormItem>
         <FormItem>
-          <Link className={styles['login-form-forgot']} to="/signIn">注册</Link>
+          {getFieldDecorator('recommendCode', {
+            rules: [{ required: true, message: '请输入推荐码!' }],
+          })(
+            <Input prefix={<Icon type="idcard" style={{ fontSize: 13 }} />} type="password" placeholder="推荐码" />,
+          )}
+        </FormItem>
+        <FormItem>
           <Button type="primary" loading={loginLoading} htmlType="submit" className={styles['login-form-button']}>
-            登陆
+            注册
           </Button>
         </FormItem>
       </Form>
@@ -58,8 +71,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    login(value) {
-      dispatch({ type: 'login/login', payload: value });
+    signIn(value) {
+      dispatch({ type: 'login/signIn', payload: value });
     },
   };
 };

@@ -10,7 +10,7 @@ module.exports = {
   YQL: [],
   api: {
     userLogin: `${URL}/token`,
-    userSignUp: `${URL}/user`,
+    userSignIn: `${URL}/user`,
     sendSms: `${URL}/sms/send`,
     openList: `${URL}/lottery/openList`,
     lotteryList: `${URL}/lottery/list`,

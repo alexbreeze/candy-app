@@ -2,6 +2,7 @@ import React from 'react';
 import { Router, Route, IndexRedirect} from 'dva/router';
 import IndexPage from './routes';
 import Login from './routes/login';
+import SignIn from './routes/signIn';
 
 const Home = (location, callback) => {
   require.ensure([], (require) => {
@@ -95,6 +96,7 @@ function RouterConfig({ history }) {
         <Route path="/approve" getComponent={Approve} />
       </Route>
       <Route path="/login" component={Login} />
+      <Route path="/SignIn" component={SignIn} />
     </Router>
   );
 }

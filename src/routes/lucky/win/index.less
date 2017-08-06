@@ -1,3 +1,4 @@
+@mainColor: #e95525;
 :global(.ant-table-thead tr th){
   text-align: center;
 }
@@ -19,9 +20,44 @@
   left: 0;
   right: 0;
   bottom: 0;
+  padding: 0 10px;
   overflow: auto;
 }
 
+.contain{
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+.head{
+  line-height: 24px;
+}
+.title{
+  font-size: 16px;
+  font-weight: bold;
+}
+.type{
+  text-align: center;
+}
+.win{
+  color: @mainColor;
+  text-align: right;
+}
+.body{
+  color: @mainColor;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  margin: 5px 0 ;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.foot{
+  color: #ccc;
+}
+.time{
+  text-align: right;
+}
 @media screen and (min-width: 769px) {
   .content{
     top: 0;
