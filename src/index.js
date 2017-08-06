@@ -5,7 +5,7 @@ import { hashHistory } from 'dva/router';
 import { message } from 'antd';
 import initReactFastclick from 'react-fastclick';
 import './index.html';
-import './index.css';
+import './index.less';
 
 // 1. Initialize
 initReactFastclick();

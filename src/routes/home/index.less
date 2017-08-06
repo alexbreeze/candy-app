@@ -1,4 +1,5 @@
 @mainColor: #e95525;
+@payColor: #f0861a;
 .head-logo{
   width: 100%;
   max-height: 220px;
@@ -54,13 +55,48 @@
         }
     }
 }
+.title{
+  line-height: 50px;
+}
+.pay{
+  background: #fff;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+  border-bottom: 1px solid #ddd;
+  .pay-img{
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+  }
+  .pay-title{
+    color: @payColor;
+    margin: 0 5px;
+    vertical-align: middle;
+  }
+  .pay-value{
+    color: #333;
+    vertical-align: middle;
+  }
+  .pay-btn{
+    border: 1px solid @payColor;
+    border-radius: 15px;
+    padding: 2px 20px;
+    color: @payColor;
+  }
+}
 .body{
   position: absolute;
-  top: 220px;
+  top: 265px;
   left: 0;
   right: 0;
   bottom: 47px;
   overflow: auto;
+}
+.img{
+  img{
+    width: 100%;
+  }
 }
 @media screen and (min-width: 769px) {
     .listContent{

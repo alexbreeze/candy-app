@@ -39,7 +39,7 @@ class LuckyList extends Component {
       visible: false,
     });
   }
-  copy(){
+  copy() {
     message.success('已复制到剪贴板');
   }
   logoOut() {
@@ -65,23 +65,45 @@ class LuckyList extends Component {
     return (
       <Col className={styles.contain}>
         <Row>
-          <Col span={24} className={styles.containList}>
+          <Col span={24} className={styles.containUser}>
             <Col span={12}>
-              <Icon style={{ color: '#e95525' }} type="user" /> 名字
+              <span className={styles.userIcon}>
+                <img src={require('../../assets/user.png')} alt="默认头像" />
+              </span>
+              <span className={styles.userName}>
+                {userName}
+              </span>
             </Col>
-            <Col span={12} className={styles.listRight}>{userName}</Col>
           </Col>
-          <Col span={24} className={styles.containList}>
-            <Col span={12}>
-              <Icon style={{ color: '#e95525' }} type="user-add" /> 积分
+          <Col span={24} className={styles.containGrade}>
+            <Col span={12} className={styles['grade-left']}>
+              <Col span={24}>
+                余额
+              </Col>
+              <Col span={24}>
+                {balance}
+              </Col>
             </Col>
-            <Col span={12} className={styles.listRight}>{balance}</Col>
+            <Col span={12} className={styles['grade-right']}>
+              <Col span={24}>
+                中奖总额
+              </Col>
+              <Col span={24}>
+                {profit}
+              </Col>
+            </Col>
           </Col>
-          <Col span={24} className={styles.containList}>
-            <Col span={12}>
-              <Icon style={{ color: '#e95525' }} type="bank" /> 中奖总额
+          <Col className={styles.containHandle} span={24}>
+            <Col span={12} onClick={this.goIntent.bind(this)}>
+              <img src={require('../../assets/payin.png')} alt="图片" className={styles['handle-img']} />
+              <span>充分</span>
             </Col>
-            <Col span={12} className={styles.listRight}>{profit}</Col>
+            <Col span={12}>
+              <Link to={'/approve'}>
+                <img src={require('../../assets/payout.png')} alt="图片" className={styles['handle-img']} />
+                <span>兑分</span>
+              </Link>
+            </Col>
           </Col>
           <Link to={'/balance'}>
             <Col span={24} className={styles.containList}>
@@ -97,22 +119,6 @@ class LuckyList extends Component {
             <Col span={24} className={styles.containList}>
               <Col span={12}>
                 <Icon style={{ color: '#e95525' }} type="trophy" /> 中奖纪录
-              </Col>
-              <Col span={12} className={styles.listRight}>
-                <Icon type="right" />
-              </Col>
-            </Col>
-          </Link>
-          <Col span={24} className={styles.containList} onClick={this.goIntent.bind(this)}>
-            <Col span={12}>
-              <Icon style={{ color: '#e95525' }} type="pay-circle-o" /> 积分充值
-            </Col>
-            <Col span={12} className={styles.listRight}>{}</Col>
-          </Col>
-          <Link to={'/approve'}>
-            <Col span={24} className={styles.containList}>
-              <Col span={12}>
-                <Icon style={{ color: '#e95525' }} type="red-envelope" /> 积分兑换
               </Col>
               <Col span={12} className={styles.listRight}>
                 <Icon type="right" />

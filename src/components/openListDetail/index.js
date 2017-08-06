@@ -57,37 +57,31 @@ class Tab extends Component {
                 items.map((item, index) => {
                   return (
                     <TabPane tab={item.title} key={index}>
-                      <Col xs={24} sm={24} className={styles.content}>
-                        <Col xs={5} sm={8} className={styles.left}>期号</Col>
-                        <Col xs={13} sm={8} className={styles.middle}>开奖号码</Col>
-                        <Col xs={4} sm={8} className={styles.right}>是否中奖</Col>
-                      </Col>
                       {
                         contentDetail.length ? contentDetail.map((item, itemIndex) => {
                           return (
                             <Row key={itemIndex}>
                               <Col xs={24} sm={24} className={styles.content}>
-                                <Col xs={5} sm={8} className={styles.left}>{item.serialCode}</Col>
-                                <Col xs={13} sm={8} className={styles.middle}>
+                                <Col span={24} className={styles.head}>
+                                  <Col span={6} className={styles.title}>{item.type === 'BJK3' ? '北京快三' : item.type === 'BJPK10' ? '北京PK拾' : '重庆时时彩'}</Col>
+                                  <Col span={16} offset={2} >第{item.serialCode}期{item.openTime}</Col>
+                                </Col>
+                                <Col span={24} className={styles.body}>
                                   {
                                     item.openCodeList.map((i, index) => {
-                                      if (index < item.openCodeList.length - 1) {
-                                        return (
-                                          <span key={index} className={styles.codeNum} >
-                                            {i},
-                                          </span>
-                                        );
-                                      } else {
-                                        return (
-                                          <span key={index} className={styles.codeNum} >
-                                            {i}
-                                          </span>
-                                        );
-                                      }
+                                      return (
+                                        <span key={index} className={`openCode openCode${item.type}${i}`} >
+                                          {
+                                            item.type === 'BJK3' ?
+                                              ''
+                                              :
+                                              i
+                                          }
+                                        </span>
+                                      );
                                     })
                                   }
                                 </Col>
-                                <Col xs={4} sm={8} className={styles.right}>{item.userReward > 0 ? '已中奖' : '未中奖'}</Col>
                               </Col>
                             </Row>
                           );

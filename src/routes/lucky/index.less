@@ -1,8 +1,57 @@
 @mainColor: #e95525;
+@userColor: #ff6100;
+@fontColor: #f2f2f2;
 .contain {
   background: #fff;
   height: 100%;
   overflow: hidden;
+  .containUser{
+    background: @userColor;
+    padding: 10px 20px 20px;
+    border-bottom: 1px solid #e95525;
+  }
+  .userIcon{
+    display: inline-block;
+    width: 41px;
+    height: 41px;
+    line-height: 41px;
+    img{
+      width: 100%;
+      vertical-align: middle;
+    }
+  }
+  .userName{
+    line-height: 41px;
+    color: @fontColor;
+    margin-left: 10px;
+  }
+  .containGrade{
+    background: @userColor;
+    text-align: center;
+    color: @fontColor;
+    padding: 10px;
+    border-bottom: 1px solid @mainColor;
+    .grade-left{
+      border-right: 1px solid @mainColor;
+    }
+  }
+  .containHandle{
+    background: #ea3900;
+    padding: 10px;
+    text-align: center;
+    color: @fontColor;
+    line-height: 20px;
+    .handle-img{
+      vertical-align: middle;
+      width: 30px;
+      height: 20px;
+    }
+    span{
+      vertical-align: middle;
+      margin-left: 5px;
+      color: @fontColor;
+    }
+  }
   .containList {
     background: #fff;
     border-bottom: 1px solid #ddd;

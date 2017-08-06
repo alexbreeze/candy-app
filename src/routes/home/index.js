@@ -2,7 +2,8 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import { Row, Col, Carousel, Icon } from 'antd';
+import { Row, Col, Carousel, Icon, Modal, message } from 'antd';
+import CopyToClipboard from 'react-copy-to-clipboard';
 import FootNav from '../../components/footMenu';
 
 import styles from './index.less';
@@ -12,9 +13,11 @@ class HomePage extends React.Component {
     super();
     this.state = {
       showTime: '00:00',
+      visible: false,
     };
   }
   componentDidMount() {
+    this.props.getBalance();
     const self = this;
     let ctrl = this.props.home.timerCtrl;
     if (ctrl) {
@@ -70,18 +73,43 @@ class HomePage extends React.Component {
       }
     }
   }
+  handleOk() {
+    this.setState({
+      visible: false,
+    });
+    this.props.getBalance();
+  }
+  handleCancel() {
+    this.setState({
+      visible: false,
+    });
+  }
+  copy() {
+    message.success('已复制到剪贴板');
+  }
+  goIntent() {
+    this.setState({
+      visible: true,
+    });
+    this.props.getApply();
+  }
   render() {
     const {
       menu,
       trend,
+      lucky,
     } = this.props;
     const {
       content,
     } = trend;
+    const {
+      balance,
+      value,
+    } = lucky;
     const { menus, menuMap } = menu;
     const { showTime } = this.state;
     return (
-      <Col style={{height: '100%'}}>
+      <Col style={{ height: '100%' }}>
         <Row>
           <Col xs={24} sm={0}>
             <Carousel autoplay>
@@ -96,6 +124,22 @@ class HomePage extends React.Component {
                 <img className={styles['head-logo']} src={require('../../assets/logo_PC1.jpg')} alt="" />
               </Row>
             </Carousel>
+          </Col>
+        </Row>
+        <Row className={styles.pay} >
+          <Col span={12} >
+            <img className={styles['pay-img']} src={require('../../assets/balance.png')} alt="" />
+            <span className={styles['pay-title']}>
+              余额
+            </span>
+            <span className={styles['pay-value']}>
+              {balance}
+            </span>
+          </Col>
+          <Col span={6} offset={6} >
+            <span className={styles['pay-btn']} onClick={this.goIntent.bind(this)}>
+              充值
+            </span>
           </Col>
         </Row>
         <Row className={styles.body}>
@@ -117,35 +161,42 @@ class HomePage extends React.Component {
                               <img src={require('../../assets/CQSSC.png')} alt="" />
                           }
                         </Col>
-                        <Col xs={16} sm={17} offset={1} className={styles.smRight} >
+                        <Col xs={8} sm={8} className={styles.title} >{item.title}</Col>
+                        <Col xs={8} sm={9} offset={1} className={styles.smRight} >
                           <Col xs={24} sm={24}>
-                            <Col xs={11} sm={10}>{item.title}</Col>
                             <Col
-                              xs={13} sm={14}
+                              span={24}
                               className={styles.serialCode}
                             >第 {item.nextSerialCode} 期</Col>
                           </Col>
                           <Col xs={24} sm={24}>
-                            <Col xs={18} sm={18}>
-                              {
-                                item.latestOpenCode ? item.latestOpenCode.split(',').map((item, index) => {
-                                  return (
-                                    <Col
-                                      xs={2}
-                                      sm={2}
-                                      key={index}
-                                      className={styles.openCode}
-                                    >{item}</Col>
-                                  );
-                                }) : <Col xs={14} sm={24} className={styles.waitCode}>等待开奖...</Col>
-                              }
-                            </Col>
-                            <Col xs={6} sm={6} className={styles.openTime}>{item.showTime}</Col>
+                            <Col span={24} className={styles.openTime}>{item.showTime}</Col>
                           </Col>
                         </Col>
-                        <Col span={1} offset={1} style={{lineHeight: '50px', fontSize: '20px'}}>
+                        <Col span={1} offset={1} style={{ lineHeight: '50px', fontSize: '20px' }}>
                           <Icon type="right" />
                         </Col>
+                      </Col>
+                      <Col span={24}>
+                        {
+                          item.latestOpenCode ? item.latestOpenCode.split(',').map((i, index) => {
+                            return (
+                              <Col
+                                xs={2}
+                                sm={2}
+                                key={index}
+                                className={`openCode openCode${item.type}${i}`}
+                              >
+                                {
+                                  item.type === 'BJK3' ?
+                                    ''
+                                    :
+                                    i
+                                }
+                              </Col>
+                            );
+                          }) : <Col xs={14} sm={24} className={styles.waitCode}>等待开奖...</Col>
+                        }
                       </Col>
                     </Row>
                   </Link>
@@ -153,6 +204,36 @@ class HomePage extends React.Component {
               }) : ''
           }
         </Row>
+        <Modal
+          title="积分充值"
+          visible={this.state.visible}
+          onOk={this.handleOk.bind(this)}
+          okText={'充值完成'}
+          onCancel={this.handleCancel.bind(this)}
+          cancelText={'取消充值'}
+        >
+          <Row>
+            <Col span={8} className={styles.img}>
+              <a href={require('../../assets/yay.jpg')} download={require('../../assets/yay.jpg')}>
+                <img src={require('../../assets/yay.jpg')} alt="长按保存到本地" />
+              </a>
+            </Col>
+            <Col span={16}>
+              <p>点击图片保存到相册</p>
+              <br />
+              <CopyToClipboard
+                text={value}
+                onCopy={this.copy.bind(this)}
+              >
+                <p>您当前的支付码为{value}，请在支付宝支付时将其填写到备注, 点击复制此支付码</p>
+              </CopyToClipboard>
+              <br />
+              <p>
+                <a rel="noopener noreferrer" target="_blank" href="https://ds.alipay.com/?from=mobileweb">点击打开支付宝</a>
+              </p>
+            </Col>
+          </Row>
+        </Modal>
         <FootNav menus={menus} menuMap={menuMap} />
       </Col>
     );
@@ -174,6 +255,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     updateCtrl(payload) {
       dispatch({ type: 'home/updateCtrl', payload });
+    },
+    getBalance() {
+      dispatch({ type: 'lucky/getBalance' });
+    },
+    getApply() {
+      dispatch({ type: 'lucky/getApply' });
     },
   };
 };

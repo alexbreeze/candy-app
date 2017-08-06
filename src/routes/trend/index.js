@@ -50,6 +50,27 @@ class OpenList extends Component {
                         <Icon type="right" />
                       </Col>
                     </Col>
+                    <Col span={24}>
+                      {
+                        item.latestOpenCode ? item.latestOpenCode.split(',').map((i, index) => {
+                          return (
+                            <Col
+                              xs={2}
+                              sm={2}
+                              key={index}
+                              className={`openCode openCode${item.type}${i}`}
+                            >
+                              {
+                                item.type === 'BJK3' ?
+                                  ''
+                                  :
+                                  i
+                              }
+                            </Col>
+                          );
+                        }) : ''
+                      }
+                    </Col>
                   </Row>
                 </Link>
               );
