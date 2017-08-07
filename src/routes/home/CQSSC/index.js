@@ -1947,7 +1947,7 @@ class CQSSC extends React.Component {
           <Row>
             <Col span={16} >
               <Row>
-                <Col span={18}>{headInfo.latestSerialCode}期开奖</Col>
+                <Col span={18} style={{fontSize: '14px'}}>{headInfo.latestSerialCode}期开奖</Col>
                 <Col span={2} onClick={this.changeShow.bind(this)}>
                   历史
                   <Icon type="down" />
