@@ -119,7 +119,7 @@ class HomePage extends React.Component {
             </Carousel>
           </Col>
           <Col xs={0} sm={24}>
-            <Carousel autoplay>
+            <Carousel className={styles['head-logo-wrap']} autoplay>
               <Row>
                 <img className={styles['head-logo']} src={require('../../assets/logo_PC1.jpg')} alt="" />
               </Row>
