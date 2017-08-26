@@ -63,7 +63,7 @@ class Tab extends Component {
                     </span>
                     :
                     <span>
-                      兑分
+                      提现
                     </span>
                 }
               </div>
@@ -71,7 +71,7 @@ class Tab extends Component {
         },
       },
       {
-        title: '分数',
+        title: '金额',
         dataIndex: 'delta',
         key: 'delta',
         render: (text, record) => {

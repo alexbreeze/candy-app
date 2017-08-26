@@ -2004,7 +2004,7 @@ class CQSSC extends React.Component {
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemDetail}>
-                    至少选1个号码，猜对开奖号码最后一位即中{rateObj['一星直选']}分
+                    至少选1个号码，猜对开奖号码最后一位即中{rateObj['一星直选']}元
                   </span>
                     </Col>
                   </Row>
@@ -2046,7 +2046,7 @@ class CQSSC extends React.Component {
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemDetail}>
-                    至少选1个号码，按位猜对开奖后两位即中{rateObj['二星直选']}分
+                    至少选1个号码，按位猜对开奖后两位即中{rateObj['二星直选']}元
                   </span>
                     </Col>
                   </Row>
@@ -2088,7 +2088,7 @@ class CQSSC extends React.Component {
                  <Row>
                    <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemDetail}>
-                    至少选2个号码，猜对开奖后两位(顺序不限)即中{rateObj['二星组选']}分
+                    至少选2个号码，猜对开奖后两位(顺序不限)即中{rateObj['二星组选']}元
                   </span>
                    </Col>
                  </Row>
@@ -2130,7 +2130,7 @@ class CQSSC extends React.Component {
                     <Row>
                       <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemDetail}>
-                    每位至少选1个号码，按位猜对开奖后3位即中{rateObj['三星直选']}分
+                    每位至少选1个号码，按位猜对开奖后3位即中{rateObj['三星直选']}元
                   </span>
                       </Col>
                     </Row>
@@ -2169,7 +2169,7 @@ class CQSSC extends React.Component {
               <Row>
                 <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemDetail}>
-                    至少选2个号，猜对开奖后3位(顺序不限)即中{320}分
+                    至少选2个号，猜对开奖后3位(顺序不限)即中{320}元
                   </span>
                 </Col>
               </Row>
@@ -2209,7 +2209,7 @@ class CQSSC extends React.Component {
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemDetail}>
-                    至少选3个号，猜对开奖后3位(顺序不限)即中{rateObj['三星组六']}分
+                    至少选3个号，猜对开奖后3位(顺序不限)即中{rateObj['三星组六']}元
                   </span>
                     </Col>
                   </Row>
@@ -2251,7 +2251,7 @@ class CQSSC extends React.Component {
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemDetail}>
-                    每位至少选1个号码，按位猜对开奖号即中{rateObj['五星直选']}分
+                    每位至少选1个号码，按位猜对开奖号即中{rateObj['五星直选']}元
                   </span>
                     </Col>
                   </Row>
@@ -2293,7 +2293,7 @@ class CQSSC extends React.Component {
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemDetail}>
-                    每位至少选1个号码，按位猜对开奖号最高奖{rateObj['五星通选']}分
+                    每位至少选1个号码，按位猜对开奖号最高奖{rateObj['五星通选']}元
                   </span>
                     </Col>
                   </Row>
@@ -2335,7 +2335,7 @@ class CQSSC extends React.Component {
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
                   <span className={styles.itemDetail}>
-                    每位至少选1个号码，猜对开奖后2位的属性即中{rateObj['大小单双']}分
+                    每位至少选1个号码，猜对开奖后2位的属性即中{rateObj['大小单双']}元
                   </span>
                     </Col>
                   </Row>
@@ -2443,14 +2443,14 @@ class CQSSC extends React.Component {
           */}
         </Col>
         <Col span={24} className={styles.foot} >
-          <Col span={8} className={styles.detail} >{CQSSC.length}注，共{2 * CQSSC.length * rate}分</Col>
-          <Col span={8} className={styles.detail} >最高可中{this.state.maxRate}分</Col>
+          <Col span={8} className={styles.detail} >{CQSSC.length}注，共{2 * CQSSC.length * rate}元</Col>
+          <Col span={8} className={styles.detail} >最高可中{this.state.maxRate}元</Col>
           <Col span={6} offset={2} className={styles.submit} >
             <Button size="large" type="primary" style={{ background: '#e95525' }} onClick={this.openModal.bind(this)}>投注</Button>
           </Col>
         </Col>
         <Modal
-          title={`已选择彩票 (共${buyList.count}注,${buyList.times}倍,${buyList.amount}分)`}
+          title={`已选择彩票 (共${buyList.count}注,${buyList.times}倍,${buyList.amount}元)`}
           visible={this.state.visible}
           onOk={this.handleOk.bind(this, result, rate, repeat, headInfo.nextSerialCode)}
           confirmLoading={isLoading}

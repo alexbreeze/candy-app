@@ -725,6 +725,7 @@ class BJK3 extends React.Component {
       showTime: '00:00',
       maxRate: 0,
       tab: '和',
+      nowList: [],
     };
   }
   componentDidMount() {
@@ -780,9 +781,14 @@ class BJK3 extends React.Component {
   // 计算数量
   staticCount(data) {
     this.props.clearBJK3();
-    const tempList = [];
+    let tempList = [];
     let count = 0;
-    calcCount(data);
+    const self = this;
+    if (data) {
+      calcCount(data);
+    } else {
+      tempList = this.state.nowList;
+    }
     function calcCount(list) {
       list.forEach((i) => {
         if (i.checked) {
@@ -802,6 +808,9 @@ class BJK3 extends React.Component {
           });
           count += 1;
         }
+      });
+      self.setState({
+        nowList: tempList,
       });
     }
     let maxRate = 0;
@@ -1246,7 +1255,7 @@ class BJK3 extends React.Component {
                                     {i.value}
                                   </Col>
                                   <Col className={styles.selContent} >
-                                    <span>奖金{i.rate}分</span>
+                                    <span>奖金{i.rate}元</span>
                                   </Col>
                                 </Row>
                               </label>
@@ -1317,7 +1326,7 @@ class BJK3 extends React.Component {
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
                       <span className={styles.itemTitle}>三同号单选</span>
-                      <span className={styles.itemTitle}>奖金{240}分</span>
+                      <span className={styles.itemTitle}>奖金{240}元</span>
                       <span className={styles.itemDetail}>猜三个相同号码</span>
                     </Col>
                   </Row>
@@ -1344,7 +1353,7 @@ class BJK3 extends React.Component {
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
                       <span className={styles.itemTitle}>三同号通选</span>
-                      <span className={styles.itemTitle}>奖金{40}分</span>
+                      <span className={styles.itemTitle}>奖金{40}元</span>
                       <span className={styles.itemDetail}>任一组号码开出即中奖</span>
                     </Col>
                   </Row>
@@ -1380,7 +1389,7 @@ class BJK3 extends React.Component {
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
                       <span className={styles.itemTitle}>二同号单选</span>
-                      <span className={styles.itemTitle}>奖金{80}分</span>
+                      <span className={styles.itemTitle}>奖金{80}元</span>
                       <span className={styles.itemDetail}>猜两个相同号码和一个不同号码</span>
                     </Col>
                   </Row>
@@ -1407,7 +1416,7 @@ class BJK3 extends React.Component {
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
                       <span className={styles.itemTitle}>二同号复选</span>
-                      <span className={styles.itemTitle}>奖金{15}分</span>
+                      <span className={styles.itemTitle}>奖金{15}元</span>
                       <span className={styles.itemDetail}>猜两个相同号码</span>
                     </Col>
                   </Row>
@@ -1443,7 +1452,7 @@ class BJK3 extends React.Component {
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
                       <span className={styles.itemTitle}>三号不同</span>
-                      <span className={styles.itemTitle}>奖金{40}分</span>
+                      <span className={styles.itemTitle}>奖金{40}元</span>
                       <span className={styles.itemDetail}>猜3个不同号码</span>
                     </Col>
                   </Row>
@@ -1470,7 +1479,7 @@ class BJK3 extends React.Component {
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
                       <span className={styles.itemTitle}>三连号通选</span>
-                      <span className={styles.itemTitle}>奖金{40}分</span>
+                      <span className={styles.itemTitle}>奖金{40}元</span>
                       <span className={styles.itemDetail}>猜3个不同号码</span>
                     </Col>
                   </Row>
@@ -1506,7 +1515,7 @@ class BJK3 extends React.Component {
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
                       <span className={styles.itemTitle}>二不同号</span>
-                      <span className={styles.itemTitle}>奖金{8}分</span>
+                      <span className={styles.itemTitle}>奖金{8}元</span>
                       <span className={styles.itemDetail}>猜2个不同号码</span>
                     </Col>
                   </Row>
@@ -1582,14 +1591,14 @@ class BJK3 extends React.Component {
           */}
         </Col>
         <Col span={24} className={styles.foot} >
-          <Col span={8} className={styles.detail} >{BJK3.length}注，共{2 * BJK3.length * rate}分</Col>
-          <Col span={8} className={styles.detail} >最高可中{this.state.maxRate}分</Col>
+          <Col span={8} className={styles.detail} >{BJK3.length}注，共{2 * BJK3.length * rate}元</Col>
+          <Col span={8} className={styles.detail} >最高可中{this.state.maxRate}元</Col>
           <Col span={6} offset={2} className={styles.submit} >
             <Button size="large" style={{ background: '#e95525', color: '#fff' }} onClick={this.openModal.bind(this)}>投注</Button>
           </Col>
         </Col>
         <Modal
-          title={`已选择彩票 (共${buyList.count}注,${buyList.times}倍,${buyList.amount}分)`}
+          title={`已选择彩票 (共${buyList.count}注,${buyList.times}倍,${buyList.amount}元)`}
           visible={this.state.visible}
           onOk={this.handleOk.bind(this, BJK3, rate, repeat, headInfo.nextSerialCode)}
           confirmLoading={isLoading}

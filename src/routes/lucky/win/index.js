@@ -87,7 +87,7 @@ class Win extends Component {
                         }
                     </Col>
                     <Col span={6} offset={6} className={styles.win} >
-                      中{item.winCount}注 奖{item.winReward}分
+                      中{item.winCount}注 奖{item.winReward}元
                     </Col>
                   </Col>
                   <Col span={24} className={styles.body} >

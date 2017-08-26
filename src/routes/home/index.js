@@ -204,7 +204,7 @@ class HomePage extends React.Component {
           }
         </Row>
         <Modal
-          title="积分充值"
+          title="充值"
           visible={this.state.visible}
           onOk={this.handleOk.bind(this)}
           okText={'充值完成'}

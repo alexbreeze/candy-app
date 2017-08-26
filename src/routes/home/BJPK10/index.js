@@ -1512,14 +1512,14 @@ class BJPK10 extends React.Component {
           </Col>
         </Col>
         <Col span={24} className={styles.foot} >
-          <Col span={8} className={styles.detail} >{BJPK10.length}注，共{2 * BJPK10.length * rate}分</Col>
-          <Col span={8} className={styles.detail} >最高可中{this.state.maxRate}分</Col>
+          <Col span={8} className={styles.detail} >{BJPK10.length}注，共{2 * BJPK10.length * rate}元</Col>
+          <Col span={8} className={styles.detail} >最高可中{this.state.maxRate}元</Col>
           <Col span={6} offset={2} className={styles.submit} >
             <Button size="large" type="primary" style={{ background: '#e95525' }} onClick={this.openModal.bind(this)}>投注</Button>
           </Col>
         </Col>
         <Modal
-          title={`已选择彩票 (共${buyList.count}注,${buyList.times}倍,${buyList.amount}分)`}
+          title={`已选择彩票 (共${buyList.count}注,${buyList.times}倍,${buyList.amount}元)`}
           visible={this.state.visible}
           onOk={this.handleOk.bind(this, BJPK10, rate, repeat, headInfo.nextSerialCode)}
           confirmLoading={isLoading}

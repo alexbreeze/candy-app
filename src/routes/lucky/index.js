@@ -96,12 +96,12 @@ class LuckyList extends Component {
           <Col className={styles.containHandle} span={24}>
             <Col span={12} onClick={this.goIntent.bind(this)}>
               <img src={require('../../assets/payin.png')} alt="图片" className={styles['handle-img']} />
-              <span>充分</span>
+              <span>充值</span>
             </Col>
             <Col span={12}>
               <Link to={'/approve'}>
                 <img src={require('../../assets/payout.png')} alt="图片" className={styles['handle-img']} />
-                <span>兑分</span>
+                <span>提现</span>
               </Link>
             </Col>
           </Col>
@@ -140,7 +140,7 @@ class LuckyList extends Component {
           </Col>
         </Row>
         <Modal
-          title="积分充值"
+          title="充值"
           visible={this.state.visible}
           onOk={this.handleOk.bind(this)}
           okText={'充值完成'}

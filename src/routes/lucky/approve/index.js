@@ -67,7 +67,7 @@ class Approve extends Component {
     return (
       <Row className={styles.detailTab}>
         <Col xs={24} sm={0}>
-          <HeadMenu title="积分兑换" back="/lucky" detail={this.showPay.bind(this)} showPay />
+          <HeadMenu title="提现" back="/lucky" detail={this.showPay.bind(this)} showPay />
         </Col>
         <Col xs={0} sm={24} className={styles.pay} onClick={this.showPay.bind(this)} >
           +
@@ -115,7 +115,7 @@ class Approve extends Component {
           }
         </Col>
         <Modal
-          title="积分充值"
+          title="充值"
           visible={this.state.visible}
           onOk={this.handleOk.bind(this)}
           okText={'申请'}
