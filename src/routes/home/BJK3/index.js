@@ -989,7 +989,7 @@ class BJK3 extends React.Component {
     rate = rate <= 0 ? 1 : rate;
     this.props.updateRate(rate);
     setTimeout(() => {
-      this.staticCount.call(this);
+      this.staticCount.call(this, null);
     }, 20);
   }
   // 更改追注
