@@ -15,7 +15,7 @@ const app = dva({
   }),
   history: hashHistory,
   onError(error) {
-    message.error(error.message);
+    message.error(error.message, 3);
   },
 });
 
