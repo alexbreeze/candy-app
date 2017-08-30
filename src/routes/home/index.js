@@ -114,7 +114,7 @@ class HomePage extends React.Component {
           <Col xs={24} sm={0}>
             <Carousel autoplay>
               <Row>
-                <img className={styles['head-logo']} src={require('../../assets/logo_phone1.jpg')} alt="" />
+                <img className={styles['head-logo']} style={{ width: '100%' }} src={require('../../assets/logo_phone1.jpg')} alt="" />
               </Row>
             </Carousel>
           </Col>
@@ -212,15 +212,15 @@ class HomePage extends React.Component {
           cancelText={'取消充值'}
         >
           <Row>
-            <Col span={8} className={styles.img}>
+            <Col span={6} className={styles.img}>
               <a href={require('../../assets/alipay.jpg')} download={require('../../assets/yay.jpg')}>
-                <img src={require('../../assets/alipay.jpg')} alt="长按保存到本地" />
+                <img className={styles.imgItem} src={require('../../assets/alipay.jpg')} alt="长按保存到本地" />
               </a>
               <a href={require('../../assets/wechat.jpg')} download={require('../../assets/yay.jpg')}>
-                <img src={require('../../assets/wechat.jpg')} alt="长按保存到本地" />
+                <img className={styles.imgItem} src={require('../../assets/wechat.jpg')} alt="长按保存到本地" />
               </a>
             </Col>
-            <Col span={15} offset={1}>
+            <Col span={15} offset={3}>
               <p>点击图片保存到相册</p>
               <br />
               <CopyToClipboard
@@ -235,7 +235,7 @@ class HomePage extends React.Component {
               </p>
               <br />
               <p>
-                <a rel="noopener noreferrer" target="_blank" href="weixin://">点击打开微信</a>
+                <a rel="noopener noreferrer" target="_blank" href="javascript:window.location.href='weixin://'">点击打开微信</a>
               </p>
             </Col>
           </Row>
