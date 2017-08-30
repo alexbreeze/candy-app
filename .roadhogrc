@@ -1,6 +1,7 @@
 
 {
   "entry": "src/index.js",
+  "publicPath": "/candy/",
   "env": {
     "development": {
       "extraBabelPlugins": [
