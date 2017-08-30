@@ -1,11 +1,11 @@
-const URL = 'http://47.92.85.172/candy/api';
+const URL = 'http://113.10.244.91/candy/api';
 
 module.exports = {
   name: 'candy-web',
   // logo: '/logo.png',
   // iconFontCSS: '/iconfont.css',
   // iconFontJS: '/iconfont.js',
-  CORS: ['http://47.92.85.172'],
+  CORS: ['http://113.10.244.91'],
   footerText: '手机才能显示的页面',
   YQL: [],
   api: {

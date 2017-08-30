@@ -64,7 +64,7 @@ class Tab extends Component {
                               <Col xs={24} sm={24} className={styles.content}>
                                 <Col span={24} className={styles.head}>
                                   <Col span={6} className={styles.title}>{item.type === 'BJK3' ? '北京快三' : item.type === 'BJPK10' ? '北京PK拾' : '重庆时时彩'}</Col>
-                                  <Col span={16} offset={2} className={styles.info} >第{item.serialCode}期{item.openTime}</Col>
+                                  <Col span={16} offset={1} className={styles.info} >第{item.serialCode}期{item.openTime}</Col>
                                 </Col>
                                 <Col span={24} className={styles.body}>
                                   {

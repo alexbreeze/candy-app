@@ -136,7 +136,7 @@ class LuckyList extends Component {
             </Col>
           </Link>
           <Col span={24} className={styles.exit}>
-            <Button style={{ width: '100%', background: '#e95525', color: '#fff' }} onClick={this.logoOut.bind(this)} size="large" >退出登陆</Button>
+            <Button style={{ width: '100%', background: '#e95525', color: '#fff' }} onClick={this.logoOut.bind(this)} size="large" >退出登录</Button>
           </Col>
         </Row>
         <Modal

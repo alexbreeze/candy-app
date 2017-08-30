@@ -114,7 +114,7 @@ class HomePage extends React.Component {
           <Col xs={24} sm={0}>
             <Carousel autoplay>
               <Row>
-                <img className={styles['head-logo']} style={{ width: '100%' }} src={require('../../assets/logo_phone1.jpg')} alt="" />
+                <img style={{ width: '100%', maxHeight: '220px' }} src={require('../../assets/logo_phone1.jpg')} alt="" />
               </Row>
             </Carousel>
           </Col>

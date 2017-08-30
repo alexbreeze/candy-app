@@ -41,7 +41,7 @@ class NormalLoginForm extends React.Component {
         <FormItem>
           <Link className={styles['login-form-forgot']} to="/signIn">注册</Link>
           <Button type="primary" loading={loginLoading} htmlType="submit" className={styles['login-form-button']}>
-            登陆
+            登录
           </Button>
         </FormItem>
       </Form>

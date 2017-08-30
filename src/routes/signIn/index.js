@@ -49,7 +49,7 @@ class NormalLoginForm extends React.Component {
           {getFieldDecorator('recommendCode', {
             rules: [{ required: true, message: '请输入推荐码!' }],
           })(
-            <Input prefix={<Icon type="idcard" style={{ fontSize: 13 }} />} type="password" placeholder="推荐码" />,
+            <Input prefix={<Icon type="idcard" style={{ fontSize: 13 }} />} type="text" placeholder="推荐码" />,
           )}
         </FormItem>
         <FormItem>
