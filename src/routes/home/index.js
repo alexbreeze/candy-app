@@ -213,22 +213,29 @@ class HomePage extends React.Component {
         >
           <Row>
             <Col span={8} className={styles.img}>
-              <a href={require('../../assets/yay.jpg')} download={require('../../assets/yay.jpg')}>
-                <img src={require('../../assets/yay.jpg')} alt="长按保存到本地" />
+              <a href={require('../../assets/alipay.jpg')} download={require('../../assets/yay.jpg')}>
+                <img src={require('../../assets/alipay.jpg')} alt="长按保存到本地" />
+              </a>
+              <a href={require('../../assets/wechat.jpg')} download={require('../../assets/yay.jpg')}>
+                <img src={require('../../assets/wechat.jpg')} alt="长按保存到本地" />
               </a>
             </Col>
-            <Col span={16}>
+            <Col span={15} offset={1}>
               <p>点击图片保存到相册</p>
               <br />
               <CopyToClipboard
                 text={value}
                 onCopy={this.copy.bind(this)}
               >
-                <p>您当前的支付码为{value}，请在支付宝支付时将其填写到备注, 点击复制此支付码</p>
+                <p>您当前的支付码为{value}，请在支付宝或微信支付时将其填写到备注, 点击复制此支付码</p>
               </CopyToClipboard>
               <br />
               <p>
                 <a rel="noopener noreferrer" target="_blank" href="https://ds.alipay.com/?from=mobileweb">点击打开支付宝</a>
+              </p>
+              <br />
+              <p>
+                <a rel="noopener noreferrer" target="_blank" href="weixin://">点击打开微信</a>
               </p>
             </Col>
           </Row>
