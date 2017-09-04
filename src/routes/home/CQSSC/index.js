@@ -217,7 +217,7 @@ class CQSSC extends React.Component {
       ],
       twoGStarList: [
         {
-          title: '个位',
+          title: '选号',
           type: 'S3',
           displayName: '二星组选',
           total: [{
@@ -1330,6 +1330,8 @@ class CQSSC extends React.Component {
         五星直选: 1,
         五星通选: 1,
         大小单双: 1,
+        总和大小: 1,
+        总和龙虎: 1,
       },
       visible: false,
       isShow: false,
@@ -1346,6 +1348,59 @@ class CQSSC extends React.Component {
   }
   componentDidMount() {
     const self = this;
+    let ctrl = this.props.home.timerCtrl;
+    if (ctrl) {
+      ctrl = false;
+      self.props.updateCtrl(ctrl);
+      this.props.getOpenList(doNext);
+      function doNext(data) {
+        data.forEach(function (i) {
+          i.overTime = (i.nextStopTime - new Date().getTime()) / 1000;
+          let minute = `${Math.floor(i.overTime / 60)}`;
+          if (minute.length === 1) {
+            minute = `0${minute}`;
+          }
+          let sec = `${Math.floor(i.overTime % 60)}`;
+          if (sec.length === 1) {
+            sec = `0${sec}`;
+          }
+          i.showTime = `${minute}:${sec}`;
+          if (i.overTime < 0) {
+            i.showTime = '已结束';
+          }
+        });
+        self.props.updateContent(data);
+        clearInterval(timer);
+        let flag = true;
+        let timer = setInterval(() => {
+          data.forEach(function (i) {
+            i.overTime -= 1;
+            let minute = `${Math.floor(i.overTime / 60)}`;
+            if (minute.length === 1) {
+              minute = `0${minute}`;
+            }
+            let sec = `${Math.floor(i.overTime % 60)}`;
+            if (sec.length === 1) {
+              sec = `0${sec}`;
+            }
+            i.showTime = `${minute}:${sec}`;
+            if (i.overTime < 0) {
+              i.showTime = '已结束';
+            }
+          });
+          self.props.updateContent(data);
+          if (flag) {
+            flag = false;
+            setTimeout(() => {
+              self.props.getOpenList(doNext);
+              setTimeout(() => {
+                clearInterval(timer);
+              }, 1000);
+            }, 30000);
+          }
+        }, 1000);
+      }
+    }
     this.props.getOpenList();
     this.props.getRate({
       data: {
@@ -1354,17 +1409,13 @@ class CQSSC extends React.Component {
       cb(data) {
         const state = self.state;
         self.state.rateObj = data;
+        self.state.rateObj.总和龙虎 = data.龙;
         self.setState({
           state,
         });
       },
     });
     this.props.updateTypeNow('一星直选');
-  }
-  changeShow() {
-    this.setState({
-      isShow: !this.state.isShow,
-    });
   }
   // 获取buyList
   getBuyList() {
@@ -1381,6 +1432,11 @@ class CQSSC extends React.Component {
           visible: true,
         });
       },
+    });
+  }
+  changeShow() {
+    this.setState({
+      isShow: !this.state.isShow,
     });
   }
   chooseTab(index) {
@@ -1410,6 +1466,9 @@ class CQSSC extends React.Component {
         break;
       case '9':
         tab = '大小单双';
+        break;
+      case '10':
+        tab = '总和';
         break;
       default:
         break;
@@ -1655,10 +1714,11 @@ class CQSSC extends React.Component {
         if (extra.length) {
           let tempV = '';
           extra.forEach((i) => {
+            console.log(i)
             tempList.push({
               index: tempList.length,
               type: i.type,
-              rate: name === '总和' ? rateObj['大小单双'] : rateObj[name],
+              rate: name === '总和' ? (i.code === '龙' || i.code === '虎' || i.code === '和') ? rateObj['总和龙虎'] : rateObj['总和大小'] : rateObj[name],
               code: i.code,
             });
             tempV += `${i.code}|`;
@@ -1932,6 +1992,9 @@ class CQSSC extends React.Component {
       {
         value: '大小单双',
       },
+      {
+        value: '总和龙虎',
+      },
     ];
     const columns = [
       { title: '种类', dataIndex: 'type', key: 'type' },
@@ -1947,7 +2010,7 @@ class CQSSC extends React.Component {
           <Row>
             <Col span={16} >
               <Row>
-                <Col span={18} style={{fontSize: '14px'}}>{headInfo.latestSerialCode}期开奖</Col>
+                <Col span={18} style={{ fontSize: '14px' }}>{headInfo.latestSerialCode}期开奖</Col>
                 <Col span={2} onClick={this.changeShow.bind(this)}>
                   历史
                   <Icon type="down" />
@@ -1995,15 +2058,15 @@ class CQSSC extends React.Component {
               <CQSSCTOP isShow={isShow} />
             </Col>
           </Row>
-          {/*<Tabs renderTabBar renderTabContent defaultActiveKey="0" onTabClick={this.chooseTab.bind(this)}>*/}
-            {/*<TabPane tab="一星直选" key="0" >*/}
+          {/* <Tabs renderTabBar renderTabContent defaultActiveKey="0" onTabClick={this.chooseTab.bind(this)}>*/}
+          {/* <TabPane tab="一星直选" key="0" >*/}
           {
             typeNow === '一星直选' ?
               (
                 <div>
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
-                  <span className={styles.itemDetail}>
+                      <span className={styles.itemDetail}>
                     至少选1个号码，猜对开奖号码最后一位即中{rateObj['一星直选']}元
                   </span>
                     </Col>
@@ -2035,17 +2098,17 @@ class CQSSC extends React.Component {
                       : ''
                   }
                 </div>
-              ):''
+              ) : ''
           }
-            {/*</TabPane>*/}
-            {/*<TabPane tab="二星直选" key="1" >*/}
+          {/* </TabPane>*/}
+          {/* <TabPane tab="二星直选" key="1" >*/}
           {
             typeNow === '二星直选' ?
               (
                 <div>
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
-                  <span className={styles.itemDetail}>
+                      <span className={styles.itemDetail}>
                     至少选1个号码，按位猜对开奖后两位即中{rateObj['二星直选']}元
                   </span>
                     </Col>
@@ -2077,17 +2140,17 @@ class CQSSC extends React.Component {
                       : ''
                   }
                 </div>
-              ):''
+              ) : ''
           }
-            {/*</TabPane>*/}
-            {/*<TabPane tab="二星组选" key="2" >*/}
+          {/* </TabPane>*/}
+          {/* <TabPane tab="二星组选" key="2" >*/}
           {
            typeNow === '二星组选' ?
              (
                <div>
                  <Row>
                    <Col span={24} className={styles.itemWrap}>
-                  <span className={styles.itemDetail}>
+                     <span className={styles.itemDetail}>
                     至少选2个号码，猜对开奖后两位(顺序不限)即中{rateObj['二星组选']}元
                   </span>
                    </Col>
@@ -2119,17 +2182,17 @@ class CQSSC extends React.Component {
                      : ''
                  }
                </div>
-             ):''
+             ) : ''
           }
-            {/*</TabPane>*/}
-            {/*<TabPane tab="三星直选" key="3" >*/}
-            {
+          {/* </TabPane>*/}
+          {/* <TabPane tab="三星直选" key="3" >*/}
+          {
               typeNow === '三星直选' ?
                 (
                   <div>
                     <Row>
                       <Col span={24} className={styles.itemWrap}>
-                  <span className={styles.itemDetail}>
+                        <span className={styles.itemDetail}>
                     每位至少选1个号码，按位猜对开奖后3位即中{rateObj['三星直选']}元
                   </span>
                       </Col>
@@ -2161,10 +2224,10 @@ class CQSSC extends React.Component {
                         : ''
                     }
                   </div>
-                ):''
+                ) : ''
             }
-            {/*</TabPane>*/}
-            {/*
+          {/* </TabPane>*/}
+          {/*
             <TabPane tab="三星组三复式" key="5" >
               <Row>
                 <Col span={24} className={styles.itemWrap}>
@@ -2201,14 +2264,14 @@ class CQSSC extends React.Component {
               }
             </TabPane>
             */}
-            {/*<TabPane tab="三星组六" key="6" >*/}
+          {/* <TabPane tab="三星组六" key="6" >*/}
           {
             typeNow === '三星组六' ?
               (
                 <div>
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
-                  <span className={styles.itemDetail}>
+                      <span className={styles.itemDetail}>
                     至少选3个号，猜对开奖后3位(顺序不限)即中{rateObj['三星组六']}元
                   </span>
                     </Col>
@@ -2240,17 +2303,17 @@ class CQSSC extends React.Component {
                       : ''
                   }
                 </div>
-              ):''
+              ) : ''
           }
-            {/*</TabPane>*/}
-            {/*<TabPane tab="五星直选" key="7" >*/}
+          {/* </TabPane>*/}
+          {/* <TabPane tab="五星直选" key="7" >*/}
           {
             typeNow === '五星直选' ?
               (
                 <div>
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
-                  <span className={styles.itemDetail}>
+                      <span className={styles.itemDetail}>
                     每位至少选1个号码，按位猜对开奖号即中{rateObj['五星直选']}元
                   </span>
                     </Col>
@@ -2282,17 +2345,17 @@ class CQSSC extends React.Component {
                       : ''
                   }
                 </div>
-              ):''
+              ) : ''
           }
-            {/*</TabPane>*/}
-            {/*<TabPane tab="五星通选" key="8" >*/}
+          {/* </TabPane>*/}
+          {/* <TabPane tab="五星通选" key="8" >*/}
           {
             typeNow === '五星通选' ?
               (
                 <div>
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
-                  <span className={styles.itemDetail}>
+                      <span className={styles.itemDetail}>
                     每位至少选1个号码，按位猜对开奖号最高奖{rateObj['五星通选']}元
                   </span>
                     </Col>
@@ -2324,19 +2387,19 @@ class CQSSC extends React.Component {
                       : ''
                   }
                 </div>
-              ):''
+              ) : ''
           }
-            {/*</TabPane>*/}
-            {/*<TabPane tab="大小单双" key="9" >*/}
+          {/* </TabPane>*/}
+          {/* <TabPane tab="大小单双" key="9" >*/}
           {
             typeNow === '大小单双' ?
               (
                 <div>
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
-                  <span className={styles.itemDetail}>
-                    每位至少选1个号码，猜对开奖后2位的属性即中{rateObj['大小单双']}元
-                  </span>
+                      <span className={styles.itemDetail}>
+                        每位至少选1个号码，猜对开奖后2位的属性即中{rateObj['大小单双']}元
+                      </span>
                     </Col>
                   </Row>
                   {
@@ -2365,6 +2428,20 @@ class CQSSC extends React.Component {
                       })
                       : ''
                   }
+                </div>
+              ) : ''
+          }
+          {
+            typeNow === '总和龙虎' ?
+              (
+                <div>
+                  <Row>
+                    <Col span={24} className={styles.itemWrap}>
+                      <span className={styles.itemDetail}>
+                        选中总和大小/单双，即可中{rateObj['总和大小']}元；选中龙、虎、和，即可中{rateObj['总和龙虎']}元
+                      </span>
+                    </Col>
+                  </Row>
                   {
                     sizeTotal.length ?
                       sizeTotal.map((items, index) => {
@@ -2392,10 +2469,10 @@ class CQSSC extends React.Component {
                       : ''
                   }
                 </div>
-              ):''
+              ) : ''
           }
-            {/*</TabPane>*/}
-          {/*</Tabs>*/}
+          {/* </TabPane>*/}
+          {/* </Tabs>*/}
           <div className={styles.lastWrap}>
             <Draggable defaultPosition={{ x: 0, y: 0 }}>
               <div className={styles.lastOne} onClick={this.getBuyList.bind(this)} >追上期</div>
@@ -2486,6 +2563,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getOpenList() {
       dispatch({ type: 'trend/getOpenList' });
+    },
+    updateContent(payload) {
+      dispatch({ type: 'trend/updateContent', payload });
+    },
+    updateCtrl(payload) {
+      dispatch({ type: 'home/updateCtrl', payload });
     },
     updateCQSSC(list) {
       dispatch({ type: 'home/updateCQSSC', payload: list });

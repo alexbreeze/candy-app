@@ -23,10 +23,10 @@ class LuckyList extends Component {
     this.props.getBalance();
   }
   goIntent() {
-    this.setState({
-      visible: true,
-    });
-    this.props.getApply();
+    // this.setState({
+    //   visible: true,
+    // });
+    this.props.setPayLink('/lucky');
   }
   handleOk() {
     this.setState({
@@ -94,9 +94,11 @@ class LuckyList extends Component {
             </Col>
           </Col>
           <Col className={styles.containHandle} span={24}>
-            <Col span={12} onClick={this.goIntent.bind(this)}>
-              <img src={require('../../assets/payin.png')} alt="图片" className={styles['handle-img']} />
-              <span>充值</span>
+            <Col span={12}>
+              <Link to="/pay" >
+                <img src={require('../../assets/payin.png')} alt="图片" className={styles['handle-img']} />
+                <span>充值</span>
+              </Link>
             </Col>
             <Col span={12}>
               <Link to={'/approve'}>
@@ -149,11 +151,11 @@ class LuckyList extends Component {
         >
           <Row>
             <Col span={6} className={styles.img}>
-              <a href={require('../../assets/alipay.jpg')} download={require('../../assets/yay.jpg')}>
-                <img className={styles.imgItem} src={require('../../assets/alipay.jpg')} alt="长按保存到本地" />
+              <a href={'http://113.10.244.91/qr/alipay.jpg'} download={'http://113.10.244.91/qr/alipay.jpg'}>
+                <img className={styles.imgItem} src={'http://113.10.244.91/qr/alipay.jpg'} alt="长按保存到本地" />
               </a>
-              <a href={require('../../assets/wechat.jpg')} download={require('../../assets/yay.jpg')}>
-                <img className={styles.imgItem} src={require('../../assets/wechat.jpg')} alt="长按保存到本地" />
+              <a href={'http://113.10.244.91/qr/wechat.jpg'} download={'http://113.10.244.91/qr/wechat.jpg'}>
+                <img className={styles.imgItem} src={'http://113.10.244.91/qr/wechat.jpg'} alt="长按保存到本地" />
               </a>
             </Col>
             <Col span={15} offset={3}>
@@ -195,6 +197,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     logOut() {
       dispatch({ type: 'login/logOut' });
+    },
+    setPayLink(payload) {
+      dispatch({ type: 'home/payLink', payload });
     },
   };
 };

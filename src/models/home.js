@@ -21,6 +21,7 @@ export default {
       numberType: '',
       numbers: '',
     },
+    payLink: '/home',
   },
 
   effects: {
@@ -108,6 +109,9 @@ export default {
         throw data;
       }
     },
+    *payLink({ payload }, { put }) {
+      yield put({ type: 'setPayLink', payload });
+    },
   },
   reducers: {
     updateCtrlValue(state, { payload }) {
@@ -185,5 +189,11 @@ export default {
         buyList: payload,
       };
     },
+    setPayLink(state, {payLink}){
+      return {
+        ...state,
+        payLink,
+      }
+    }
   },
 };

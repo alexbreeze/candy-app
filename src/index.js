@@ -16,6 +16,9 @@ const app = dva({
   history: hashHistory,
   onError(error) {
     message.error(error.message, 3);
+    if (error.message === '请先登录') {
+      window.location = '#/login';
+    }
   },
 });
 

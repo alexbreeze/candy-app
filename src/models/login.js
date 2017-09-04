@@ -1,6 +1,6 @@
 import { routerRedux } from 'dva/router';
 import { config } from '../utils';
-import { login, signIn } from '../services/login';
+import { login, signIn, signOut } from '../services/login';
 import { setToken } from '../utils/request';
 
 const { sessionKey } = config;
@@ -42,8 +42,13 @@ export default {
         setToken(data.token);
       }
     },
-    *logOut({ payload }, { put }) {
-      yield put(routerRedux.push('/login'));
+    *logOut({ payload }, { put, call }) {
+      const data = yield call(signOut);
+      if(!data.success){
+        throw data;
+      }else {
+        yield put(routerRedux.push('/login'));
+      }
     },
   },
   reducers: {

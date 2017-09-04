@@ -88,10 +88,12 @@ class HomePage extends React.Component {
     message.success('已复制到剪贴板');
   }
   goIntent() {
-    this.setState({
-      visible: true,
-    });
-    this.props.getApply();
+    // this.setState({
+    //   visible: true,
+    // });
+    // this.props.getApply();
+    // routerRedux.push('/pay');
+    this.props.setPayLink('/home');
   }
   render() {
     const {
@@ -137,9 +139,11 @@ class HomePage extends React.Component {
             </span>
           </Col>
           <Col span={6} offset={6} >
-            <span className={styles['pay-btn']} onClick={this.goIntent.bind(this)}>
-              充值
-            </span>
+            <Link to="/pay" >
+              <span className={styles['pay-btn']}>
+                充值
+              </span>
+            </Link>
           </Col>
         </Row>
         <Row className={styles.body}>
@@ -213,11 +217,11 @@ class HomePage extends React.Component {
         >
           <Row>
             <Col span={6} className={styles.img}>
-              <a href={require('../../assets/alipay.jpg')} download={require('../../assets/yay.jpg')}>
-                <img className={styles.imgItem} src={require('../../assets/alipay.jpg')} alt="长按保存到本地" />
+              <a href={'http://113.10.244.91/qr/alipay.jpg'} download={'http://113.10.244.91/qr/alipay.jpg'}>
+                <img className={styles.imgItem} src={'http://113.10.244.91/qr/alipay.jpg'} alt="长按保存到本地" />
               </a>
-              <a href={require('../../assets/wechat.jpg')} download={require('../../assets/yay.jpg')}>
-                <img className={styles.imgItem} src={require('../../assets/wechat.jpg')} alt="长按保存到本地" />
+              <a href={'http://113.10.244.91/qr/wechat.jpg'} download={'http://113.10.244.91/qr/wechat.jpg'}>
+                <img className={styles.imgItem} src={'http://113.10.244.91/qr/wechat.jpg'} alt="长按保存到本地" />
               </a>
             </Col>
             <Col span={15} offset={3}>
@@ -267,6 +271,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     getApply() {
       dispatch({ type: 'lucky/getApply' });
+    },
+    setPayLink(payload) {
+      dispatch({ type: 'home/payLink', payload });
     },
   };
 };

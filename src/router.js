@@ -74,6 +74,11 @@ const CQSSCDETAIL = (location, callback) => {
     callback(null, require('./routes/home/CQSSC-detail'));
   }, 'CQSSC-detail');
 };
+const PAY = (location, callback) => {
+  require.ensure([], (require) => {
+    callback(null, require('./routes/pay'));
+  }, 'PAY');
+};
 
 function RouterConfig({ history }) {
   return (
@@ -94,6 +99,7 @@ function RouterConfig({ history }) {
         <Route path="/win" getComponent={WIN} />
         <Route path="/flow" getComponent={Flow} />
         <Route path="/approve" getComponent={Approve} />
+        <Route path="/pay" getComponent={PAY} />
       </Route>
       <Route path="/login" component={Login} />
       <Route path="/SignIn" component={SignIn} />

@@ -1,0 +1,40 @@
+@mainColor: #e95525;
+.body{
+  text-align: center;
+  margin-top: 10px;
+}
+.imgItem{
+  width: 100%;
+}
+.mainFont{
+  color: @mainColor;
+  font-size: 16px;
+}
+.listItem{
+  margin-top: 10px;
+}
+.handleBtn{
+  display: inline-block;
+  color: #fff;
+  background: @mainColor;
+  width: 200px;
+  height: 50px;
+  line-height: 50px;
+}
+:global(.ant-radio-button-wrapper-checked:hover){
+  border: 1px solid @mainColor;
+  background: @mainColor;
+  color: #fff;
+}
+:global(.ant-radio-button-wrapper-checked:active){
+  border: 1px solid @mainColor;
+  background: @mainColor;
+  color: #fff;
+}
+:global(.ant-radio-button-wrapper-checked){
+  background: @mainColor;
+  color: #fff;
+}
+:global(.ant-radio-button-wrapper){
+  padding: 0 50px;
+}

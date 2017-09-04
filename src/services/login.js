@@ -1,7 +1,7 @@
 import { request, config } from '../utils';
 
 const { api } = config;
-const { userLogin, userSignIn } = api;
+const { userLogin, userSignIn, userSignOut } = api;
 
 export async function login(data) {
   return request({
@@ -15,5 +15,11 @@ export async function signIn(data) {
     url: userSignIn,
     method: 'post',
     data,
+  });
+}
+export async function signOut() {
+  return request({
+    url: userSignOut,
+    method: 'delete',
   });
 }

@@ -11,6 +11,7 @@ module.exports = {
   api: {
     userLogin: `${URL}/token`,
     userSignIn: `${URL}/user`,
+    userSignOut: `${URL}/token`,
     sendSms: `${URL}/sms/send`,
     openList: `${URL}/lottery/openList`,
     lotteryList: `${URL}/lottery/list`,
