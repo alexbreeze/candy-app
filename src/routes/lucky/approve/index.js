@@ -136,7 +136,7 @@ class Approve extends Component {
                 onChange={this.changeNote.bind(this)}
                 value={this.state.note}
                 rows={4}
-                placeholder="备注"
+                placeholder="请备注好收款银行卡账户开户行或微信号/支付宝账号"
               />
             </Col>
           </Row>

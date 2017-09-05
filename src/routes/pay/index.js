@@ -58,12 +58,15 @@ class PAY extends React.Component {
             <Col span={12} offset={6} className={styles.listItem}>
               <img className={styles.imgItem} src={`http://113.10.244.91/qr/${this.state.typeName}.jpg`} alt="长按保存到本地" />
               <p>长按保存到本地</p>
-            </Col>
+            </Col>{/*
             <Col span={12} offset={6} className={styles.listItem}>
               <p>请您在{this.state.name}中扫描上方二维码进行充值，并在备注中填写您的支付码：
                 <span className={styles.mainFont}>{value}</span>
               </p>
-            </Col>
+            </Col>*/}
+            <Col span={12} offset={6} className={styles.listItem}>
+              <p>在{this.state.name}中扫描上方的二维码转账充值，并在备注中填写您的游戏账号</p>
+            </Col>{/*
             <Col span={24} className={styles.listItem}>
               <CopyToClipboard
                 text={value}
@@ -71,7 +74,7 @@ class PAY extends React.Component {
               >
                 <span className={styles.handleBtn} type="primary">复制支付码到剪贴板</span>
               </CopyToClipboard>
-            </Col>
+            </Col>*/}
             <Col span={24} className={styles.listItem}>
               {
                 this.state.typeName === 'alipay' ?

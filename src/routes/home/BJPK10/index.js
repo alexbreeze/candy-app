@@ -1074,6 +1074,60 @@ class BJPK10 extends React.Component {
   componentDidMount() {
     const self = this;
     this.props.getOpenList();
+    let ctrl = this.props.home.timerCtrl;
+    if (ctrl) {
+      ctrl = false;
+      self.props.updateCtrl(ctrl);
+      this.props.getOpenList(doNext);
+
+      function doNext(data) {
+        data.forEach((i) => {
+          i.overTime = (i.nextStopTime - new Date().getTime()) / 1000;
+          let minute = `${Math.floor(i.overTime / 60)}`;
+          if (minute.length === 1) {
+            minute = `0${minute}`;
+          }
+          let sec = `${Math.floor(i.overTime % 60)}`;
+          if (sec.length === 1) {
+            sec = `0${sec}`;
+          }
+          i.showTime = `${minute}:${sec}`;
+          if (i.overTime < 0) {
+            i.showTime = '已结束';
+          }
+        });
+        self.props.updateContent(data);
+        clearInterval(timer);
+        let flag = true;
+        let timer = setInterval(() => {
+          data.forEach((i) => {
+            i.overTime -= 1;
+            let minute = `${Math.floor(i.overTime / 60)}`;
+            if (minute.length === 1) {
+              minute = `0${minute}`;
+            }
+            let sec = `${Math.floor(i.overTime % 60)}`;
+            if (sec.length === 1) {
+              sec = `0${sec}`;
+            }
+            i.showTime = `${minute}:${sec}`;
+            if (i.overTime < 0) {
+              i.showTime = '已结束';
+            }
+          });
+          self.props.updateContent(data);
+          if (flag) {
+            flag = false;
+            setTimeout(() => {
+              self.props.getOpenList(doNext);
+              setTimeout(() => {
+                clearInterval(timer);
+              }, 1000);
+            }, 30000);
+          }
+        }, 1000);
+      }
+    }
     this.props.getRate({
       data: {
         type: 'BJPK10',
@@ -1375,7 +1429,7 @@ class BJPK10 extends React.Component {
           <Row>
             <Col span={16} >
               <Row>
-                <Col span={18} style={{fontSize: '14px'}}>{headInfo.latestSerialCode}期开奖</Col>
+                <Col span={18} style={{ fontSize: '14px' }}>{headInfo.latestSerialCode}期开奖</Col>
                 <Col span={2} onClick={this.changeShow.bind(this)}>
                   历史
                   <Icon type="down" />
@@ -1512,7 +1566,12 @@ class BJPK10 extends React.Component {
           </Col>
         </Col>
         <Col span={24} className={styles.foot} >
-          <Col span={8} className={styles.detail} >{BJPK10.length}注，共{2 * BJPK10.length * rate}元</Col>
+          <Col
+            span={8}
+            className={styles.detail}
+          >
+            {BJPK10.length}注，共{2 * BJPK10.length * rate}元
+          </Col>
           <Col span={8} className={styles.detail} >最高可中{this.state.maxRate}元</Col>
           <Col span={6} offset={2} className={styles.submit} >
             <Button size="large" type="primary" style={{ background: '#e95525' }} onClick={this.openModal.bind(this)}>投注</Button>
@@ -1553,8 +1612,14 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    getOpenList() {
-      dispatch({ type: 'trend/getOpenList' });
+    getOpenList(cb) {
+      dispatch({ type: 'trend/getOpenList', payload: cb });
+    },
+    updateContent(payload) {
+      dispatch({ type: 'trend/updateContent', payload });
+    },
+    updateCtrl(payload) {
+      dispatch({ type: 'home/updateCtrl', payload });
     },
     updateBJPK10(list) {
       dispatch({ type: 'home/updateBJPK10', payload: list });

@@ -8,10 +8,6 @@ import { config } from '../../../utils';
 import styles from './index.less';
 import '../../../iconfont/iconfont.css';
 
-const { sessionKey } = config;
-
-const { TabPane } = Tabs;
-
 class BJK3 extends React.Component {
   constructor(props) {
     super(props);
@@ -731,6 +727,59 @@ class BJK3 extends React.Component {
   componentDidMount() {
     const self = this;
     this.props.getOpenList();
+    let ctrl = this.props.home.timerCtrl;
+    if (ctrl) {
+      ctrl = false;
+      self.props.updateCtrl(ctrl);
+      this.props.getOpenList(doNext);
+      function doNext(data) {
+        data.forEach((i) => {
+          i.overTime = (i.nextStopTime - new Date().getTime()) / 1000;
+          let minute = `${Math.floor(i.overTime / 60)}`;
+          if (minute.length === 1) {
+            minute = `0${minute}`;
+          }
+          let sec = `${Math.floor(i.overTime % 60)}`;
+          if (sec.length === 1) {
+            sec = `0${sec}`;
+          }
+          i.showTime = `${minute}:${sec}`;
+          if (i.overTime < 0) {
+            i.showTime = '已结束';
+          }
+        });
+        self.props.updateContent(data);
+        clearInterval(timer);
+        let flag = true;
+        let timer = setInterval(() => {
+          data.forEach((i) => {
+            i.overTime -= 1;
+            let minute = `${Math.floor(i.overTime / 60)}`;
+            if (minute.length === 1) {
+              minute = `0${minute}`;
+            }
+            let sec = `${Math.floor(i.overTime % 60)}`;
+            if (sec.length === 1) {
+              sec = `0${sec}`;
+            }
+            i.showTime = `${minute}:${sec}`;
+            if (i.overTime < 0) {
+              i.showTime = '已结束';
+            }
+          });
+          self.props.updateContent(data);
+          if (flag) {
+            flag = false;
+            setTimeout(() => {
+              self.props.getOpenList(doNext);
+              setTimeout(() => {
+                clearInterval(timer);
+              }, 1000);
+            }, 30000);
+          }
+        }, 1000);
+      }
+    }
     this.props.getRate({
       data: {
         type: 'BJK3',
@@ -1634,6 +1683,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getOpenList(cb) {
       dispatch({ type: 'trend/getOpenList', payload: cb });
+    },
+    updateContent(payload) {
+      dispatch({ type: 'trend/updateContent', payload });
+    },
+    updateCtrl(payload) {
+      dispatch({ type: 'home/updateCtrl', payload });
     },
     updateBJK3(list) {
       dispatch({ type: 'home/updateBJK3', payload: list });

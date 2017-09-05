@@ -1348,13 +1348,14 @@ class CQSSC extends React.Component {
   }
   componentDidMount() {
     const self = this;
+    this.props.getOpenList();
     let ctrl = this.props.home.timerCtrl;
     if (ctrl) {
       ctrl = false;
       self.props.updateCtrl(ctrl);
       this.props.getOpenList(doNext);
       function doNext(data) {
-        data.forEach(function (i) {
+        data.forEach((i) => {
           i.overTime = (i.nextStopTime - new Date().getTime()) / 1000;
           let minute = `${Math.floor(i.overTime / 60)}`;
           if (minute.length === 1) {
@@ -1373,7 +1374,7 @@ class CQSSC extends React.Component {
         clearInterval(timer);
         let flag = true;
         let timer = setInterval(() => {
-          data.forEach(function (i) {
+          data.forEach((i) => {
             i.overTime -= 1;
             let minute = `${Math.floor(i.overTime / 60)}`;
             if (minute.length === 1) {
@@ -1714,7 +1715,7 @@ class CQSSC extends React.Component {
         if (extra.length) {
           let tempV = '';
           extra.forEach((i) => {
-            console.log(i)
+            console.log(i);
             tempList.push({
               index: tempList.length,
               type: i.type,
@@ -2041,7 +2042,7 @@ class CQSSC extends React.Component {
                   距{headInfo.nextSerialCode}期截止
                 </Col>
                 <Col span={24}>
-                  {content.length ? content[1].showTime : showTime}
+                  {content.length ? content[2].showTime : showTime}
                 </Col>
               </Row>
             </Col>
@@ -2561,8 +2562,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    getOpenList() {
-      dispatch({ type: 'trend/getOpenList' });
+    getOpenList(cb) {
+      dispatch({ type: 'trend/getOpenList', payload: cb });
     },
     updateContent(payload) {
       dispatch({ type: 'trend/updateContent', payload });

@@ -15,7 +15,7 @@ class IndexPage extends Component {
     this.props.getMenuList();
     const isLogin = sessionStorage.getItem(token);
     if (!isLogin) {
-      this.props.logOut();
+      window.location = '#/login';
     }
   }
   render() {
