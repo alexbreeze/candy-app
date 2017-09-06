@@ -1331,7 +1331,10 @@ class CQSSC extends React.Component {
         五星通选: 1,
         大小单双: 1,
         总和大小: 1,
-        总和龙虎: 1,
+        总和单双: 1,
+        龙: 1,
+        虎: 1,
+        和: 1,
       },
       visible: false,
       isShow: false,
@@ -1410,7 +1413,12 @@ class CQSSC extends React.Component {
       cb(data) {
         const state = self.state;
         self.state.rateObj = data;
-        self.state.rateObj.总和龙虎 = data.龙;
+        let maxRate = 1;
+        maxRate = maxRate>data.总和大小?maxRate:data.总和大小;
+        maxRate = maxRate>data.总和单双?maxRate:data.总和单双;
+        maxRate = maxRate>data.龙?maxRate:data.龙;
+        maxRate = maxRate>data.虎?maxRate:data.虎;
+        self.state.rateObj.总和大小单双龙虎 = maxRate;
         self.setState({
           state,
         });
@@ -1715,11 +1723,22 @@ class CQSSC extends React.Component {
         if (extra.length) {
           let tempV = '';
           extra.forEach((i) => {
-            console.log(i);
+            let rate = '';
+            if(name === '总和'){
+              if(i.code === '大' || i.code === '小'){
+                rate = rateObj.总和大小;
+              }else if(i.code === '单' || i.code === '双'){
+                rate = rateObj.总和单双;
+              }else {
+                rate = rateObj[i.code];
+              }
+            }else {
+              rate = rateObj[name];
+            }
             tempList.push({
               index: tempList.length,
               type: i.type,
-              rate: name === '总和' ? (i.code === '龙' || i.code === '虎' || i.code === '和') ? rateObj['总和龙虎'] : rateObj['总和大小'] : rateObj[name],
+              rate: rate,
               code: i.code,
             });
             tempV += `${i.code}|`;
@@ -1870,9 +1889,19 @@ class CQSSC extends React.Component {
         message.success('购买成功');
         self.setState({
           visible: false,
+          maxRate: 0,
         });
         const arr = [];
         self.props.updateCQSSC(arr);
+        self.props.updateBuyList({
+          category: 'CQSSC',
+          serialCode: '',
+          times: 0,
+          count: 0,
+          amount: 0,
+          numberType: '',
+          numbers: '',
+        });
         self.clear.call(self, self.state.oneStarList);
         self.clear.call(self, self.state.twoStarList);
         self.clear.call(self, self.state.twoGStarList);
@@ -2439,7 +2468,7 @@ class CQSSC extends React.Component {
                   <Row>
                     <Col span={24} className={styles.itemWrap}>
                       <span className={styles.itemDetail}>
-                        选中总和大小/单双，即可中{rateObj['总和大小']}元；选中龙、虎、和，即可中{rateObj['总和龙虎']}元
+                        选中总和大小/单双/龙/虎，最高中{rateObj['总和大小单双龙虎']}元；选中和值，中{rateObj['和']}元
                       </span>
                     </Col>
                   </Row>
