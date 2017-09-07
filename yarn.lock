@@ -4953,6 +4953,10 @@ react-timer-mixin@^0.13.3:
   version "0.13.3"
   resolved "http://registry.npm.taobao.org/react-timer-mixin/download/react-timer-mixin-0.13.3.tgz#0da8b9f807ec07dc3e854d082c737c65605b3d22"
 
+react-transform@^0.0.3:
+  version "0.0.3"
+  resolved "http://registry.npm.taobao.org/react-transform/download/react-transform-0.0.3.tgz#5e35900e35391ef2c2e0bab59951c1c59bdd6cd5"
+
 react-tween-state@^0.1.5:
   version "0.1.5"
   resolved "http://registry.npm.taobao.org/react-tween-state/download/react-tween-state-0.1.5.tgz#e98b066551efb93cb92dd1be14995c2e3deae339"
